@@ -1,4 +1,4 @@
-# easy-diet-frontent
+# easy-diet-frontend
 
 ## Project setup
 ```
