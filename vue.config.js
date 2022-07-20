@@ -12,9 +12,9 @@ module.exports = defineConfig({
 
   configureWebpack: {
     output: {
-      hotUpdateMainFilename: 'static/hot-update.json',
-      hotUpdateChunkFilename: 'static/hot-update.js',
+      hotUpdateMainFilename: 'static/[runtime].[fullhash].hot-update.json',
+      hotUpdateChunkFilename: 'static/[id].[fullhash].hot-update.js',
       clean: true
-    },
+    }
   }
 });
