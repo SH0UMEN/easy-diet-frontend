@@ -13,6 +13,6 @@ export const store = createStore<State>({
 	}
 });
 
-export function useStore () {
+export function useStore() {
 	return baseUseStore(key);
 }
