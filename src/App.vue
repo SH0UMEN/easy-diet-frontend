@@ -1,22 +1,26 @@
 <template>
-	<el-button v-for="product in products">{{ product.i18n.ru.title }}</el-button>
+<!--	<el-button v-for="product in products">{{ product.i18n.ru.title }}</el-button>-->
+	<h1 v-if="product != null">{{ product.carbohydrate }}</h1>
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from 'vue';
-import { useStore, State } from '@/store';
-import ProductAPI from "@/services/product";
+import { ref, Ref, reactive } from 'vue';
+import { useStore } from '@/store';
+import ProductService from "@/services/product";
 import IProduct from "@/models/product";
 import { ElButton } from 'element-plus';
 import 'element-plus/es/components/button/style/css';
 
 const store = useStore();
-const api = new ProductAPI();
+const api = new ProductService();
 
-let products = ref(new Array<IProduct>());
+const products = ref(new Array<IProduct>());
+const product = ref<IProduct>();
 
-api.get().then((data) => {
-	products.value = products.value.concat(data);
-});
+setTimeout(() => {
+	api.get(1001).then((data) => {
+		product.value = data;
+	})
+}, 3000);
 
 </script>
