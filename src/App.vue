@@ -1,26 +1,28 @@
 <template>
-<!--	<el-button v-for="product in products">{{ product.i18n.ru.title }}</el-button>-->
-	<h1 v-if="product != null">{{ product.carbohydrate }}</h1>
+<!--<el-button v-for="product in products">{{ product.i18n.ru.title }}</el-button>-->
+	<h1>{{ user.name }}</h1>
+	<div v-for="product in products">{{ product.i18n.en.title }}</div>
 </template>
 
 <script lang="ts" setup>
-import { ref, Ref, reactive } from 'vue';
-import { useStore } from '@/store';
-import ProductService from "@/services/product";
-import IProduct from "@/models/product";
+import { ref } from 'vue';
+import { storeToRefs } from "pinia";
+import useStore from '@/store/users';
+import { AuthService } from "@/services/auth";
+import Product from "@/models/product";
 import { ElButton } from 'element-plus';
 import 'element-plus/es/components/button/style/css';
 
 const store = useStore();
-const api = new ProductService();
+const products = ref(new Array<Product>());
+const { user } = storeToRefs(store);
 
-const products = ref(new Array<IProduct>());
-const product = ref<IProduct>();
-
-setTimeout(() => {
-	api.get(1001).then((data) => {
-		product.value = data;
-	})
-}, 3000);
+new AuthService().login('shoumen', '1111').then((data) => {
+	console.log(data);
+});
+//
+// api.get().then((data) => {
+// 	products.value = products.value.concat(data);
+// });
 
 </script>

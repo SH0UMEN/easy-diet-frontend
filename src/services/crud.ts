@@ -15,7 +15,10 @@ export class CRUD<T> {
 	async get(id: number): Promise<T>;
 	async get(arg?: number) {
 		const url = arg == null ? this.getListUrl() : this.getDetailsUrl(arg);
-
 		return (await axios.get(url)).data;
 	}
+	//
+	// async post(): Promise<T> {
+	// 	return (await axios.get(this.)).data;
+	// }
 }

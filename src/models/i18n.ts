@@ -1,4 +1,6 @@
-export default interface I18N<T> {
+type I18N<T> = {
 	ru: T;
 	en: T;
 }
+
+export default I18N;
