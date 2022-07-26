@@ -17,9 +17,9 @@ const store = useStore();
 const products = ref(new Array<Product>());
 const { user } = storeToRefs(store);
 
-// new AuthService().session().then((data) => {
-// 	console.log(data);
-// });
+new AuthService().me().then((data) => {
+	console.log(data);
+});
 //
 // api.get().then((data) => {
 // 	products.value = products.value.concat(data);
