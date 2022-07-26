@@ -6,7 +6,15 @@ export class AuthService {
 		return Urls.AUTH + 'login';
 	}
 
-	async login(name: string, password: string) {
-		return await axios.post(this.getLoginUrl(), { name, password });
+	getLogoutUrl(): string {
+		return Urls.AUTH + 'logout';
+	}
+
+	async login(username: string, password: string) {
+		return await axios.post(this.getLoginUrl(), { username, password });
+	}
+
+	async logout() {
+		return await axios.post(this.getLogoutUrl());
 	}
 }
