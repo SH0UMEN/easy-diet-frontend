@@ -1,7 +1,10 @@
-import Urls from "@/services/urls";
+import Urls from "@/magic/urls";
 import axios from "axios";
+import {User} from "@/models/user";
+import Service from "@/services/service";
+import { defineService } from "@/utils";
 
-export class AuthService {
+class AuthService implements Service {
 	getLoginUrl(): string {
 		return Urls.AUTH + 'login';
 	}
@@ -14,15 +17,17 @@ export class AuthService {
 		return Urls.AUTH + 'me';
 	}
 
-	async login(username: string, password: string) {
-		return await axios.post(this.getLoginUrl(), { username, password });
+	async login(username: string, password: string): Promise<User> {
+		return (await axios.post(this.getLoginUrl(), { username, password })).data;
 	}
 
-	async logout() {
+	async logout(): Promise<void> {
 		return await axios.post(this.getLogoutUrl());
 	}
 
-	async me() {
-		return await axios.get(this.getMeUrl());
+	async me(): Promise<User> {
+		return (await axios.get(this.getMeUrl())).data;
 	}
 }
+
+export default defineService(new AuthService());

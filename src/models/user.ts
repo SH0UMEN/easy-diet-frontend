@@ -1,3 +1,4 @@
-export class User {
-	constructor(public name: string) {}
+export type User = {
+	id: number,
+	username: string
 }

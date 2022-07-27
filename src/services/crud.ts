@@ -1,6 +1,7 @@
 import axios from "axios";
+import Service from "@/services/service";
 
-export class CRUD<T> {
+export class CRUD<T> implements Service {
 	protected root: string = '';
 
 	protected getListUrl(): string {
