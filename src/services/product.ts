@@ -1,10 +1,9 @@
-import axios from "axios";
 import { CRUD } from '@/services/crud';
-import IProduct from '@/models/product';
+import Product from '@/models/product';
 import { defineService } from "@/utils";
 import Urls from "@/magic/urls";
 
-class ProductService extends CRUD<IProduct> {
+class ProductService extends CRUD<Product> {
 	protected root: string = Urls.PRODUCTS;
 }
 

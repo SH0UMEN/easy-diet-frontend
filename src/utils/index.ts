@@ -1,4 +1,4 @@
-import Service from "@/services/service";
+import IService from "@/services/service";
 
 export const getCookie = (name: string): string => {
 	const cookie = document.cookie;
@@ -10,6 +10,6 @@ export const getCookie = (name: string): string => {
 	return split[1].split(';')[0];
 };
 
-export const defineService = (service: Service): Function => {
+export const defineService = (service: IService): Function => {
 	return () => service;
 }

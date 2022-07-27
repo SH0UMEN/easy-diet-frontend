@@ -13,7 +13,7 @@ import useAuthService from "@/services/auth";
 import Product from "@/models/product";
 import { ElButton } from 'element-plus';
 import 'element-plus/es/components/button/style/css';
-import {User} from "@/models/user";
+import { User } from "@/models/user";
 
 const store = useStore();
 const products = ref(new Array<Product>());
