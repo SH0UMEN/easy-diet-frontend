@@ -11,5 +11,5 @@ export const getCookie = (name: string): string => {
 };
 
 export const defineService = (service: IService): Function => {
-	return () => service;
+	return (): IService => service;
 }
