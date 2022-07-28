@@ -1,6 +1,6 @@
 import { CRUD } from '@/services/crud';
+import { defineService } from '@/services/service';
 import Product from '@/models/product';
-import { defineService } from "@/utils";
 import Urls from "@/magic/urls";
 
 class ProductService extends CRUD<Product> {

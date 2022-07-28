@@ -1,7 +1,7 @@
 <template>
-<!--<el-button v-for="product in products">{{ product.i18n.ru.title }}</el-button>-->
-	<h1>{{ user?.username }}</h1>
-	<div v-for="product in products">{{ product.i18n.en.title }}</div>
+	<router-view>
+
+	</router-view>
 </template>
 
 <script lang="ts" setup>
