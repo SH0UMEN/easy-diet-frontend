@@ -14,7 +14,7 @@ export default defineStore('auth', {
 	},
 	actions: {
 		setUsername(username: string): void {
-			if(this.user != null)
+			if (this.user != null)
 				this.user.username = username;
 		},
 

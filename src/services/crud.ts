@@ -18,6 +18,7 @@ export class CRUD<T> implements IService {
 		const url = arg == null ? this.getListUrl() : this.getDetailsUrl(arg);
 		return (await axios.get(url)).data;
 	}
+
 	//
 	// async post(): Promise<T> {
 	// 	return (await axios.get(this.)).data;

@@ -12,7 +12,7 @@ const routes: Array<RouteRecordRaw> = [
 				component: () => import('@/pages/auth/Login.vue')
 			}
 		]
-	},
+	}
 ];
 
 const router = createRouter({
