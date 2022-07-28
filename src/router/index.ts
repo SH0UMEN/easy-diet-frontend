@@ -1,12 +1,11 @@
-import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router';
-import HomeView from '../views/HomeView.vue';
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import Auth from '../pages/auth/Index.vue';
 
 const routes: Array<RouteRecordRaw> = [
-	// {
-	//   path: '/',
-	//   name: 'home',
-	//   component: HomeView
-	// },
+	{
+		path: '/auth',
+		component: Auth
+	},
 	// {
 	//   path: '/about',
 	//   name: 'about',

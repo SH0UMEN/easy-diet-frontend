@@ -1,5 +1,5 @@
-import axios from "axios";
-import { IService } from "@/services/service";
+import axios from 'axios';
+import { IService } from '@/services/service';
 
 export class CRUD<T> implements IService {
 	protected root: string = '';

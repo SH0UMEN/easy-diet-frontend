@@ -1,7 +1,7 @@
-import Urls from "@/magic/urls";
-import axios from "axios";
-import {User} from "@/models/user";
-import { IService, defineService } from "@/services/service";
+import Urls from '@/magic/urls';
+import axios from 'axios';
+import {User} from '@/models/user';
+import { IService, defineService } from '@/services/service';
 
 class AuthService implements IService {
 	getLoginUrl(): string {

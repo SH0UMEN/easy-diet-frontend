@@ -3,8 +3,8 @@ import App from './App.vue';
 import router from './router';
 import { createPinia } from 'pinia';
 import ElementPlus from 'element-plus';
-import { getCookie } from "@/utils";
-import axios from "axios";
+import { getCookie } from '@/utils';
+import axios from 'axios';
 
 axios.defaults.withCredentials = true;
 axios.interceptors.request.use((config) => {

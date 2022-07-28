@@ -1,4 +1,4 @@
-import I18N from "@/models/i18n";
+import I18N from '@/models/i18n';
 
 type ProductI18N = {
 	title: string;
