@@ -22,7 +22,7 @@ class AuthService implements IService {
 	}
 
 	async logout(): Promise<void> {
-		return await axios.post(this.getLogoutUrl());
+		await axios.post(this.getLogoutUrl());
 	}
 
 	async me(): Promise<User> {
