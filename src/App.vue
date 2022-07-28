@@ -1,5 +1,4 @@
 <template>
-	<el-button>FFF</el-button>
 	<router-view></router-view>
 </template>
 
