@@ -19,13 +19,11 @@
 					<v-col class="d-flex align-center">
 						<div v-if="user != null" class="d-flex align-center">
 							<v-avatar class="mx-2" color="indigo" size="32"></v-avatar>
-
 							<span>{{ user.username }}</span>
-
-							<v-btn rounded="pill" variant="plain">Выйти</v-btn>
+							<v-btn rounded="pill" variant="plain" @click="logout">Выйти</v-btn>
 						</div>
 
-						<v-btn></v-btn>
+						<v-btn v-else>Войти</v-btn>
 					</v-col>
 				</v-row>
 			</v-container>
@@ -48,4 +46,9 @@ const { user } = storeToRefs(store);
 onBeforeMount(() => {
 	store.me();
 });
+
+const logout = () => {
+	store.logout();
+};
+
 </script>

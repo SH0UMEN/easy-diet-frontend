@@ -1,10 +1,10 @@
 import { CRUD } from '@/services/crud';
 import { defineService } from '@/services/service';
 import Product from '@/models/product';
-import Urls from '@/magic/urls';
+import URL from '@/magic/url';
 
 class ProductService extends CRUD<Product> {
-	protected root: string = Urls.PRODUCTS;
+	protected root: string = URL.PRODUCTS;
 }
 
 export default defineService(new ProductService());

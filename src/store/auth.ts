@@ -13,9 +13,13 @@ export default defineStore('auth', {
 		};
 	},
 	actions: {
-		setUsername(username: string): void {
-			if (this.user != null)
-				this.user.username = username;
+		async login(username: string, password: string): Promise<void> {
+			this.user = await useService().login(username, password);
+		},
+
+		async logout(): Promise<void> {
+			if(await useService().logout())
+				this.user = null;
 		},
 
 		async me(): Promise<void> {
