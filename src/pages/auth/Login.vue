@@ -3,7 +3,7 @@
 		<h2 class="text-center mb-6">Вход в систему</h2>
 		<v-text-field label="Логин" v-model="username"></v-text-field>
 		<v-text-field label="Пароль" type="password" v-model="password"></v-text-field>
-		<v-btn type="submit">Войти</v-btn>
+		<v-btn type="submit" color="success" block>Войти</v-btn>
 	</v-form>
 </template>
 
