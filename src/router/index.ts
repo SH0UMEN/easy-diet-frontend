@@ -12,6 +12,11 @@ const routes: Array<RouteRecordRaw> = [
 				component: () => import('@/pages/auth/Login.vue')
 			}
 		]
+	},
+	{
+		name: 'index',
+		path: '/',
+		component: () => import('@/pages/auth/Index.vue')
 	}
 ];
 

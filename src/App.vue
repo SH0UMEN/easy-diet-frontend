@@ -23,7 +23,7 @@
 							<v-btn rounded="pill" variant="plain" @click="logout">Выйти</v-btn>
 						</div>
 
-						<v-btn rounded="pill" variant="plain" v-else>Войти</v-btn>
+						<v-btn v-else :to="{ name: 'login' }" rounded="pill" variant="plain">Войти</v-btn>
 					</v-col>
 				</v-row>
 			</v-container>
