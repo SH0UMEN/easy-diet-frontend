@@ -1,6 +1,6 @@
 <template>
 	<v-form @submit.prevent="login">
-		<h2 class="text-center mb-6">Вход в систему</h2>
+		<h2 class="text-center mb-6" data-test="todo">Вход в систему</h2>
 		<v-text-field label="Логин" v-model="username"></v-text-field>
 		<v-text-field label="Пароль" type="password" v-model="password"></v-text-field>
 		<v-btn type="submit" color="success" block>Войти</v-btn>
