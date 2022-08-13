@@ -1,5 +1,8 @@
 {
 	"form.required": "Fill the field",
 
+	"auth.username": "Username",
+	"auth.password": "Password",
+	"auth.login.title": "Sign in",
 	"auth.login.submit": "Sign in"
 }

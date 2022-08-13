@@ -1,8 +1,7 @@
 <template>
 	<v-form @submit.prevent="onSubmit">
-		<h2 class="text-center mb-6" data-test="todo">Вход в систему</h2>
-		<v-text-field label="Логин" v-model="username" :rules="rules" data-test="username"></v-text-field>
-		<v-text-field label="Пароль" type="password" v-model="password" data-test="password"></v-text-field>
+		<v-text-field :label="t('auth.username')" v-model="username" :rules="rules" data-test="username"></v-text-field>
+		<v-text-field :label="t('auth.password')" type="password" v-model="password" data-test="password"></v-text-field>
 		<v-btn type="submit" color="success" block data-test="submit">{{ t('auth.login.submit') }}</v-btn>
 	</v-form>
 </template>
