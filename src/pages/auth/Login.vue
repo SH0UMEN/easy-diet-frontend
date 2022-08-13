@@ -1,16 +1,16 @@
 <template>
-	<login @login="onLogin"></login>
+	<login @submit="onSubmit"></login>
 </template>
 
 <script setup lang="ts">
-import Login from '@/components/forms/Login.vue';
+import Login from '@/components/forms/auth/Login.vue';
 import router from '@/router';
+import useStore from '@/store/auth';
 
-const onLogin = () => {
-	router.push({ name: 'index' });
-}
+const onSubmit = (username: string, password: string) => {
+	useStore().login(username, password).then((res) => {
+		if(res)
+			router.push({ name: 'index' });
+	});
+};
 </script>
-
-<style scoped lang="sass">
-
-</style>
