@@ -15,7 +15,7 @@ module.exports = defineConfig({
 			hotUpdateMainFilename: 'static/[runtime].[fullhash].hot-update.json',
 			hotUpdateChunkFilename: 'static/[id].[fullhash].hot-update.js',
 			clean: true
-		},
+		}
 	},
 
     pluginOptions: {

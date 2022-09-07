@@ -15,7 +15,6 @@ export default defineStore('auth', {
 	actions: {
 		async login(username: string, password: string): Promise<boolean> {
 			this.user = await useService().login(username, password);
-
 			return this.user != null;
 		},
 

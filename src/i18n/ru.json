@@ -1,8 +1,14 @@
 {
-	"form.required": "Заполните поле",
+	"form": {
+		"required": "Заполните поле"
+	},
 
-	"auth.username": "Логин",
-	"auth.password": "Пароль",
-	"auth.login.title": "Вход в систему",
-	"auth.login.submit": "Войти"
+	"auth": {
+		"username": "Логин",
+		"password": "Пароль",
+		"login": {
+			"title": "Вход в систему",
+			"submit": "Войти"
+		}
+	}
 }
