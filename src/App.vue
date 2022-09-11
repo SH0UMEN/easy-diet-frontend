@@ -9,11 +9,15 @@
 </template>
 
 <script lang="ts" setup>
-import useStore from '@/store/auth';
-import { onBeforeMount } from 'vue';
 import AppBar from '@/components/app/AppBar.vue';
+import { onBeforeMount } from 'vue';
+import useStore from '@/store/auth';
 
 onBeforeMount(() => {
 	useStore().me();
 });
 </script>
+
+<style lang="sass">
+	@import "@/assets/sass/main.sass"
+</style>

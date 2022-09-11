@@ -3,8 +3,8 @@
 		<v-container>
 			<v-row>
 				<v-col class="d-flex justify-end">
-					<v-btn rounded="pill" variant="plain">Меню</v-btn>
-					<v-btn rounded="pill" variant="plain">Блюда</v-btn>
+					<v-btn variant="plain">Меню</v-btn>
+					<v-btn variant="plain">Блюда</v-btn>
 				</v-col>
 
 				<v-divider class="my-5" vertical></v-divider>
@@ -19,10 +19,13 @@
 					<div v-if="user != null" class="d-flex align-center">
 						<v-avatar class="mx-2" color="indigo" size="32"></v-avatar>
 						<span>{{ user.username }}</span>
-						<v-btn rounded="pill" variant="plain" @click="logout">Выйти</v-btn>
+						<v-btn variant="plain" @click="logout">Выйти</v-btn>
 					</div>
 
-					<v-btn v-else :to="{ name: 'login' }" rounded="pill" variant="plain">Войти</v-btn>
+					<div class="d-flex" v-else>
+						<v-btn :to="{ name: 'login' }" variant="plain">Войти</v-btn>
+						<v-btn :to="{ name: 'login' }" variant="plain">Регистрация</v-btn>
+					</div>
 				</v-col>
 			</v-row>
 		</v-container>

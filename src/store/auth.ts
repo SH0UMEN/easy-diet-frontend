@@ -13,9 +13,12 @@ export default defineStore('auth', {
 		};
 	},
 	actions: {
-		async login(username: string, password: string): Promise<boolean> {
-			this.user = await useService().login(username, password);
-			return this.user != null;
+		async login(username: string, password: string): Promise<void> {
+			try {
+				this.user = await useService().login(username, password);
+			} catch (e) {
+				this.user = null;
+			}
 		},
 
 		async logout(): Promise<void> {
@@ -24,7 +27,11 @@ export default defineStore('auth', {
 		},
 
 		async me(): Promise<void> {
-			this.user = await useService().me();
+			try {
+				this.user = await useService().me();
+			} catch (e) {
+				this.user = null;
+			}
 		}
 	}
 });

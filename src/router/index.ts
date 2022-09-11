@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { toIndexIfAuthenticated } from '@/router/middleware';
 
 const routes: Array<RouteRecordRaw> = [
 	{
 		name: 'auth',
 		path: '/auth',
 		component: () => import('@/pages/auth/Index.vue'),
+		beforeEnter: toIndexIfAuthenticated,
 		children: [
 			{
 				name: 'login',

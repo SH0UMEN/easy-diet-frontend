@@ -6,9 +6,16 @@
 	"auth": {
 		"username": "Username",
 		"password": "Password",
+
 		"login": {
 			"title": "Sign in",
-			"submit": "Sign in"
+			"submit": "Sign in",
+			"error": "User with this data is not found"
+		},
+
+		"registration": {
+			"title": "Registration",
+			"submit": "Register"
 		}
 	}
 }

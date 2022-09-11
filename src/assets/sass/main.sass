@@ -1,0 +1,17 @@
+.v-field
+	input:-webkit-autofill
+		transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1)
+
+		&, &:hover, &:focus, &:active
+			-webkit-box-shadow: 0 0 0px 1000px #1A1A1A inset
+
+	&:hover
+		input:-webkit-autofill
+			&, &:hover, &:focus, &:active
+				-webkit-box-shadow: 0 0 0px 1000px #212121 inset
+
+	&--focused
+		&, &:hover
+			input:-webkit-autofill
+				&, &:hover, &:focus, &:active
+					-webkit-box-shadow: 0 0 0px 1000px #333333 inset
