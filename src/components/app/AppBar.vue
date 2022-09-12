@@ -24,7 +24,7 @@
 
 					<div class="d-flex" v-else>
 						<v-btn :to="{ name: 'login' }" variant="plain">Войти</v-btn>
-						<v-btn :to="{ name: 'login' }" variant="plain">Регистрация</v-btn>
+						<v-btn :to="{ name: 'registration' }" variant="plain">Регистрация</v-btn>
 					</div>
 				</v-col>
 			</v-row>

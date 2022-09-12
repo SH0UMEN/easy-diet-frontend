@@ -13,7 +13,6 @@ import router from '@/router';
 
 const { user } = storeToRefs(useStore());
 
-if(user != null)
+if(user.value != null)
 	router.push({ name: 'index' });
-
 </script>

@@ -5,7 +5,13 @@
 
 	"auth": {
 		"username": "Username",
-		"password": "Password",
+		"email": "Email",
+
+		"password": {
+			"main": "Password",
+			"repeat": "Repeat the password",
+			"error": "Passwords does not match"
+		},
 
 		"login": {
 			"title": "Sign in",

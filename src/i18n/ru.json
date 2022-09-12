@@ -5,7 +5,13 @@
 
 	"auth": {
 		"username": "Логин",
-		"password": "Пароль",
+		"email": "Email",
+
+		"password": {
+			"main": "Пароль",
+			"repeat": "Повторите пароль",
+			"error": "Пароли не совпадают"
+		},
 
 		"login": {
 			"title": "Вход в систему",
