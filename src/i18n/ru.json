@@ -1,6 +1,15 @@
 {
+	"errors": {
+		"userIsAuthenticated": "Пользователь уже авторизован",
+		"usernameIsBusy": "Пользователь с таким именем уже существует",
+		"userNotFound": "Пользователь с такими данными не найден",
+		"dataNotValid": "Невалидные данные"
+	},
+
 	"form": {
-		"required": "Заполните поле"
+		"required": "Заполните поле",
+		"lessThanOrEqualTo": "Максимум {max} символов",
+		"moreThanOrEqualTo": "Минимум {min} символов"
 	},
 
 	"auth": {
@@ -15,8 +24,7 @@
 
 		"login": {
 			"title": "Вход в систему",
-			"submit": "Войти",
-			"error": "Пользователь с такими данными не найден"
+			"submit": "Войти"
 		},
 
 		"registration": {

@@ -1,7 +1,7 @@
 <template>
 	<v-form @submit.prevent="onSubmit" v-model="valid">
-		<v-text-field :label="t('auth.username')" v-model="username" :rules="rules"></v-text-field>
-		<v-text-field :label="t('auth.password.main')" type="password" v-model="password" :rules="rules"></v-text-field>
+		<v-text-field :label="t('auth.username')" v-model="username" :rules="usernameRules"></v-text-field>
+		<v-text-field :label="t('auth.password.main')" type="password" v-model="password" :rules="passwordRules"></v-text-field>
 		<v-btn type="submit" :disabled="!valid" color="success" block>{{ t('auth.login.submit') }}</v-btn>
 		<v-btn class="mt-2" :to="{ name: 'registration' }" variant="plain" block>{{ t('auth.registration.title') }}</v-btn>
 		<v-alert class="mt-6" v-if="error != null" type="error">{{ error }}</v-alert>
@@ -11,6 +11,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import { defineEmits, defineProps, reactive, ref, computed } from 'vue';
+import ValidationService from '@/services/validation';
 
 interface Props {
 	username?: string;
@@ -29,9 +30,8 @@ const error = computed(() => props.error);
 
 const valid = ref(false);
 
-const rules = reactive([
-	(v: string) => v != '' || t('form.required')
-]);
+const usernameRules = reactive(ValidationService.username(t));
+const passwordRules = reactive(ValidationService.password(t));
 
 const onSubmit = () => {
 	emit('submit', username.value, password.value);

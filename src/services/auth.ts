@@ -17,6 +17,10 @@ class AuthService implements IService {
 		return URL.AUTH + 'me';
 	}
 
+	getRegistrationUrl(): string {
+		return URL.AUTH + 'registration';
+	}
+
 	async login(username: string, password: string): Promise<User> {
 		return (await axios.post(this.getLoginUrl(), { username, password })).data;
 	}
@@ -27,6 +31,10 @@ class AuthService implements IService {
 
 	async me(): Promise<User> {
 		return (await axios.get(this.getMeUrl())).data;
+	}
+
+	async registration(username: string, password: string): Promise<void> {
+		await axios.post(this.getRegistrationUrl(), { username, password });
 	}
 }
 

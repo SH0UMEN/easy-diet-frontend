@@ -1,6 +1,15 @@
 {
+	"errors": {
+		"userIsAuthenticated": "User is already authenticated",
+		"usernameIsBusy": "User with the same name already exists",
+		"userNotFound": "User with this data is not found",
+		"dataNotValid": "Data is not valid"
+	},
+
 	"form": {
-		"required": "Fill the field"
+		"required": "Fill the field",
+		"lessThanOrEqualTo": "Maximum {max} characters",
+		"moreThanOrEqualTo": "Minimum {min} characters"
 	},
 
 	"auth": {
