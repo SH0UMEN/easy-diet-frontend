@@ -6,6 +6,14 @@
 		"dataNotValid": "Data is not valid"
 	},
 
+	"navigation": {
+		"menus": "Menus",
+		"food": "Food",
+		"login": "Login",
+		"logout": "Logout",
+		"registration": "Registration"
+	},
+
 	"form": {
 		"required": "Fill the field",
 		"lessThanOrEqualTo": "Maximum {max} characters",

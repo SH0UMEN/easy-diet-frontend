@@ -6,6 +6,14 @@
 		"dataNotValid": "Невалидные данные"
 	},
 
+	"navigation": {
+		"menus": "Меню",
+		"food": "Блюда",
+		"login": "Войти",
+		"logout": "Выйти",
+		"registration": "Регистрация"
+	},
+
 	"form": {
 		"required": "Заполните поле",
 		"lessThanOrEqualTo": "Максимум {max} символов",

@@ -3,8 +3,8 @@
 		<v-container>
 			<v-row>
 				<v-col class="d-flex justify-end">
-					<v-btn variant="plain">Меню</v-btn>
-					<v-btn variant="plain">Блюда</v-btn>
+					<v-btn variant="plain">{{ t('navigation.menus') }}</v-btn>
+					<v-btn variant="plain">{{ t('navigation.food') }}</v-btn>
 				</v-col>
 
 				<v-divider class="my-5" vertical></v-divider>
@@ -19,12 +19,12 @@
 					<div v-if="user != null" class="d-flex align-center">
 						<v-avatar class="mx-2" color="indigo" size="32"></v-avatar>
 						<span>{{ user.username }}</span>
-						<v-btn variant="plain" @click="logout">Выйти</v-btn>
+						<v-btn variant="plain" @click="logout">{{ t('navigation.logout') }}</v-btn>
 					</div>
 
 					<div class="d-flex" v-else>
-						<v-btn :to="{ name: 'login' }" variant="plain">Войти</v-btn>
-						<v-btn :to="{ name: 'registration' }" variant="plain">Регистрация</v-btn>
+						<v-btn :to="{ name: 'login' }" variant="plain">{{ t('navigation.login') }}</v-btn>
+						<v-btn :to="{ name: 'registration' }" variant="plain">{{ t('navigation.registration') }}</v-btn>
 					</div>
 				</v-col>
 			</v-row>
@@ -35,9 +35,12 @@
 <script setup lang="ts">
 import useStore from '@/store/auth';
 import { storeToRefs } from 'pinia';
+import { useI18n } from 'vue-i18n';
 
 const store = useStore();
 const { user } = storeToRefs(store);
+
+const { t } = useI18n();
 
 const logout = () => {
 	store.logout();
