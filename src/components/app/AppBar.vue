@@ -3,8 +3,8 @@
 		<v-container>
 			<v-row>
 				<v-col class="d-flex justify-end">
-					<v-btn variant="plain">{{ t('navigation.menus') }}</v-btn>
-					<v-btn variant="plain">{{ t('navigation.food') }}</v-btn>
+					<v-btn :to="{ name: 'food' }" variant="plain">{{ t('navigation.menus') }}</v-btn>
+					<v-btn :to="{ name: 'food-all' }" variant="plain">{{ t('navigation.food') }}</v-btn>
 				</v-col>
 
 				<v-divider class="my-5" vertical></v-divider>

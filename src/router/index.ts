@@ -21,6 +21,23 @@ const routes: Array<RouteRecordRaw> = [
 		]
 	},
 	{
+		name: 'food',
+		path: '/food',
+		component: () => import('@/pages/food/Index.vue'),
+		children: [
+			{
+				name: 'food-all',
+				path: 'all',
+				component: () => import('@/pages/food/All.vue')
+			},
+			{
+				name: 'food-mine',
+				path: 'mine',
+				component: () => import('@/pages/food/Mine.vue')
+			}
+		]
+	},
+	{
 		name: 'index',
 		path: '/',
 		component: () => import('@/pages/auth/Index.vue')

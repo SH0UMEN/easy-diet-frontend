@@ -20,7 +20,7 @@ const onSubmit = async (username: string, password: string) => {
 
 	store.login(username, password).then(() => {
 		if(store.user != null)
-			router.push({ name: 'index' });
+			router.push({ name: 'food-mine' });
 		else
 			error.value = t('errors.userNotFound');
 	});
