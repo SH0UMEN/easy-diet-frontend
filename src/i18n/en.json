@@ -8,7 +8,7 @@
 
 	"navigation": {
 		"menus": "Menus",
-		"food": "Food",
+		"dishes": "Food",
 		"login": "Login",
 		"logout": "Logout",
 		"registration": "Registration"

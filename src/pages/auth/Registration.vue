@@ -11,7 +11,7 @@ import { useI18n } from 'vue-i18n';
 import router from '@/router';
 import Error from '@/magic/error';
 import { ref } from 'vue';
-import { AxiosError} from 'axios';
+import { AxiosError } from 'axios';
 
 const { t } = useI18n();
 
@@ -39,7 +39,7 @@ const onSubmit = async (username: string, password: string) => {
 
 	store.login(username, password).then(() => {
 		if(store.user != null)
-			router.push({ name: 'food-mine' });
+			router.push({ name: 'dishes-mine' });
 	});
 };
 </script>

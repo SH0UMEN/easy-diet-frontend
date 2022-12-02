@@ -3,8 +3,8 @@
 		<v-container>
 			<v-row>
 				<v-col class="d-flex justify-end">
-					<v-btn :to="{ name: 'food' }" variant="plain">{{ t('navigation.menus') }}</v-btn>
-					<v-btn :to="{ name: 'food-all' }" variant="plain">{{ t('navigation.food') }}</v-btn>
+					<v-btn :to="{ name: 'menus-all' }" variant="plain">{{ t('navigation.menus') }}</v-btn>
+					<v-btn :to="{ name: 'dishes-all' }" variant="plain">{{ t('navigation.dishes') }}</v-btn>
 				</v-col>
 
 				<v-divider class="my-5" vertical></v-divider>
@@ -36,13 +36,16 @@
 import useStore from '@/store/auth';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
+import router from '@/router';
 
 const store = useStore();
 const { user } = storeToRefs(store);
 
 const { t } = useI18n();
 
-const logout = () => {
-	store.logout();
+const logout = async () => {
+	await store.logout();
+
+	router.push({ name: 'login' });
 };
 </script>

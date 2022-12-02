@@ -8,7 +8,7 @@
 
 	"navigation": {
 		"menus": "Меню",
-		"food": "Блюда",
+		"dishes": "Блюда",
 		"login": "Войти",
 		"logout": "Выйти",
 		"registration": "Регистрация"
@@ -18,6 +18,10 @@
 		"required": "Заполните поле",
 		"lessThanOrEqualTo": "Максимум {max} символов",
 		"moreThanOrEqualTo": "Минимум {min} символов"
+	},
+
+	"food": {
+
 	},
 
 	"auth": {
