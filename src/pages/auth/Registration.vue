@@ -37,9 +37,9 @@ const onSubmit = async (username: string, password: string) => {
 		return;
 	}
 
-	store.login(username, password).then(() => {
-		if(store.user != null)
-			router.push({ name: 'dishes-mine' });
-	});
+	await store.login(username, password);
+
+	if(store.user != null)
+		router.push({ name: 'dishes-mine' });
 };
 </script>

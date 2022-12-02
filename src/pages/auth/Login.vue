@@ -18,11 +18,11 @@ const store = useStore();
 const onSubmit = async (username: string, password: string) => {
 	error.value = null;
 
-	store.login(username, password).then(() => {
-		if(store.user != null)
-			router.push({ name: 'dishes-mine' });
-		else
-			error.value = t('errors.userNotFound');
-	});
+	await store.login(username, password);
+
+	if(store.user != null)
+		router.push({ name: 'dishes-mine' });
+	else
+		error.value = t('errors.userNotFound');
 };
 </script>
