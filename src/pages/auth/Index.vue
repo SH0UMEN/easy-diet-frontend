@@ -7,12 +7,12 @@
 </template>
 
 <script setup lang="ts">
-import useStore from '@/store/auth';
-import { storeToRefs } from 'pinia';
-import router from '@/router';
+	import useStore from '@/store/auth';
+	import { storeToRefs } from 'pinia';
+	import router from '@/router';
 
-const { user } = storeToRefs(useStore());
+	const { user } = storeToRefs(useStore());
 
-if(user.value != null)
-	router.push({ name: 'index' });
+	if(user.value != null)
+		router.push({ name: 'index' });
 </script>

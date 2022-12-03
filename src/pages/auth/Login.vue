@@ -4,25 +4,25 @@
 </template>
 
 <script setup lang="ts">
-import Login from '@/components/forms/auth/Login.vue';
-import router from '@/router';
-import useStore from '@/store/auth';
-import { useI18n } from 'vue-i18n';
-import { ref } from 'vue';
+	import Login from '@/components/forms/auth/Login.vue';
+	import router from '@/router';
+	import useStore from '@/store/auth';
+	import { useI18n } from 'vue-i18n';
+	import { ref } from 'vue';
 
-const { t } = useI18n();
+	const { t } = useI18n();
 
-const error = ref<String | null>(null);
-const store = useStore();
+	const error = ref<String | null>(null);
+	const store = useStore();
 
-const onSubmit = async (username: string, password: string) => {
-	error.value = null;
+	const onSubmit = async (username: string, password: string) => {
+		error.value = null;
 
-	await store.login(username, password);
+		await store.login(username, password);
 
-	if(store.user != null)
-		router.push({ name: 'dishes-mine' });
-	else
-		error.value = t('errors.userNotFound');
-};
+		if(store.user != null)
+			router.push({ name: 'dishes-mine' });
+		else
+			error.value = t('errors.userNotFound');
+	};
 </script>

@@ -5,19 +5,19 @@ import { IService, defineService } from '@/services/service';
 import Status from '@/magic/status';
 
 class AuthService implements IService {
-	getLoginUrl(): string {
+	protected getLoginUrl(): string {
 		return URL.AUTH + 'login';
 	}
 
-	getLogoutUrl(): string {
+	protected getLogoutUrl(): string {
 		return URL.AUTH + 'logout';
 	}
 
-	getMeUrl(): string {
+	protected getMeUrl(): string {
 		return URL.AUTH + 'me';
 	}
 
-	getRegistrationUrl(): string {
+	protected getRegistrationUrl(): string {
 		return URL.AUTH + 'registration';
 	}
 

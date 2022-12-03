@@ -7,8 +7,14 @@
 	},
 
 	"navigation": {
-		"menus": "Меню",
-		"dishes": "Блюда",
+		"menus": {
+			"all": "Все меню",
+			"mine": "Мои меню"
+		},
+		"dishes": {
+			"all": "Все блюда",
+			"mine": "Мои блюда"
+		},
 		"login": "Войти",
 		"logout": "Выйти",
 		"registration": "Регистрация"

@@ -52,6 +52,3 @@
 		</v-card-actions>
 	</v-card>
 </template>
-
-<script setup lang="ts">
-</script>

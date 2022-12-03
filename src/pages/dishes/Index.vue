@@ -18,19 +18,19 @@
 </template>
 
 <script setup lang="ts">
-import All from '@/pages/dishes/All.vue';
-import Mine from '@/pages/dishes/Mine.vue';
-// import useStore from '@/store/auth';
-// import { storeToRefs } from 'pinia';
-// import router from '@/router';
-//
-// const { user } = storeToRefs(useStore());
+	import All from '@/pages/dishes/All.vue';
+	import Mine from '@/pages/dishes/Mine.vue';
+	// import useStore from '@/store/auth';
+	// import { storeToRefs } from 'pinia';
+	// import router from '@/router';
+	//
+	// const { user } = storeToRefs(useStore());
 
-import { ref } from 'vue';
+	import { ref } from 'vue';
 
-const tab = ref(0);
+	const tab = ref(0);
 
-//
-// if(user.value != null)
-// 	router.push({ name: 'index' });
+	//
+	// if(user.value != null)
+	// 	router.push({ name: 'index' });
 </script>
