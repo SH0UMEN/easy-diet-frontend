@@ -9,9 +9,11 @@
 			<v-list-item prepend-icon="mdi-food-variant" :title="t('navigation.dishes.mine')" :to="{ name: 'dishes-mine' }"></v-list-item>
 		</v-list>
 
+		<language-selector class="mx-4 mt-4"></language-selector>
+
 		<template v-slot:append>
 			<div v-if="user != null" class="pa-2 mb-3 d-flex align-center justify-center">
-				<v-avatar class="mx-2" color="indigo" size="28"></v-avatar>
+				<v-avatar color="yellow-accent-3" size="28" class="mx-2" ></v-avatar>
 				<span class="text-body-1">{{ user.username }}</span>
 				<v-divider vertical class="ml-4 my-2"></v-divider>
 				<v-btn variant="plain" @click="logout">{{ t('navigation.logout') }}</v-btn>
@@ -26,6 +28,7 @@
 </template>
 
 <script setup lang="ts">
+	import LanguageSelector from '@/components/app/LanguageSelector.vue';
 	import Logo from '@/components/app/Logo.vue';
 	import { useI18n } from 'vue-i18n';
 	import useStore from '@/store/auth';
