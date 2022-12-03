@@ -1,9 +1,9 @@
 <template>
 	<v-select :items="$i18n.availableLocales"
-			  v-model="$i18n.locale"
 			  :label="t('lang')"
-			  density="compact"
 			  :hide-details="true"
+			  v-model="$i18n.locale"
+			  density="compact"
 			  variant="underlined">
 	</v-select>
 </template>
