@@ -1,11 +1,11 @@
 <template>
 	<v-container>
 		<v-row>
-			<v-col cols="12" sm="6" md="4" xl="3" class="grow" v-if="!$vuetify.display.mobile">
-				<v-card :to="{ name: 'dishes-create' }" color="yellow-accent-3" class="d-flex fill-height align-center justify-center">
+			<v-col cols="12" sm="6" md="4" xl="3" class="grow">
+				<v-card :to="{ name: 'menus-create' }" color="yellow-accent-3" class="d-flex fill-height align-center justify-center">
 					<v-card-title class="d-flex flex-column align-center">
 						<v-icon class="text-h3">mdi-plus-circle</v-icon>
-						{{ t('dishes.create') }}
+						{{ t('menus.create') }}
 					</v-card-title>
 				</v-card>
 			</v-col>

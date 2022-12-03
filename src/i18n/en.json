@@ -30,6 +30,10 @@
 		"create": "Create new dish"
 	},
 
+	"menus": {
+		"create": "Create new menu"
+	},
+
 	"auth": {
 		"username": "Username",
 		"email": "Email",

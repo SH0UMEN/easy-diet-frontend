@@ -30,6 +30,10 @@
 		"create": "Составить блюдо"
 	},
 
+	"menus": {
+		"create": "Составить меню"
+	},
+
 	"auth": {
 		"username": "Логин",
 		"email": "Email",

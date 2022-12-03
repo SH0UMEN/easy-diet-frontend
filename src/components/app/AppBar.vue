@@ -3,12 +3,16 @@
 		<v-app-bar-nav-icon @click="onIconClick"></v-app-bar-nav-icon>
 
 		<v-app-bar-title>
-			<logo></logo>
+			<div class="d-flex flex-row">
+				<logo></logo>
+				<toolbar class="ml-auto"></toolbar>
+			</div>
 		</v-app-bar-title>
 	</v-app-bar>
 </template>
 
 <script setup lang="ts">
+	import Toolbar from '@/components/app/Toolbar.vue';
 	import Logo from '@/components/app/Logo.vue';
 	import { useI18n } from 'vue-i18n';
 	import { defineEmits } from 'vue';

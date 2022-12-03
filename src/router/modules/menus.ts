@@ -1,17 +1,22 @@
 export default {
 	name: 'menus',
 	path: '/menus',
-	component: () => import('@/pages/dishes/Index.vue'),
+	component: () => import('@/pages/menus/Index.vue'),
 	children: [
+		{
+			name: 'menus-create',
+			path: 'create',
+			component: () => import('@/pages/menus/Create.vue')
+		},
 		{
 			name: 'menus-all',
 			path: 'all',
-			component: () => import('@/pages/dishes/All.vue')
+			component: () => import('@/pages/menus/All.vue')
 		},
 		{
 			name: 'menus-mine',
 			path: 'mine',
-			component: () => import('@/pages/dishes/Mine.vue')
+			component: () => import('@/pages/menus/Mine.vue')
 		}
 	]
 };
