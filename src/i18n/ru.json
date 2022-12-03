@@ -26,8 +26,8 @@
 		"moreThanOrEqualTo": "Минимум {min} символов"
 	},
 
-	"food": {
-
+	"dishes": {
+		"create": "Составить блюдо"
 	},
 
 	"auth": {

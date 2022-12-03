@@ -26,6 +26,10 @@
 		"moreThanOrEqualTo": "Minimum {min} characters"
 	},
 
+	"dishes": {
+		"create": "Create new dish"
+	},
+
 	"auth": {
 		"username": "Username",
 		"email": "Email",

@@ -1,8 +1,8 @@
 <template>
-	<v-navigation-drawer theme="dark">
-		<logo v-if="!$vuetify.display.mobile" class="pa-4 text-h6"></logo>
+	<v-navigation-drawer width="320" theme="dark">
+		<logo v-if="!$vuetify.display.mobile" class="px-4 pt-4 text-h6"></logo>
 
-		<v-list nav>
+		<v-list nav class="mt-4">
 			<v-list-item prepend-icon="mdi-view-list" :title="t('navigation.menus.all')" :to="{ name: 'menus-all' }"></v-list-item>
 			<v-list-item prepend-icon="mdi-view-list-outline" :title="t('navigation.menus.mine')" :to="{ name: 'menus-mine' }"></v-list-item>
 			<v-list-item prepend-icon="mdi-food-turkey" :title="t('navigation.dishes.all')" :to="{ name: 'dishes-all' }"></v-list-item>
@@ -18,7 +18,7 @@
 			</div>
 
 			<div v-else class="pa-2 mb-3">
-				<v-btn :to="{ name: 'login' }" color="yellow-accent-4" size="small" block class="mb-2">{{ t('navigation.login') }}</v-btn>
+				<v-btn :to="{ name: 'login' }" color="yellow-accent-3" size="small" block class="mb-2">{{ t('navigation.login') }}</v-btn>
 				<v-btn :to="{ name: 'registration' }" variant="plain" size="small">{{ t('navigation.registration') }}</v-btn>
 			</div>
 		</template>

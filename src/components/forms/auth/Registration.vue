@@ -9,7 +9,7 @@
 					  :rules="passwordRules"
 					  @input="onPasswordInput">
 		</v-text-field>
-		<v-btn type="submit" :disabled="!valid" color="yellow-accent-4" block>{{ t('auth.registration.submit') }}</v-btn>
+		<v-btn type="submit" :disabled="!valid" color="yellow-accent-3" block>{{ t('auth.registration.submit') }}</v-btn>
 		<v-btn class="mt-2" :to="{ name: 'login' }" variant="plain" block>{{ t('auth.login.title') }}</v-btn>
 		<v-alert class="mt-6" v-if="error != null" type="error">{{ error }}</v-alert>
 	</v-form>

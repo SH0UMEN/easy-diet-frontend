@@ -2,7 +2,7 @@
 	<v-form @submit.prevent="onSubmit" v-model="valid">
 		<v-text-field :label="t('auth.username')" v-model="username" :rules="usernameRules"></v-text-field>
 		<v-text-field :label="t('auth.password.main')" type="password" v-model="password" :rules="passwordRules"></v-text-field>
-		<v-btn type="submit" :disabled="!valid" color="yellow-accent-4" block>{{ t('auth.login.submit') }}</v-btn>
+		<v-btn type="submit" :disabled="!valid" color="yellow-accent-3" block>{{ t('auth.login.submit') }}</v-btn>
 		<v-btn class="mt-2" :to="{ name: 'registration' }" variant="plain" block>{{ t('auth.registration.title') }}</v-btn>
 		<v-alert class="mt-6" v-if="error != null" type="error">{{ error }}</v-alert>
 	</v-form>
