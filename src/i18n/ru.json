@@ -1,4 +1,21 @@
 {
+	"titles": {
+		"main": "Easy Diet",
+		"index": "Главная",
+		"login": "Вход в систему",
+		"registration": "Регистрация",
+		"dishes": {
+			"all": "Все блюда",
+			"mine": "Мои блюда",
+			"create": "Создать блюдо"
+		},
+		"menus": {
+			"all": "Все меню",
+			"mine": "Мои меню",
+			"create": "Создать меню"
+		}
+	},
+
 	"errors": {
 		"userIsAuthenticated": "Пользователь уже авторизован",
 		"usernameIsBusy": "Пользователь с таким именем уже существует",

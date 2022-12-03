@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHistory, RouteLocationNormalized, RouteRecordRaw } from 'vue-router';
 import auth from './modules/auth';
 import dishes from './modules/dishes';
 import menus from './modules/menus';
@@ -10,6 +10,9 @@ const routes: Array<RouteRecordRaw> = [
 	{
 		name: 'index',
 		path: '/',
+		meta: {
+			title: 'titles.index'
+		},
 		component: () => import('@/pages/auth/Index.vue')
 	}
 ];

@@ -9,11 +9,17 @@ export default {
 		{
 			name: 'login',
 			path: 'login',
+			meta: {
+				title: 'titles.login'
+			},
 			component: () => import('@/pages/auth/Login.vue')
 		},
 		{
 			name: 'registration',
 			path: 'registration',
+			meta: {
+				title: 'titles.registration'
+			},
 			component: () => import('@/pages/auth/Registration.vue')
 		}
 	]

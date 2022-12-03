@@ -1,4 +1,21 @@
 {
+	"titles": {
+		"main": "Easy Diet",
+		"index": "Main",
+		"login": "Login",
+		"registration": "Registration",
+		"dishes": {
+			"all": "All dishes",
+			"mine": "My dishes",
+			"create": "Create dish"
+		},
+		"menus": {
+			"all": "All menu",
+			"mine": "My menu",
+			"create": "Create menu"
+		}
+	},
+
 	"errors": {
 		"userIsAuthenticated": "User is already authenticated",
 		"usernameIsBusy": "User with the same name already exists",
