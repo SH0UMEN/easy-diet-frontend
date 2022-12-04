@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 	import ValidationService from '@/services/validation';
-	import { defineEmits, defineProps, reactive, ref, computed } from 'vue';
+	import { defineEmits, defineProps, reactive, ref } from 'vue';
 	import { useI18n } from 'vue-i18n';
 	import useStore from '@/store/auth';
 	import useService from '@/services/auth';

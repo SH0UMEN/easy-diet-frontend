@@ -37,7 +37,7 @@
 	onBeforeMount(async () => {
 		try {
 			await useStore().me();
-		} catch (e) {}
+		} catch(e) {}
 	});
 
 	onMounted(() => {

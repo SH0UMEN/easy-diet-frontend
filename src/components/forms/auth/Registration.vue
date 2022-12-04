@@ -43,7 +43,7 @@
 			await service.registration(username.value, password.value);
 
 			emit('registered', username.value, password.value);
-		} catch (e) {
+		} catch(e) {
 			error.value = t(service.handleErrors(e));
 		}
 

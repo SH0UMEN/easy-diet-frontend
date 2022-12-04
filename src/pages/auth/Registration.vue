@@ -5,20 +5,20 @@
 
 <script setup lang="ts">
 	import Registration from '@/components/forms/auth/Registration.vue';
+	import { useI18n } from 'vue-i18n';
 	import useStore from '@/store/auth';
 	import router from '@/router';
-	import { useI18n } from 'vue-i18n';
-	import { ref } from 'vue';
-
-	const error = ref<string | null>(null);
 
 	const { t } = useI18n();
 	const store = useStore();
 
 	const onRegistered = async (username: string, password: string) => {
-		await store.login(username, password);
+		try {
+			await store.login(username, password);
+		} catch(e) {
+			return router.push({ name: 'login' });
+		}
 
-		if(store.user != null)
-			router.push({ name: 'dishes-mine' });
+		router.push({ name: 'dishes-mine' });
 	};
 </script>
