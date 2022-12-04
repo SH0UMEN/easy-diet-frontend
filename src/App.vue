@@ -13,10 +13,10 @@
 	import Navigation from '@/components/app/Navigation.vue';
 	import AppBar from '@/components/app/AppBar.vue';
 	import { onBeforeMount, onMounted, ref, getCurrentInstance, watch } from 'vue';
-	import useStore from '@/store/auth';
 	import { RouteLocationNormalized } from 'vue-router';
-	import router from '@/router';
 	import { useI18n } from 'vue-i18n';
+	import useStore from '@/store/auth';
+	import router from '@/router';
 
 	const showNavigation = ref(false);
 
@@ -34,8 +34,10 @@
 		document.title = title;
 	};
 
-	onBeforeMount(() => {
-		useStore().me();
+	onBeforeMount(async () => {
+		try {
+			await useStore().me();
+		} catch (e) {}
 	});
 
 	onMounted(() => {

@@ -2,38 +2,52 @@
 	<v-form @submit.prevent="onSubmit" v-model="valid">
 		<v-text-field :label="t('auth.username')" v-model="username" :rules="usernameRules"></v-text-field>
 		<v-text-field :label="t('auth.password.main')" type="password" v-model="password" :rules="passwordRules"></v-text-field>
-		<v-btn type="submit" :disabled="!valid" color="yellow-accent-3" block>{{ t('auth.login.submit') }}</v-btn>
+		<v-btn type="submit" :loading="loading" :disabled="!valid || loading" color="yellow-accent-3" block>{{ t('auth.login.submit') }}</v-btn>
 		<v-btn class="mt-2" :to="{ name: 'registration' }" variant="plain" block>{{ t('auth.registration.title') }}</v-btn>
 		<v-alert class="mt-6" v-if="error != null" type="error">{{ error }}</v-alert>
 	</v-form>
 </template>
 
 <script setup lang="ts">
-	import { useI18n } from 'vue-i18n';
-	import { defineEmits, defineProps, reactive, ref, computed } from 'vue';
 	import ValidationService from '@/services/validation';
+	import { defineEmits, defineProps, reactive, ref, computed } from 'vue';
+	import { useI18n } from 'vue-i18n';
+	import useStore from '@/store/auth';
+	import useService from '@/services/auth';
 
 	interface Props {
 		username?: string;
 		password?: string;
-		error?: string;
 	}
 
+	const emit = defineEmits(['logged']);
+	const props = defineProps<Props>();
+
+	const service = useService();
+	const store = useStore();
 	const { t } = useI18n();
 
-	const props = defineProps<Props>();
-	const emit = defineEmits(['submit']);
-
-	const username = ref(props.username);
-	const password = ref(props.password);
-	const error = computed(() => props.error);
-
+	const username = ref(props.username || '');
+	const password = ref(props.password || '');
+	const error = ref<string | null>(null);
+	const loading = ref(false);
 	const valid = ref(false);
 
 	const usernameRules = reactive(ValidationService.username(t));
 	const passwordRules = reactive(ValidationService.password(t));
 
-	const onSubmit = () => {
-		emit('submit', username.value, password.value);
+	const onSubmit = async () => {
+		error.value = null;
+		loading.value = true;
+
+		try {
+			await store.login(username.value, password.value);
+
+			emit('logged');
+		} catch(e) {
+			error.value = t(service.handleErrors(e));
+		}
+
+		loading.value = false;
 	};
 </script>
