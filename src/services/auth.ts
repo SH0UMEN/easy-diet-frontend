@@ -4,21 +4,21 @@ import Status from '@/magic/status';
 import Error from '@/magic/error';
 import URL from '@/magic/url';
 
-export default class AuthService {
+class AuthService {
 	protected getLoginUrl(): string {
-		return URL.AUTH + 'login';
+		return URL.Auth + 'login';
 	}
 
 	protected getLogoutUrl(): string {
-		return URL.AUTH + 'logout';
+		return URL.Auth + 'logout';
 	}
 
 	protected getMeUrl(): string {
-		return URL.AUTH + 'me';
+		return URL.Auth + 'me';
 	}
 
 	protected getRegistrationUrl(): string {
-		return URL.AUTH + 'registration';
+		return URL.Auth + 'registration';
 	}
 
 	public handleErrors(exception: any): string {
@@ -52,3 +52,5 @@ export default class AuthService {
 		await axios.post(this.getRegistrationUrl(), { username, password });
 	}
 }
+
+export default AuthService;

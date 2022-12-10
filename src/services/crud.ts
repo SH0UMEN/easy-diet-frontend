@@ -3,7 +3,7 @@ import CRUDGetParameters from '@/types/CRUDGetParameters';
 import CRUDGetResponse from '@/types/CRUDGetResponse';
 import Serializer from '@/serializers/serializer';
 
-export class CRUD<T> {
+class CRUD<T> {
 	protected root: string = '';
 	protected serializer = new Serializer();
 
@@ -34,3 +34,5 @@ export class CRUD<T> {
 	// 	return (await axios.get(this.)).data;
 	// }
 }
+
+export default CRUD;

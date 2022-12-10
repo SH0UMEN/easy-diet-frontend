@@ -1,6 +1,7 @@
 enum URL {
-	PRODUCTS = '/api/products/',
-	AUTH = '/api/auth/'
+	Products = '/api/products/',
+	Dishes = '/api/dishes/',
+	Auth = '/api/auth/'
 }
 
 export default URL;

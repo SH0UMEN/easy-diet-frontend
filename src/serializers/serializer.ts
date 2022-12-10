@@ -5,7 +5,12 @@ type SerializerFields = { [field: string]: Serializer };
 class Serializer<T extends IModel = IModel> {
 	protected serializers: SerializerFields = {};
 
-	public serialize(source: T): any {
+	public serialize(source: T): any;
+	public serialize(source: Array<T>): Array<any>;
+	public serialize(source: Array<T> | T) {
+		if(source instanceof Array)
+			return source.map((item) => this.serialize(item));
+
 		const result: any = {};
 		const entries = Object.entries(source);
 

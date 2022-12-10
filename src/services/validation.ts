@@ -1,6 +1,6 @@
 import { ComposerTranslation } from 'vue-i18n';
 
-export default class ValidationService {
+class ValidationService {
 	static username(t: ComposerTranslation): Array<Function> {
 		return [
 			ValidationService.required(t),
@@ -29,3 +29,5 @@ export default class ValidationService {
 		return (v: string) => v.length >= min ||  t('form.moreThanOrEqualTo', { min: min });
 	}
 }
+
+export default ValidationService;
