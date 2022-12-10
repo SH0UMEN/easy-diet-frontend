@@ -1,4 +1,7 @@
-export type User = {
-	id: number,
-	username: string
+import IModel from '@/models/model';
+
+interface User extends IModel {
+	username: string;
 }
+
+export default User;

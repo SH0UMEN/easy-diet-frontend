@@ -1,6 +1,6 @@
 import { defineStore, StateTree } from 'pinia';
 import AuthService from '@/services/auth';
-import { User } from '@/models/user';
+import User from '@/models/user';
 
 type AuthState = StateTree & {
 	user: User | null;

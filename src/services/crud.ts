@@ -1,9 +1,11 @@
 import axios, { AxiosResponse } from 'axios';
-import CRUDGetParameters from '@/models/CRUDGetParameters';
-import CRUDGetResponse from '@/models/CRUDGetResponse';
+import CRUDGetParameters from '@/types/CRUDGetParameters';
+import CRUDGetResponse from '@/types/CRUDGetResponse';
+import Serializer from '@/serializers/serializer';
 
 export class CRUD<T> {
 	protected root: string = '';
+	protected serializer = new Serializer();
 
 	protected getListUrl(): string {
 		return this.root;

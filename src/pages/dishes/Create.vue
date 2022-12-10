@@ -43,7 +43,7 @@
 	import { reactive } from 'vue';
 	import Product from '@/models/product';
 
-	const products = reactive<Product[]>([]);
+	const products = reactive<Array<Product>>([]);
 
 	const { t } = useI18n();
 

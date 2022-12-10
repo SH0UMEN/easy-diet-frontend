@@ -1,11 +1,11 @@
 import I18N from '@/models/i18n';
+import IModel from '@/models/model';
 
-type ProductI18N = {
+interface ProductI18N extends IModel {
 	title: string;
 }
 
-type Product = {
-	id: number;
+interface Product extends IModel {
 	i18n: I18N<ProductI18N>;
 	carbohydrate: number;
 	protein: number;
