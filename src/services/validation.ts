@@ -1,7 +1,7 @@
 import { ComposerTranslation } from 'vue-i18n';
 
 export default class ValidationService {
-	static username(t: ComposerTranslation): Function[] {
+	static username(t: ComposerTranslation): Array<Function> {
 		return [
 			ValidationService.required(t),
 			ValidationService.moreThanOrEqualTo(t, 5),
@@ -9,7 +9,7 @@ export default class ValidationService {
 		];
 	}
 
-	static password(t: ComposerTranslation): Function[] {
+	static password(t: ComposerTranslation): Array<Function> {
 		return [
 			ValidationService.required(t),
 			ValidationService.moreThanOrEqualTo(t, 6),

@@ -19,9 +19,9 @@
 				<v-btn variant="plain" @click="logout">{{ t('navigation.logout') }}</v-btn>
 			</div>
 
-			<div v-else class="pa-2 mb-3">
+			<div v-else class="pa-4 mb-3">
 				<v-btn :to="{ name: 'login' }" color="yellow-accent-3" size="small" block class="mb-2">{{ t('navigation.login') }}</v-btn>
-				<v-btn :to="{ name: 'registration' }" variant="plain" size="small">{{ t('navigation.registration') }}</v-btn>
+				<v-btn :to="{ name: 'registration' }" variant="plain" size="small" block>{{ t('navigation.registration') }}</v-btn>
 			</div>
 		</template>
 	</v-navigation-drawer>

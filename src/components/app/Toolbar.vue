@@ -1,6 +1,6 @@
 <template>
 	<div v-if="isShown">
-		<v-btn icon="mdi-plus" :to="{ name: routeName + '-create' }" variant="flat" color="yellow-accent-3"></v-btn>
+		<v-btn icon="mdi-plus" :to="{ name: routeName + '-create' }" variant="flat" size="small" color="yellow-accent-3"></v-btn>
 	</div>
 </template>
 
@@ -10,6 +10,7 @@
 	import router from '@/router';
 
 	const routeName = ref(router.currentRoute.value.matched[0]?.name);
+
 	const isShown = computed(() => routeName.value == 'dishes' || routeName.value == 'menus');
 
 	router.beforeEach((to: RouteLocationNormalized) => {

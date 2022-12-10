@@ -1,14 +1,12 @@
 <template>
-	<v-responsive max-width="512" class="mx-auto">
-		<v-container class="mt-6">
-			<router-view></router-view>
-		</v-container>
+	<v-responsive max-width="512" class="mx-auto pa-6 pt-4 pt-sm-12">
+		<router-view></router-view>
 	</v-responsive>
 </template>
 
 <script setup lang="ts">
-	import useStore from '@/store/auth';
 	import { storeToRefs } from 'pinia';
+	import useStore from '@/store/auth';
 	import router from '@/router';
 
 	const { user } = storeToRefs(useStore());

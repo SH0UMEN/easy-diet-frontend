@@ -5,12 +5,13 @@
 		&, &:hover, &:focus, &:active
 			-webkit-box-shadow: 0 0 0px 1000px #1A1A1A inset
 
-	&:hover
+	&--variant-solo, &:hover
 		input:-webkit-autofill
 			&, &:hover, &:focus, &:active
+				border-radius: 4px
 				-webkit-box-shadow: 0 0 0px 1000px #212121 inset
 
-	&--focused
+	&--focused:not(&--variant-solo)
 		&, &:hover
 			input:-webkit-autofill
 				&, &:hover, &:focus, &:active

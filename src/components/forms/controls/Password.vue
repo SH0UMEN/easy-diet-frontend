@@ -1,17 +1,22 @@
 <template>
-	<v-text-field :label="t('auth.password.main')"
-				  :rules="passwordRules"
-				  v-model="password"
-				  @input="onPasswordInput"
-				  type="password">
-	</v-text-field>
-	<v-text-field :label="t('auth.password.repeat')"
-				  :error-messages="passwordErrors"
-				  :rules="passwordRules"
-				  v-model="repeatedPassword"
-				  @input="onPasswordInput"
-				  type="password">
-	</v-text-field>
+	<div>
+		<v-text-field :label="t('auth.password.main')"
+					  :rules="passwordRules"
+					  v-model="password"
+					  @input="onPasswordInput"
+					  variant="solo"
+					  class="mb-2"
+					  type="password">
+		</v-text-field>
+		<v-text-field :label="t('auth.password.repeat')"
+					  :error-messages="passwordErrors"
+					  :rules="passwordRules"
+					  v-model="repeatedPassword"
+					  @input="onPasswordInput"
+					  variant="solo"
+					  type="password">
+		</v-text-field>
+	</div>
 </template>
 
 <script setup lang="ts">

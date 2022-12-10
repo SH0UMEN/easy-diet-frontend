@@ -5,7 +5,7 @@
 				<v-card :to="{ name: 'dishes-create' }" color="yellow-accent-3" class="d-flex fill-height align-center justify-center">
 					<v-card-title class="d-flex flex-column align-center">
 						<v-icon class="text-h3">mdi-plus-circle</v-icon>
-						{{ t('dishes.create') }}
+						{{ t('dishes.create.floating') }}
 					</v-card-title>
 				</v-card>
 			</v-col>

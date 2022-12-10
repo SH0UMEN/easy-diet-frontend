@@ -1,11 +1,10 @@
 import axios, { AxiosError } from 'axios';
 import { User } from '@/models/user';
-import { IService, defineService } from '@/services/service';
 import Status from '@/magic/status';
 import Error from '@/magic/error';
 import URL from '@/magic/url';
 
-class AuthService implements IService {
+export default class AuthService {
 	protected getLoginUrl(): string {
 		return URL.AUTH + 'login';
 	}
@@ -22,27 +21,19 @@ class AuthService implements IService {
 		return URL.AUTH + 'registration';
 	}
 
-	public handleErrors(exception: any): string | null {
-		let error: string | null = null;
-
-		if(exception instanceof AxiosError) {
-			switch(parseInt(exception.request.response)) {
-				case Error.UserIsAuthenticated:
-					error = 'errors.userIsAuthenticated';
-					break;
-				case Error.UsernameIsBusy:
-					error = 'errors.usernameIsBusy';
-					break;
-				case Error.UserNotFound:
-					error = 'errors.userNotFound';
-					break;
-				case Error.DataNotValid:
-					error = 'errors.dataNotValid';
-					break;
-			}
+	public handleErrors(exception: any): string {
+		switch(parseInt(exception.request.response)) {
+			case Error.UserIsAuthenticated:
+				return 'errors.userIsAuthenticated';
+			case Error.UsernameIsBusy:
+				return 'errors.usernameIsBusy';
+			case Error.UserNotFound:
+				return 'errors.userNotFound';
+			case Error.DataNotValid:
+				return 'errors.dataNotValid';
+			default:
+				return 'errors.unknown';
 		}
-
-		return error;
 	}
 
 	public async login(username: string, password: string): Promise<User> {
@@ -61,5 +52,3 @@ class AuthService implements IService {
 		await axios.post(this.getRegistrationUrl(), { username, password });
 	}
 }
-
-export default defineService(new AuthService());

@@ -6,11 +6,13 @@
 		"index": "Main",
 		"login": "Login",
 		"registration": "Registration",
+
 		"dishes": {
 			"all": "All dishes",
 			"mine": "My dishes",
 			"create": "Create dish"
 		},
+
 		"menus": {
 			"all": "All menu",
 			"mine": "My menu",
@@ -19,6 +21,7 @@
 	},
 
 	"errors": {
+		"unknown": "Unknown error. Try later",
 		"userIsAuthenticated": "User is already authenticated",
 		"usernameIsBusy": "User with the same name already exists",
 		"userNotFound": "User with this data is not found",
@@ -30,10 +33,12 @@
 			"all": "All menus",
 			"mine": "My menus"
 		},
+
 		"dishes": {
 			"all": "All dishes",
 			"mine": "My dishes"
 		},
+
 		"login": "Login",
 		"logout": "Logout",
 		"registration": "Registration"
@@ -46,11 +51,25 @@
 	},
 
 	"dishes": {
-		"create": "Create new dish"
+		"create": {
+			"floating": "Create new dish",
+			"title": "Create your new dish",
+
+			"form": {
+				"title": "Dish title",
+				"image": "Dish thumbnail",
+				"product": {
+					"label": "Add ingredient",
+					"noData": "Enter the text to find some ingredients"
+				}
+			}
+		}
 	},
 
 	"menus": {
-		"create": "Create new menu"
+		"create": {
+			"floating": "Create new menu"
+		}
 	},
 
 	"auth": {

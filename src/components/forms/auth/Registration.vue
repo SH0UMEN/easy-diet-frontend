@@ -1,8 +1,14 @@
 <template>
-	<v-form @submit.prevent="onSubmit" v-model="valid">
-		<v-text-field :label="t('auth.username')" v-model="username" :rules="usernameRules"></v-text-field>
-		<password v-model="password"></password>
-		<v-btn type="submit" :loading="loading" :disabled="!valid || loading" color="yellow-accent-3" block>{{ t('auth.registration.submit') }}</v-btn>
+	<v-form @submit.prevent="onSubmit" v-model="isValid">
+		<v-text-field :label="t('auth.username')" v-model="username" :rules="usernameRules" variant="solo" class="mb-2"></v-text-field>
+		<password v-model="password" class="mb-2"></password>
+		<v-btn :loading="isLoading" :disabled="!isValid || isLoading"
+			   type="submit"
+			   class="mt-2"
+			   color="yellow-accent-3"
+			   block>
+			{{ t('auth.registration.submit') }}
+		</v-btn>
 		<v-btn class="mt-2" :to="{ name: 'login' }" variant="plain" block>{{ t('auth.login.title') }}</v-btn>
 		<v-alert class="mt-6" v-if="error != null" type="error">{{ error }}</v-alert>
 	</v-form>
@@ -11,7 +17,7 @@
 <script setup lang="ts">
 	import Password from '@/components/forms/controls/Password.vue';
 	import ValidationService from '@/services/validation';
-	import useService from '@/services/auth';
+	import AuthService from '@/services/auth';
 	import { defineEmits, defineProps, reactive, ref } from 'vue';
 	import { useI18n } from 'vue-i18n';
 
@@ -30,14 +36,14 @@
 	const username = ref(props.username || '');
 	const password = ref(props.password || '');
 	const error = ref<string | null>(null);
-	const valid = ref(false);
-	const loading = ref(false);
+	const isValid = ref(false);
+	const isLoading = ref(false);
 
-	const service = useService();
+	const service = new AuthService();
 
 	const onSubmit = async () => {
 		error.value = null;
-		loading.value = true;
+		isValid.value = true;
 
 		try {
 			await service.registration(username.value, password.value);
@@ -47,6 +53,6 @@
 			error.value = t(service.handleErrors(e));
 		}
 
-		loading.value = false;
+		isLoading.value = false;
 	};
 </script>

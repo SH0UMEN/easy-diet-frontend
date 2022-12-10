@@ -1,7 +1,8 @@
-import axios from 'axios';
-import { IService } from '@/services/service';
+import axios, { AxiosResponse } from 'axios';
+import CRUDGetParameters from '@/models/CRUDGetParameters';
+import CRUDGetResponse from '@/models/CRUDGetResponse';
 
-export class CRUD<T> implements IService {
+export class CRUD<T> {
 	protected root: string = '';
 
 	protected getListUrl(): string {
@@ -12,11 +13,18 @@ export class CRUD<T> implements IService {
 		return this.root + id;
 	}
 
-	async get(): Promise<Array<T>>;
-	async get(id: number): Promise<T>;
-	async get(arg?: number) {
-		const url = arg == null ? this.getListUrl() : this.getDetailsUrl(arg);
-		return (await axios.get(url)).data;
+	public async get(): Promise<Array<T>>;
+	public async get(id: number): Promise<T>;
+	public async get(parameters: CRUDGetParameters): Promise<CRUDGetResponse<T>>;
+	public async get(arg?: number | CRUDGetParameters) {
+		let response: AxiosResponse;
+
+		if(arg != null && typeof arg == 'number')
+			response = await axios.get(this.getDetailsUrl(arg));
+		else
+			response = await axios.get(this.getListUrl(), { params: arg });
+
+		return response.data;
 	}
 
 	//

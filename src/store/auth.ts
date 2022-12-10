@@ -1,5 +1,5 @@
 import { defineStore, StateTree } from 'pinia';
-import useService from '@/services/auth';
+import AuthService from '@/services/auth';
 import { User } from '@/models/user';
 
 type AuthState = StateTree & {
@@ -14,16 +14,16 @@ export default defineStore('auth', {
 	},
 	actions: {
 		async login(username: string, password: string): Promise<void> {
-			this.user = await useService().login(username, password);
+			this.user = await new AuthService().login(username, password);
 		},
 
 		async logout(): Promise<void> {
-			if(await useService().logout())
+			if(await new AuthService().logout())
 				this.user = null;
 		},
 
 		async me(): Promise<void> {
-			this.user = await useService().me();
+			this.user = await new AuthService().me();
 		}
 	}
 });
