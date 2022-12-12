@@ -7,7 +7,7 @@ class CRUD<T> {
 	protected root: string = '';
 	protected serializer = new Serializer();
 
-	protected getListUrl(): string {
+	protected getListAndCreateUrl(): string {
 		return this.root;
 	}
 
@@ -24,15 +24,14 @@ class CRUD<T> {
 		if(arg != null && typeof arg == 'number')
 			response = await axios.get(this.getDetailsUrl(arg));
 		else
-			response = await axios.get(this.getListUrl(), { params: arg });
+			response = await axios.get(this.getListAndCreateUrl(), { params: arg });
 
 		return response.data;
 	}
 
-	//
-	// async post(): Promise<T> {
-	// 	return (await axios.get(this.)).data;
-	// }
+	async post(data: T): Promise<T> {
+		return (await axios.post(this.getListAndCreateUrl(), this.serializer.toFormData(data))).data;
+	}
 }
 
 export default CRUD;

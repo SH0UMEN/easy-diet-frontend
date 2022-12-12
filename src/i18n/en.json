@@ -61,7 +61,8 @@
 				"product": {
 					"label": "Add ingredient",
 					"noData": "Enter the text to find some ingredients"
-				}
+				},
+				"submit": "Create"
 			}
 		}
 	},

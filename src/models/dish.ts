@@ -3,8 +3,8 @@ import DishProductRelation from '@/models/dish-product-relation';
 
 interface Dish extends IModel {
 	dishProductRelations: Array<DishProductRelation>;
+	image: File | string | null;
 	author?: string;
-	image?: string;
 	title: string;
 }
 

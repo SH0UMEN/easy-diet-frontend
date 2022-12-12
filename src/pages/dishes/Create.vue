@@ -1,10 +1,11 @@
 <template>
 	<v-responsive max-width="768" class="mx-auto px-2 pt-4 pt-sm-12">
 		<v-container>
-			<v-form>
+			<v-form @submit.prevent="onSubmit">
 				<h2 class="text-center mb-6">{{ t('dishes.create.title') }}</h2>
 				<v-text-field v-model="dish.title" :label="t('dishes.create.form.title')" variant="solo"></v-text-field>
 				<v-file-input :label="t('dishes.create.form.image')"
+							  @update:modelValue="onImageSelected"
 							  accept="image/png,image/jpeg,image/bmp"
 							  prepend-icon="mdi-camera"
 							  variant="solo"
@@ -33,6 +34,13 @@
 						</v-card>
 					</v-col>
 				</v-row>
+
+				<v-btn type="submit"
+					   class="mt-6"
+					   color="yellow-accent-3"
+					   block>
+					{{ t('dishes.create.form.submit') }}
+				</v-btn>
 			</v-form>
 		</v-container>
 	</v-responsive>
@@ -42,17 +50,23 @@
 	import ProductSelector from '@/components/forms/controls/ProductSelector.vue';
 	import { useI18n } from 'vue-i18n';
 	import { reactive } from 'vue';
+	import DishService from '@/services/dish';
 	import Product from '@/models/product';
 	import Dish from '@/models/dish';
-	import DishSerializer from '@/serializers/dish';
 
-	const dish = reactive<Dish>({ title: '', image: '', dishProductRelations: [] });
+	const dish = reactive<Dish>({ title: '', image: null, dishProductRelations: [] });
 
 	const { t } = useI18n();
 
 	const onProductSelected = (value: Product) => {
 		dish.dishProductRelations.push({ product: value, grams: 0 });
+	};
 
-		console.log(new DishSerializer().serialize(dish));
-	}
+	const onImageSelected = (value: Array<File>) => {
+		dish.image = value[0];
+	};
+
+	const onSubmit = async () => {
+		await new DishService().post(dish);
+	};
 </script>

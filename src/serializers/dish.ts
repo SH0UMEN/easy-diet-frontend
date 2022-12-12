@@ -1,10 +1,10 @@
-import DishProductSerializer from '@/serializers/dish-product-relation';
+import DishProductRelation from '@/models/dish-product-relation';
 import Serializer from '@/serializers/serializer';
 import Dish from '@/models/dish';
 
 class DishSerializer extends Serializer<Dish> {
 	protected serializers = {
-		'dishProductRelations': new DishProductSerializer()
+		'dishProductRelations': new Serializer<DishProductRelation>()
 	}
 }
 
