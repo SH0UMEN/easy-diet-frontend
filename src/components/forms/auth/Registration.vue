@@ -46,7 +46,7 @@
 		isValid.value = true;
 
 		try {
-			await service.registration(username.value, password.value);
+			await service.registration({ username: username.value, password: password.value });
 
 			emit('registered', username.value, password.value);
 		} catch(e) {

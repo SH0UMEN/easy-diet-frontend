@@ -1,10 +1,13 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import User from '@/models/user';
 import Status from '@/magic/status';
 import Error from '@/magic/error';
 import URL from '@/magic/url';
+import Serializer from '@/serializers/serializer';
 
 class AuthService {
+	private serializer = new Serializer<User>();
+
 	protected getLoginUrl(): string {
 		return URL.Auth + 'login';
 	}
@@ -36,8 +39,16 @@ class AuthService {
 		}
 	}
 
-	public async login(username: string, password: string): Promise<User> {
-		return (await axios.post(this.getLoginUrl(), { username, password })).data;
+	protected async post(url: string, user: User): Promise<User> {
+		return (await axios.post(url, this.serializer.toFormData(user))).data;
+	}
+
+	public async login(user: User): Promise<User> {
+		return await this.post(this.getLoginUrl(), user);
+	}
+
+	public async registration(user: User): Promise<User> {
+		return await this.post(this.getRegistrationUrl(), user);
 	}
 
 	public async logout(): Promise<boolean> {
@@ -46,10 +57,6 @@ class AuthService {
 
 	public async me(): Promise<User> {
 		return (await axios.get(this.getMeUrl())).data;
-	}
-
-	public async registration(username: string, password: string): Promise<void> {
-		await axios.post(this.getRegistrationUrl(), { username, password });
 	}
 }
 
