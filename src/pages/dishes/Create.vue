@@ -22,7 +22,12 @@
 						<v-card class="fill-height">
 							<v-card-text class="d-flex flex-column fill-height">
 								<span class="text-subtitle-2">{{ relation.product.i18n[$i18n.locale].title }}</span>
-								<v-card-subtitle class="pl-0">Fuck</v-card-subtitle>
+								<v-card-subtitle class="pl-0">
+									<span class="mr-5">{{ t('products.kcal') }}: {{ relation.product.kcal }}</span>
+									<span class="mr-5">{{ t('products.protein') }}: {{ relation.product.protein }}</span>
+									<span class="mr-5">{{ t('products.fat') }}: {{ relation.product.fat }}</span>
+									<span>{{ t('products.carbohydrate') }}: {{ relation.product.carbohydrate }}</span>
+								</v-card-subtitle>
 								<v-spacer></v-spacer>
 
 								<v-text-field :hide-details="true"

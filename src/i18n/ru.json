@@ -50,6 +50,13 @@
 		"moreThanOrEqualTo": "Минимум {min} символов"
 	},
 
+	"products": {
+		"kcal": "ккал",
+		"protein": "б",
+		"fat": "ж",
+		"carbohydrate": "у"
+	},
+
 	"dishes": {
 		"create": {
 			"floating": "Составить блюдо",

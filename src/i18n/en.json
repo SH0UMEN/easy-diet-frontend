@@ -50,6 +50,13 @@
 		"moreThanOrEqualTo": "Minimum {min} characters"
 	},
 
+	"products": {
+		"kcal": "kcal",
+		"protein": "p",
+		"fat": "f",
+		"carbohydrate": "c"
+	},
+
 	"dishes": {
 		"create": {
 			"floating": "Create new dish",

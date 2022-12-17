@@ -13,10 +13,10 @@
 		<template v-slot:item="{ props, item }">
 			<v-list-item v-bind="props">
 				<v-list-item-subtitle>
-					<span class="mr-5">ккал: {{ item.raw.kcal }}</span>
-					<span class="mr-5">б: {{ item.raw.protein }}</span>
-					<span class="mr-5">ж: {{ item.raw.fat }}</span>
-					<span>у: {{ item.raw.carbohydrate }}</span>
+					<span class="mr-5">{{ t('products.kcal') }}: {{ item.raw.kcal }}</span>
+					<span class="mr-5">{{ t('products.protein') }}: {{ item.raw.protein }}</span>
+					<span class="mr-5">{{ t('products.fat') }}: {{ item.raw.fat }}</span>
+					<span>{{ t('products.carbohydrate') }}: {{ item.raw.carbohydrate }}</span>
 				</v-list-item-subtitle>
 			</v-list-item>
 		</template>
