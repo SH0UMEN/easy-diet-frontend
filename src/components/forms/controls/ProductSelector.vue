@@ -66,7 +66,7 @@
 
 		loading.value = true;
 
-		const response = await service.get({
+		const response = await service.read({
 			offset: (page.value - 1) * viewOnPage.value,
 			lang: locale.value,
 			limit: viewOnPage.value,

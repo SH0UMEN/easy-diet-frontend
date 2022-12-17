@@ -15,10 +15,10 @@ class CRUD<T> {
 		return this.root + id;
 	}
 
-	public async get(): Promise<Array<T>>;
-	public async get(id: number): Promise<T>;
-	public async get(parameters: CRUDGetParameters): Promise<CRUDGetResponse<T>>;
-	public async get(arg?: number | CRUDGetParameters) {
+	public async read(): Promise<Array<T>>;
+	public async read(id: number): Promise<T>;
+	public async read(parameters: CRUDGetParameters): Promise<CRUDGetResponse<T>>;
+	public async read(arg?: number | CRUDGetParameters) {
 		let response: AxiosResponse;
 
 		if(arg != null && typeof arg == 'number')
@@ -29,7 +29,7 @@ class CRUD<T> {
 		return response.data;
 	}
 
-	async post(data: T): Promise<T> {
+	async create(data: T): Promise<T> {
 		return (await axios.post(this.getListAndCreateUrl(), this.serializer.toFormData(data))).data;
 	}
 }
