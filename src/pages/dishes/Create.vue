@@ -87,13 +87,14 @@
 
 	const onSubmit = async () => {
 		loading.value = true;
+
 		try {
 			await new DishService().create(dish);
 			router.push({ name: 'dishes-mine' });
 		} catch(e) {
 			error.value = 'Неизвестная ошибка';
-		} finally {
-			loading.value = false;
 		}
+
+		loading.value = false;
 	};
 </script>
