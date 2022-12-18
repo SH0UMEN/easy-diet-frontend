@@ -5,4 +5,6 @@ const Error = {
 	DataNotValid: 4
 } as const;
 
+type Error = typeof Error[keyof typeof Error];
+
 export default Error;

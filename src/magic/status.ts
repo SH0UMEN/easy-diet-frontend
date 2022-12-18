@@ -6,4 +6,6 @@ const Status = {
 	NotFound: 404
 } as const;
 
+type Status = typeof Status[keyof typeof Status];
+
 export default Status;
