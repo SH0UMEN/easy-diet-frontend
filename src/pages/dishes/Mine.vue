@@ -10,10 +10,10 @@
 				</v-card>
 			</v-col>
 
-			<v-col cols="12" sm="6" md="4" xl="3" v-for="i in 6">
+			<v-col cols="12" sm="6" md="4" xl="3" v-for="dish in dishes">
 				<v-card>
 					<v-img class="align-end text-white" height="200" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg" cover>
-						<v-card-title>Top 10 Australian beaches</v-card-title>
+						<v-card-title>{{ dish.title }}</v-card-title>
 					</v-img>
 
 					<v-card-subtitle class="pt-4">
@@ -36,7 +36,27 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
+	import { onBeforeMount, reactive } from 'vue';
+	import { storeToRefs } from 'pinia';
+	import { useI18n } from 'vue-i18n';
+	import router from '@/router';
+	import useStore from '@/store/auth';
+	import DishService from '@/services/dish';
+	import Dish from '@/models/dish';
 
-const { t } = useI18n();
+	const dishes = reactive<Array<Dish>>([]);
+
+	const { user } = storeToRefs(useStore());
+	const { t } = useI18n();
+
+	onBeforeMount(async () => {
+		if(user.value == null)
+			return router.push({ name: 'login' });
+
+		const items = await new DishService().read({ author: user.value.id });
+
+		items.map((element) => {
+			dishes.push(element);
+		});
+	});
 </script>

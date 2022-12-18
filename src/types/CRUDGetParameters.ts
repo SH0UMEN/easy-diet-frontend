@@ -1,7 +1,6 @@
 type CRUDGetParameters = {
-	limit?: number,
-	offset?: number,
 	category?: number,
+	author?: number,
 	search?: string,
 	lang?: string
 }

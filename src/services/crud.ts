@@ -1,7 +1,8 @@
-import axios, { AxiosResponse } from 'axios';
+import CRUDPaginationParameters from '@/types/CRUDPaginationParameters';
+import CRUDPaginationResponse from '@/types/CRUDPaginationResponse';
 import CRUDGetParameters from '@/types/CRUDGetParameters';
-import CRUDGetResponse from '@/types/CRUDGetResponse';
 import Serializer from '@/serializers/serializer';
+import axios, { AxiosResponse } from 'axios';
 
 class CRUD<T> {
 	protected root: string = '';
@@ -15,10 +16,10 @@ class CRUD<T> {
 		return this.root + id;
 	}
 
-	public async read(): Promise<Array<T>>;
 	public async read(id: number): Promise<T>;
-	public async read(parameters: CRUDGetParameters): Promise<CRUDGetResponse<T>>;
-	public async read(arg?: number | CRUDGetParameters) {
+	public async read(parameters?: CRUDGetParameters): Promise<Array<T>>;
+	public async read(parameters?: CRUDPaginationParameters): Promise<CRUDPaginationResponse<T>>;
+	public async read(arg?: number | CRUDGetParameters | CRUDPaginationParameters) {
 		let response: AxiosResponse;
 
 		if(arg != null && typeof arg == 'number')

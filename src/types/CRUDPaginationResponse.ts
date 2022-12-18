@@ -1,8 +1,8 @@
 import Product from '@/models/product';
 
-type CRUDGetResponse<T> = {
+type CRUDPaginationResponse<T> = {
 	results: Array<T>,
 	count: number
 }
 
-export default CRUDGetResponse;
+export default CRUDPaginationResponse;
