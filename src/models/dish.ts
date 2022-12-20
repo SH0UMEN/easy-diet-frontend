@@ -5,7 +5,8 @@ import User from '@/models/user';
 interface Dish extends IModel {
 	dishProductRelations: Array<DishProductRelation>;
 	image: File | string | null;
-	description?: string;
+	descriptionShort?: string;
+	descriptionFull?: string;
 	author?: User;
 	title: string;
 }

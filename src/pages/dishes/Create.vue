@@ -4,7 +4,7 @@
 			<v-form @submit.prevent="onSubmit" v-model="valid">
 				<h2 class="text-center mb-6">{{ t('dishes.create.title') }}</h2>
 				<v-text-field v-model="dish.title" :rules="titleRules" :label="t('dishes.create.form.title')" variant="solo" class="mb-2"></v-text-field>
-				<v-textarea v-model="dish.description"
+				<v-textarea v-model="dish.descriptionShort"
 							:rules="descriptionRules"
 							ref="description"
 							:label="t('dishes.create.form.description')"
@@ -75,7 +75,7 @@
 
 	const { t } = useI18n();
 
-	const dish = reactive<Dish>({ title: '', description: '', image: null, dishProductRelations: [] });
+	const dish = reactive<Dish>({ title: '', descriptionShort: '', image: null, dishProductRelations: [] });
 	const titleRules = reactive([ValidationService.required(t), ValidationService.lessThanOrEqualTo(t, 30)]);
 	const descriptionRules = reactive([ValidationService.lessThanOrEqualTo(t, 300)]);
 	const imageRules = reactive([ValidationService.requiredFile(t)]);

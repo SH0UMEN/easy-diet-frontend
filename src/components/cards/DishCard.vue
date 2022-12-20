@@ -18,12 +18,10 @@
 			</v-row>
 
 			<!--						<div class="my-4 text-subtitle-1">$ • Italian, Cafe</div>-->
-			<div>{{ dish.description }}</div>
+			<div>{{ dish.descriptionShort }}</div>
 		</v-card-text>
 
-		<v-card-actions>
-			<v-btn color="deep-purple-lighten-2" variant="text">Reserve</v-btn>
-		</v-card-actions>
+		<slot name="actions"></slot>
 	</v-card>
 </template>
 

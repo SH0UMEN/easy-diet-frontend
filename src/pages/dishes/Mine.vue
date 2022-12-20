@@ -27,7 +27,13 @@
 
 		<v-row>
 			<v-col cols="12" sm="6" md="4" xl="3" v-for="dish in dishes">
-				<dish-card :to="{ name: '' }" :dish="dish" class="fill-height"></dish-card>
+				<dish-card :to="{ name: '' }" :dish="dish" class="fill-height">
+					<template v-slot:actions>
+						<v-card-actions class="justify-end">
+							<v-btn color="red-accent-2" variant="text">{{ t('dishes.mine.delete') }}</v-btn>
+						</v-card-actions>
+					</template>
+				</dish-card>
 			</v-col>
 		</v-row>
 	</v-container>
@@ -46,6 +52,7 @@
 	const dishes = ref<Array<Dish>>([]);
 	const search = ref('');
 
+	const service = new DishService();
 	const { user } = storeToRefs(useStore());
 	const { t } = useI18n();
 
@@ -53,6 +60,6 @@
 		if(user.value == null)
 			return router.push({ name: 'login' });
 
-		dishes.value = await new DishService().read({ author: user.value.id });
+		dishes.value = await service.read({ author: user.value.id });
 	});
 </script>

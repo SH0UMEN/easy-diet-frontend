@@ -63,7 +63,8 @@
 		},
 
 		"mine": {
-			"title": "My dishes"
+			"title": "My dishes",
+			"delete": "Delete"
 		},
 
 		"create": {
