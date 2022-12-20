@@ -12,7 +12,7 @@ class CRUD<T> {
 		return this.root;
 	}
 
-	protected getDetailsUrl(id: (number | string)): string {
+	protected getDetailsAndDeleteUrl(id: (number | string)): string {
 		return this.root + id;
 	}
 
@@ -23,7 +23,7 @@ class CRUD<T> {
 		let response: AxiosResponse;
 
 		if(arg != null && typeof arg == 'number')
-			response = await axios.get(this.getDetailsUrl(arg));
+			response = await axios.get(this.getDetailsAndDeleteUrl(arg));
 		else
 			response = await axios.get(this.getListAndCreateUrl(), { params: arg });
 
@@ -32,6 +32,10 @@ class CRUD<T> {
 
 	async create(data: T): Promise<T> {
 		return (await axios.post(this.getListAndCreateUrl(), this.serializer.toFormData(data))).data;
+	}
+
+	async delete(id: number) {
+		await axios.delete(this.getDetailsAndDeleteUrl(id));
 	}
 }
 

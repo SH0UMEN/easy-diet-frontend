@@ -30,7 +30,7 @@
 				<dish-card :to="{ name: '' }" :dish="dish" class="fill-height">
 					<template v-slot:actions>
 						<v-card-actions class="justify-end">
-							<v-btn color="red-accent-2" variant="text">{{ t('dishes.mine.delete') }}</v-btn>
+							<v-btn @click="onDelete(dish.id)" color="red-accent-2" variant="text">{{ t('dishes.mine.delete') }}</v-btn>
 						</v-card-actions>
 					</template>
 				</dish-card>
@@ -56,10 +56,19 @@
 	const { user } = storeToRefs(useStore());
 	const { t } = useI18n();
 
-	onMounted(async () => {
+	const load = async () => {
+		dishes.value = await service.read({ author: user.value?.id });
+	}
+
+	const onDelete = async (id: number) => {
+		await service.delete(id);
+		load();
+	}
+
+	onMounted(() => {
 		if(user.value == null)
 			return router.push({ name: 'login' });
 
-		dishes.value = await service.read({ author: user.value.id });
+		load();
 	});
 </script>
