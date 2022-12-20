@@ -5,9 +5,16 @@
 				<h2 class="text-center mb-6">{{ t('dishes.create.title') }}</h2>
 				<v-text-field v-model="dish.title" :rules="titleRules" :label="t('dishes.create.form.title')" variant="solo" class="mb-2"></v-text-field>
 				<v-textarea v-model="dish.descriptionShort"
-							:rules="descriptionRules"
-							ref="description"
-							:label="t('dishes.create.form.description')"
+							:rules="descriptionShortRules"
+							ref="descriptionShort"
+							:label="t('dishes.create.form.description.short')"
+							variant="solo"
+							class="mb-2">
+				</v-textarea>
+				<v-textarea v-model="dish.descriptionFull"
+							:rules="descriptionFullRules"
+							ref="descriptionFull"
+							:label="t('dishes.create.form.description.full')"
 							variant="solo"
 							class="mb-2">
 				</v-textarea>
@@ -24,8 +31,8 @@
 				<product-selector :label="t('dishes.create.form.product.label')" @selected="onProductSelected" class="mb-2"></product-selector>
 
 				<v-row>
-					<v-col v-for="relation in dish.dishProductRelations" cols="12" sm="6" class="grow mb-2">
-						<v-card class="fill-height">
+					<v-col v-for="(relation, i) in dish.dishProductRelations" cols="12" sm="6" class="grow mb-2">
+						<v-card class="d-flex flex-column fill-height">
 							<v-card-text class="d-flex flex-column fill-height">
 								<span class="text-subtitle-2">{{ relation.product.i18n[$i18n.locale].title }}</span>
 
@@ -45,6 +52,10 @@
 											  density="compact">
 								</v-text-field>
 							</v-card-text>
+
+							<v-card-actions class="justify-end">
+								<v-btn @click="remove(i)" color="red-accent-2" variant="text">{{ t('dishes.create.form.product.remove') }}</v-btn>
+							</v-card-actions>
 						</v-card>
 					</v-col>
 				</v-row>
@@ -75,12 +86,14 @@
 
 	const { t } = useI18n();
 
-	const dish = reactive<Dish>({ title: '', descriptionShort: '', image: null, dishProductRelations: [] });
+	const dish = reactive<Dish>({ title: '', descriptionShort: '', descriptionFull: '', image: null, dishProductRelations: [] });
 	const titleRules = reactive([ValidationService.required(t), ValidationService.lessThanOrEqualTo(t, 30)]);
-	const descriptionRules = reactive([ValidationService.lessThanOrEqualTo(t, 300)]);
+	const descriptionShortRules = reactive([ValidationService.lessThanOrEqualTo(t, 300)]);
+	const descriptionFullRules = reactive([ValidationService.lessThanOrEqualTo(t, 2000)]);
 	const imageRules = reactive([ValidationService.requiredFile(t)]);
 
-	const description = ref<any>(null);
+	const descriptionShort = ref<any>(null);
+	const descriptionFull = ref<any>(null);
 	const valid = ref(true);
 	const loading = ref(false);
 	const error = ref<string | null>(null);
@@ -91,6 +104,10 @@
 
 	const onImageSelected = (value: Array<File>) => {
 		dish.image = value[0];
+	};
+
+	const remove = (index: number) => {
+		dish.dishProductRelations.splice(index, 1);
 	};
 
 	const onSubmit = async () => {
@@ -107,6 +124,7 @@
 	};
 
 	onMounted(() => {
-		description.value.validate();
+		descriptionShort.value.validate();
+		descriptionFull.value.validate();
 	});
 </script>

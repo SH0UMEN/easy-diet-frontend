@@ -73,11 +73,15 @@
 
 			"form": {
 				"title": "Dish title",
-				"description": "Description",
+				"description": {
+					"short": "Short description",
+					"full": "Full description"
+				},
 				"image": "Dish thumbnail",
 				"product": {
 					"label": "Add ingredient",
-					"noData": "Enter the text to find some ingredients"
+					"noData": "Enter the text to find some ingredients",
+					"remove": "Remove"
 				},
 				"submit": "Create"
 			}
