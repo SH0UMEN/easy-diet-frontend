@@ -4,6 +4,13 @@
 			<v-form @submit.prevent="onSubmit" v-model="valid">
 				<h2 class="text-center mb-6">{{ t('dishes.create.title') }}</h2>
 				<v-text-field v-model="dish.title" :rules="titleRules" :label="t('dishes.create.form.title')" variant="solo" class="mb-2"></v-text-field>
+				<v-textarea v-model="dish.description"
+							:rules="descriptionRules"
+							ref="description"
+							:label="t('dishes.create.form.description')"
+							variant="solo"
+							class="mb-2">
+				</v-textarea>
 				<v-file-input :label="t('dishes.create.form.image')"
 							  @update:modelValue="onImageSelected"
 							  :rules="imageRules"
@@ -14,7 +21,6 @@
 							  outlined
 							  dense>
 				</v-file-input>
-
 				<product-selector :label="t('dishes.create.form.product.label')" @selected="onProductSelected" class="mb-2"></product-selector>
 
 				<v-row>
@@ -22,14 +28,15 @@
 						<v-card class="fill-height">
 							<v-card-text class="d-flex flex-column fill-height">
 								<span class="text-subtitle-2">{{ relation.product.i18n[$i18n.locale].title }}</span>
+
 								<v-card-subtitle class="pl-0">
 									<span class="mr-5">{{ t('products.kcal') }}: {{ relation.product.kcal }}</span>
 									<span class="mr-5">{{ t('products.protein') }}: {{ relation.product.protein }}</span>
 									<span class="mr-5">{{ t('products.fat') }}: {{ relation.product.fat }}</span>
 									<span>{{ t('products.carbohydrate') }}: {{ relation.product.carbohydrate }}</span>
 								</v-card-subtitle>
-								<v-spacer></v-spacer>
 
+								<v-spacer></v-spacer>
 								<v-text-field :hide-details="true"
 											  v-model.number="relation.grams"
 											  type="number"
@@ -50,7 +57,6 @@
 					   block>
 					{{ t('dishes.create.form.submit') }}
 				</v-btn>
-
 				<v-alert class="mt-6" v-if="error != null" type="error">{{ error }}</v-alert>
 			</v-form>
 		</v-container>
@@ -59,8 +65,8 @@
 
 <script setup lang="ts">
 	import ProductSelector from '@/components/forms/controls/ProductSelector.vue';
+	import { onMounted, reactive, ref } from 'vue';
 	import { useI18n } from 'vue-i18n';
-	import { reactive, ref } from 'vue';
 	import ValidationService from '@/services/validation';
 	import DishService from '@/services/dish';
 	import Product from '@/models/product';
@@ -69,11 +75,13 @@
 
 	const { t } = useI18n();
 
-	const dish = reactive<Dish>({ title: '', image: null, dishProductRelations: [] });
-	const titleRules = reactive([ValidationService.required(t)]);
+	const dish = reactive<Dish>({ title: '', description: '', image: null, dishProductRelations: [] });
+	const titleRules = reactive([ValidationService.required(t), ValidationService.lessThanOrEqualTo(t, 30)]);
+	const descriptionRules = reactive([ValidationService.lessThanOrEqualTo(t, 300)]);
 	const imageRules = reactive([ValidationService.requiredFile(t)]);
 
-	const valid = ref(false);
+	const description = ref<any>(null);
+	const valid = ref(true);
 	const loading = ref(false);
 	const error = ref<string | null>(null);
 
@@ -92,9 +100,13 @@
 			await new DishService().create(dish);
 			router.push({ name: 'dishes-mine' });
 		} catch(e) {
-			error.value = 'Неизвестная ошибка';
+			error.value = t('errors.unknown');
 		}
 
 		loading.value = false;
 	};
+
+	onMounted(() => {
+		description.value.validate();
+	});
 </script>

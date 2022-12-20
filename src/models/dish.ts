@@ -1,10 +1,12 @@
-import IModel from '@/models/model';
 import DishProductRelation from '@/models/dish-product-relation';
+import IModel from '@/models/model';
+import User from '@/models/user';
 
 interface Dish extends IModel {
 	dishProductRelations: Array<DishProductRelation>;
 	image: File | string | null;
-	author?: string;
+	description?: string;
+	author?: User;
 	title: string;
 }
 

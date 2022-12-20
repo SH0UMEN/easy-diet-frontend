@@ -64,6 +64,7 @@
 
 			"form": {
 				"title": "Dish title",
+				"description": "Description",
 				"image": "Dish thumbnail",
 				"product": {
 					"label": "Add ingredient",

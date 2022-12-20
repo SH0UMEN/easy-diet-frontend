@@ -11,23 +11,30 @@
 			</v-col>
 
 			<v-col cols="12" sm="6" md="4" xl="3" v-for="dish in dishes">
-				<v-card>
-					<v-img class="align-end text-white" height="200" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg" cover>
-						<v-card-title>{{ dish.title }}</v-card-title>
-					</v-img>
+				<v-card :to="{ name: '' }" max-width="374" class="mx-auto">
+					<v-img :src="dish.image" cover height="250"></v-img>
 
-					<v-card-subtitle class="pt-4">
-						Number 10
-					</v-card-subtitle>
+					<v-card-item>
+						<v-card-title>{{ dish.title }}</v-card-title>
+
+						<v-card-subtitle>
+							<span class="mr-1">{{ dish.author?.username }}</span>
+							<v-icon color="error" icon="mdi-fire-circle" size="small"></v-icon>
+						</v-card-subtitle>
+					</v-card-item>
 
 					<v-card-text>
-						<div>Whitehaven Beach</div>
-						<div>Whitsunday Island, Whitsunday Islands</div>
+						<v-row align="center" class="mx-0 mb-4">
+							<v-rating :model-value="4.5" color="amber" density="compact" half-increments readonly size="small"></v-rating>
+							<div class="text-grey ms-4">4.5 (413)</div>
+						</v-row>
+
+<!--						<div class="my-4 text-subtitle-1">$ • Italian, Cafe</div>-->
+						<div>{{ dish.description }}</div>
 					</v-card-text>
 
 					<v-card-actions>
-						<v-btn color="orange">Share</v-btn>
-						<v-btn color="orange">Explore</v-btn>
+						<v-btn color="deep-purple-lighten-2" variant="text">Reserve</v-btn>
 					</v-card-actions>
 				</v-card>
 			</v-col>
@@ -36,27 +43,23 @@
 </template>
 
 <script setup lang="ts">
-	import { onBeforeMount, reactive } from 'vue';
+	import { onMounted, ref } from 'vue';
 	import { storeToRefs } from 'pinia';
 	import { useI18n } from 'vue-i18n';
-	import router from '@/router';
-	import useStore from '@/store/auth';
 	import DishService from '@/services/dish';
+	import useStore from '@/store/auth';
 	import Dish from '@/models/dish';
+	import router from '@/router';
 
-	const dishes = reactive<Array<Dish>>([]);
+	const dishes = ref<Array<Dish>>([]);
 
 	const { user } = storeToRefs(useStore());
 	const { t } = useI18n();
 
-	onBeforeMount(async () => {
+	onMounted(async () => {
 		if(user.value == null)
 			return router.push({ name: 'login' });
 
-		const items = await new DishService().read({ author: user.value.id });
-
-		items.map((element) => {
-			dishes.push(element);
-		});
+		dishes.value = await new DishService().read({ author: user.value.id });
 	});
 </script>
