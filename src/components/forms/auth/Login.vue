@@ -32,20 +32,20 @@
 	import useStore from '@/store/auth';
 	import AuthService from '@/services/auth';
 
-	interface Props {
+	interface Properties {
 		username?: string;
 		password?: string;
 	}
 
 	const emit = defineEmits(['logged']);
-	const props = defineProps<Props>();
+	const properties = defineProps<Properties>();
 
 	const service = new AuthService();
 	const store = useStore();
 	const { t } = useI18n();
 
-	const username = ref(props.username || '');
-	const password = ref(props.password || '');
+	const username = ref(properties.username || '');
+	const password = ref(properties.password || '');
 	const error = ref<string | null>(null);
 	const isLoading = ref(false);
 	const isValid = ref(false);

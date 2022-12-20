@@ -21,20 +21,20 @@
 	import { defineEmits, defineProps, reactive, ref } from 'vue';
 	import { useI18n } from 'vue-i18n';
 
-	interface Props {
+	interface Properties {
 		username?: string;
 		password?: string;
 	}
 
 	const emit = defineEmits(['registered']);
-	const props = defineProps<Props>();
+	const properties = defineProps<Properties>();
 
 	const { t } = useI18n();
 
 	const usernameRules = reactive(ValidationService.username(t));
 
-	const username = ref(props.username || '');
-	const password = ref(props.password || '');
+	const username = ref(properties.username || '');
+	const password = ref(properties.password || '');
 	const error = ref<string | null>(null);
 	const isValid = ref(false);
 	const isLoading = ref(false);

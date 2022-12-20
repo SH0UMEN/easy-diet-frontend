@@ -24,20 +24,20 @@
 	import { defineProps, reactive, ref } from 'vue';
 	import { useI18n } from 'vue-i18n';
 
-	interface Props {
+	interface Properties {
 		modelValue?: string;
 	}
 
 	const emit = defineEmits(['update:modelValue']);
-	const props = defineProps<Props>();
+	const properties = defineProps<Properties>();
 
 	const { t } = useI18n();
 
 	const passwordRules = reactive(ValidationService.password(t));
 	const passwordErrors = reactive<Array<string>>([]);
 
-	const password = ref(props.modelValue);
-	const repeatedPassword = ref(props.modelValue);
+	const password = ref(properties.modelValue);
+	const repeatedPassword = ref(properties.modelValue);
 
 	const onPasswordInput = () => {
 		passwordErrors.pop();

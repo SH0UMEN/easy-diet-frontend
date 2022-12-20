@@ -58,6 +58,14 @@
 	},
 
 	"dishes": {
+		"list": {
+			"search": "Enter search text"
+		},
+
+		"mine": {
+			"title": "My dishes"
+		},
+
 		"create": {
 			"floating": "Create new dish",
 			"title": "Create your new dish",

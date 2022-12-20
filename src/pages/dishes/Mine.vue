@@ -1,48 +1,40 @@
 <template>
 	<v-container>
 		<v-row>
-			<v-col cols="12" sm="6" md="4" xl="3" class="grow" v-if="!$vuetify.display.mobile">
-				<v-card :to="{ name: 'dishes-create' }" color="yellow-accent-3" class="d-flex fill-height align-center justify-center">
-					<v-card-title class="d-flex flex-column align-center">
-						<v-icon class="text-h3">mdi-plus-circle</v-icon>
-						{{ t('dishes.create.floating') }}
-					</v-card-title>
-				</v-card>
+			<v-col>
+				<h2 class="text-center mb-4">{{ t('dishes.mine.title') }}</h2>
 			</v-col>
+		</v-row>
 
+		<v-row>
+			<v-col>
+				<v-text-field v-model="search" :label="t('dishes.list.search')" variant="solo" hide-details class="mb-3"></v-text-field>
+			</v-col>
+		</v-row>
+
+		<v-row>
+			<v-col>
+				<v-btn :to="{ name: 'dishes-create' }"
+					   v-if="!$vuetify.display.mobile"
+					   color="yellow-accent-3"
+					   class="mb-3"
+					   size="large"
+					   block>
+					{{ t('dishes.create.floating') }}
+				</v-btn>
+			</v-col>
+		</v-row>
+
+		<v-row>
 			<v-col cols="12" sm="6" md="4" xl="3" v-for="dish in dishes">
-				<v-card :to="{ name: '' }" max-width="374" class="mx-auto">
-					<v-img :src="dish.image" cover height="250"></v-img>
-
-					<v-card-item>
-						<v-card-title>{{ dish.title }}</v-card-title>
-
-						<v-card-subtitle>
-							<span class="mr-1">{{ dish.author?.username }}</span>
-							<v-icon color="error" icon="mdi-fire-circle" size="small"></v-icon>
-						</v-card-subtitle>
-					</v-card-item>
-
-					<v-card-text>
-						<v-row align="center" class="mx-0 mb-4">
-							<v-rating :model-value="4.5" color="amber" density="compact" half-increments readonly size="small"></v-rating>
-							<div class="text-grey ms-4">4.5 (413)</div>
-						</v-row>
-
-<!--						<div class="my-4 text-subtitle-1">$ • Italian, Cafe</div>-->
-						<div>{{ dish.description }}</div>
-					</v-card-text>
-
-					<v-card-actions>
-						<v-btn color="deep-purple-lighten-2" variant="text">Reserve</v-btn>
-					</v-card-actions>
-				</v-card>
+				<dish-card :to="{ name: '' }" :dish="dish" class="fill-height"></dish-card>
 			</v-col>
 		</v-row>
 	</v-container>
 </template>
 
 <script setup lang="ts">
+	import DishCard from '@/components/cards/DishCard.vue';
 	import { onMounted, ref } from 'vue';
 	import { storeToRefs } from 'pinia';
 	import { useI18n } from 'vue-i18n';
@@ -52,6 +44,7 @@
 	import router from '@/router';
 
 	const dishes = ref<Array<Dish>>([]);
+	const search = ref('');
 
 	const { user } = storeToRefs(useStore());
 	const { t } = useI18n();
