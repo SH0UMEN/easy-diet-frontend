@@ -2,7 +2,12 @@
 	<v-responsive max-width="768" class="mx-auto px-2 pt-4 pt-sm-12">
 		<v-container>
 			<h2 class="text-center mb-6">{{ t('dishes.create.title') }}</h2>
-			<dish-form @submit.prevent="onSubmit" v-model:dish="dish" :submit-text="t('dishes.create.form.submit')"></dish-form>
+			<dish-form @submit.prevent="onSubmit"
+					   :submit-text="t('dishes.create.form.submit')"
+					   v-model:dish="dish"
+					   :loading="loading"
+					   :errors="errors">
+			</dish-form>
 		</v-container>
 	</v-responsive>
 </template>
@@ -23,6 +28,7 @@
 	const errors = reactive<Array<string>>([]);
 
 	const onSubmit = async () => {
+		errors.splice(0, errors.length);
 		loading.value = true;
 
 		try {

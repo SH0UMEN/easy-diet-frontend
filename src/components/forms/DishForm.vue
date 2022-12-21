@@ -57,7 +57,7 @@
 <script setup lang="ts">
 	import ProductSelector from '@/components/controls/ProductSelector.vue';
 	import ProductCard from '@/components/cards/ProductCard.vue';
-	import { defineProps, onMounted, reactive, ref } from 'vue';
+	import { computed, defineProps, onMounted, reactive, ref } from 'vue';
 	import { useI18n } from 'vue-i18n';
 	import ValidationService from '@/services/validation';
 	import Product from '@/models/product';
@@ -83,6 +83,8 @@
 	const imageRules = reactive([ValidationService.requiredFile(t)]);
 	const errors = reactive<Array<string>>(properties.errors);
 	const dish = reactive(properties.dish);
+
+	const loading = computed(() => properties.loading);
 
 	const onProductSelected = (value: Product) => {
 		dish.dishProductRelations.push({ product: value, grams: 0 });

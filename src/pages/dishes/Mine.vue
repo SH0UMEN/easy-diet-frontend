@@ -8,18 +8,13 @@
 
 		<v-row>
 			<v-col>
-				<v-text-field v-model="search" :label="t('dishes.list.search')" variant="solo" hide-details class="mb-3"></v-text-field>
+				<v-text-field v-model="search" :label="t('dishes.list.search')" variant="solo" hide-details class="mb-1"></v-text-field>
 			</v-col>
 		</v-row>
 
-		<v-row>
+		<v-row v-if="!$vuetify.display.mobile">
 			<v-col>
-				<v-btn :to="{ name: 'dishes-create' }"
-					   v-if="!$vuetify.display.mobile"
-					   color="yellow-accent-3"
-					   class="mb-3"
-					   size="large"
-					   block>
+				<v-btn :to="{ name: 'dishes-create' }" color="yellow-accent-3" class="mb-1" size="large" block>
 					{{ t('dishes.create.floating') }}
 				</v-btn>
 			</v-col>
