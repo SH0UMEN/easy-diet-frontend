@@ -55,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-	import ProductSelector from '@/components/forms/controls/ProductSelector.vue';
+	import ProductSelector from '@/components/controls/ProductSelector.vue';
 	import ProductCard from '@/components/cards/ProductCard.vue';
 	import { defineProps, onMounted, reactive, ref } from 'vue';
 	import { useI18n } from 'vue-i18n';

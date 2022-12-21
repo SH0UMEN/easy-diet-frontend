@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-	import Password from '@/components/forms/controls/Password.vue';
+	import Password from '@/components/controls/Password.vue';
 	import ValidationService from '@/services/validation';
 	import { computed, defineEmits, defineProps, reactive, ref, withDefaults } from 'vue';
 	import { wrapModel } from '@/utils';
