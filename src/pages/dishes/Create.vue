@@ -1,130 +1,19 @@
 <template>
 	<v-responsive max-width="768" class="mx-auto px-2 pt-4 pt-sm-12">
 		<v-container>
-			<v-form @submit.prevent="onSubmit" v-model="valid">
-				<h2 class="text-center mb-6">{{ t('dishes.create.title') }}</h2>
-				<v-text-field v-model="dish.title" :rules="titleRules" :label="t('dishes.create.form.title')" variant="solo" class="mb-2"></v-text-field>
-				<v-textarea v-model="dish.descriptionShort"
-							:rules="descriptionShortRules"
-							ref="descriptionShort"
-							:label="t('dishes.create.form.description.short')"
-							variant="solo"
-							class="mb-2">
-				</v-textarea>
-				<v-textarea v-model="dish.descriptionFull"
-							:rules="descriptionFullRules"
-							ref="descriptionFull"
-							:label="t('dishes.create.form.description.full')"
-							variant="solo"
-							class="mb-2">
-				</v-textarea>
-				<v-file-input :label="t('dishes.create.form.image')"
-							  @update:modelValue="onImageSelected"
-							  :rules="imageRules"
-							  accept="image/png,image/jpeg,image/bmp"
-							  prepend-icon="mdi-camera"
-							  variant="solo"
-							  class="mb-2"
-							  outlined
-							  dense>
-				</v-file-input>
-				<product-selector :label="t('dishes.create.form.product.label')" @selected="onProductSelected" class="mb-2"></product-selector>
-
-				<v-row>
-					<v-col v-for="(relation, i) in dish.dishProductRelations" cols="12" sm="6" class="grow mb-2">
-						<v-card class="d-flex flex-column fill-height">
-							<v-card-text class="d-flex flex-column fill-height">
-								<span class="text-subtitle-2">{{ relation.product.i18n[$i18n.locale].title }}</span>
-
-								<v-card-subtitle class="pl-0">
-									<span class="mr-5">{{ t('products.kcal') }}: {{ relation.product.kcal }}</span>
-									<span class="mr-5">{{ t('products.protein') }}: {{ relation.product.protein }}</span>
-									<span class="mr-5">{{ t('products.fat') }}: {{ relation.product.fat }}</span>
-									<span>{{ t('products.carbohydrate') }}: {{ relation.product.carbohydrate }}</span>
-								</v-card-subtitle>
-
-								<v-spacer></v-spacer>
-								<v-text-field :hide-details="true"
-											  v-model.number="relation.grams"
-											  type="number"
-											  variant="outlined"
-											  class="flex-grow-0 mt-2"
-											  density="compact">
-								</v-text-field>
-							</v-card-text>
-
-							<v-card-actions class="justify-end">
-								<v-btn @click="remove(i)" color="red-accent-2" variant="text">{{ t('dishes.create.form.product.remove') }}</v-btn>
-							</v-card-actions>
-						</v-card>
-					</v-col>
-				</v-row>
-
-				<v-btn :disabled="!valid || dish.dishProductRelations.length == 0 || loading"
-					   :loading="loading"
-					   type="submit"
-					   class="mt-6"
-					   color="yellow-accent-3"
-					   block>
-					{{ t('dishes.create.form.submit') }}
-				</v-btn>
-				<v-alert class="mt-6" v-if="error != null" type="error">{{ error }}</v-alert>
-			</v-form>
+			<h2 class="text-center mb-6">{{ t('dishes.create.title') }}</h2>
+			<dish-form v-model:dish="dish"></dish-form>
 		</v-container>
 	</v-responsive>
 </template>
 
 <script setup lang="ts">
-	import ProductSelector from '@/components/forms/controls/ProductSelector.vue';
-	import { onMounted, reactive, ref } from 'vue';
+	import DishForm from '@/components/forms/DishForm.vue';
+	import { reactive } from 'vue';
 	import { useI18n } from 'vue-i18n';
-	import ValidationService from '@/services/validation';
-	import DishService from '@/services/dish';
-	import Product from '@/models/product';
 	import Dish from '@/models/dish';
-	import router from '@/router';
 
 	const { t } = useI18n();
 
 	const dish = reactive<Dish>({ title: '', descriptionShort: '', descriptionFull: '', image: null, dishProductRelations: [] });
-	const titleRules = reactive([ValidationService.required(t), ValidationService.lessThanOrEqualTo(t, 30)]);
-	const descriptionShortRules = reactive([ValidationService.lessThanOrEqualTo(t, 300)]);
-	const descriptionFullRules = reactive([ValidationService.lessThanOrEqualTo(t, 2000)]);
-	const imageRules = reactive([ValidationService.requiredFile(t)]);
-
-	const descriptionShort = ref<any>(null);
-	const descriptionFull = ref<any>(null);
-	const valid = ref(true);
-	const loading = ref(false);
-	const error = ref<string | null>(null);
-
-	const onProductSelected = (value: Product) => {
-		dish.dishProductRelations.push({ product: value, grams: 0 });
-	};
-
-	const onImageSelected = (value: Array<File>) => {
-		dish.image = value[0];
-	};
-
-	const remove = (index: number) => {
-		dish.dishProductRelations.splice(index, 1);
-	};
-
-	const onSubmit = async () => {
-		loading.value = true;
-
-		try {
-			await new DishService().create(dish);
-			router.push({ name: 'dishes-mine' });
-		} catch(e) {
-			error.value = t('errors.unknown');
-		}
-
-		loading.value = false;
-	};
-
-	onMounted(() => {
-		descriptionShort.value.validate();
-		descriptionFull.value.validate();
-	});
 </script>
