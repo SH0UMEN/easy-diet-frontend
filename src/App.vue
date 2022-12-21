@@ -4,7 +4,7 @@
 		<navigation v-model="showNavigation"></navigation>
 
 		<v-main>
-			<router-view/>
+			<router-view class="py-6 py-sm-12"/>
 		</v-main>
 	</v-app>
 </template>

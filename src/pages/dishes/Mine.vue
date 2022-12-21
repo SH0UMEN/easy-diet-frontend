@@ -2,7 +2,7 @@
 	<v-container>
 		<v-row>
 			<v-col>
-				<h2 class="text-center mb-4">{{ t('dishes.mine.title') }}</h2>
+				<h2 class="text-center">{{ t('dishes.mine.title') }}</h2>
 			</v-col>
 		</v-row>
 

@@ -1,5 +1,5 @@
 <template>
-	<v-responsive max-width="512" class="mx-auto pa-6 pt-4 pt-sm-12">
+	<v-responsive max-width="512" class="mx-auto pa-6 fill-height d-flex align-center">
 		<router-view></router-view>
 	</v-responsive>
 </template>
