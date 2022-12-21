@@ -13,6 +13,7 @@
 					  :rules="passwordRules"
 					  v-model="repeatedPassword"
 					  @input="onPasswordInput"
+					  v-if="repeat"
 					  variant="solo"
 					  type="password">
 		</v-text-field>
@@ -26,10 +27,11 @@
 
 	interface Properties {
 		modelValue?: string;
+		repeat: boolean;
 	}
 
 	const emit = defineEmits(['update:modelValue']);
-	const properties = defineProps<Properties>();
+	const properties = withDefaults(defineProps<Properties>(), { repeat: false });
 
 	const { t } = useI18n();
 

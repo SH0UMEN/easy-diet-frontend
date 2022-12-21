@@ -1,5 +1,5 @@
 <template>
-	<v-form @submit.prevent="onSubmit" v-model="valid">
+	<v-form v-model="valid">
 		<v-text-field v-model="dish.title" :rules="titleRules" :label="t('dishes.create.form.title')" variant="solo" class="mb-2"></v-text-field>
 		<v-textarea v-model="dish.descriptionShort"
 					:rules="descriptionShortRules"
@@ -45,9 +45,12 @@
 			   class="mt-6"
 			   color="yellow-accent-3"
 			   block>
-			{{ t('dishes.create.form.submit') }}
+			{{ submitText }}
 		</v-btn>
-		<v-alert class="mt-6" v-if="error != null" type="error">{{ error }}</v-alert>
+
+		<div v-if="errors.length > 0">
+			<v-alert v-for="error in errors" class="mt-6" type="error">{{ error }}</v-alert>
+		</div>
 	</v-form>
 </template>
 
@@ -55,23 +58,22 @@
 	import ProductSelector from '@/components/forms/controls/ProductSelector.vue';
 	import ProductCard from '@/components/cards/ProductCard.vue';
 	import { defineProps, onMounted, reactive, ref } from 'vue';
-	import Dish from '@/models/dish';
-	import ValidationService from '@/services/validation';
 	import { useI18n } from 'vue-i18n';
+	import ValidationService from '@/services/validation';
 	import Product from '@/models/product';
-	import DishService from '@/services/dish';
-	import router from '@/router';
+	import Dish from '@/models/dish';
 
-	interface Properties {
+	interface IProperties {
+		errors: Array<string>;
+		submitText: string;
+		loading: boolean;
 		dish: Dish;
 	}
 
-	const properties = defineProps<Properties>();
+	const properties = withDefaults(defineProps<IProperties>(), { loading: false, submitText: '', errors: () => [] });
 	const { t } = useI18n();
 
 	const valid = ref(true);
-	const loading = ref(false);
-	const error = ref<string | null>(null);
 	const descriptionShort = ref<any>(null);
 	const descriptionFull = ref<any>(null);
 
@@ -79,6 +81,7 @@
 	const descriptionShortRules = reactive([ValidationService.lessThanOrEqualTo(t, 300)]);
 	const descriptionFullRules = reactive([ValidationService.lessThanOrEqualTo(t, 2000)]);
 	const imageRules = reactive([ValidationService.requiredFile(t)]);
+	const errors = reactive<Array<string>>(properties.errors);
 	const dish = reactive(properties.dish);
 
 	const onProductSelected = (value: Product) => {
@@ -91,19 +94,6 @@
 
 	const remove = (index: number) => {
 		dish.dishProductRelations.splice(index, 1);
-	};
-
-	const onSubmit = async () => {
-		loading.value = true;
-
-		try {
-			await new DishService().create(dish);
-			router.push({ name: 'dishes-mine' });
-		} catch(e) {
-			error.value = t('errors.unknown');
-		}
-
-		loading.value = false;
 	};
 
 	onMounted(() => {

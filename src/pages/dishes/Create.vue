@@ -2,18 +2,36 @@
 	<v-responsive max-width="768" class="mx-auto px-2 pt-4 pt-sm-12">
 		<v-container>
 			<h2 class="text-center mb-6">{{ t('dishes.create.title') }}</h2>
-			<dish-form v-model:dish="dish"></dish-form>
+			<dish-form @submit.prevent="onSubmit" v-model:dish="dish" :submit-text="t('dishes.create.form.submit')"></dish-form>
 		</v-container>
 	</v-responsive>
 </template>
 
 <script setup lang="ts">
 	import DishForm from '@/components/forms/DishForm.vue';
-	import { reactive } from 'vue';
+	import { reactive, ref } from 'vue';
 	import { useI18n } from 'vue-i18n';
+	import DishService from '@/services/dish';
 	import Dish from '@/models/dish';
+	import router from '@/router';
 
 	const { t } = useI18n();
 
+	const loading = ref(false);
+
 	const dish = reactive<Dish>({ title: '', descriptionShort: '', descriptionFull: '', image: null, dishProductRelations: [] });
+	const errors = reactive<Array<string>>([]);
+
+	const onSubmit = async () => {
+		loading.value = true;
+
+		try {
+			await new DishService().create(dish);
+			router.push({ name: 'dishes-mine' });
+		} catch(e) {
+			errors.push(t('errors.unknown'));
+		}
+
+		loading.value = false;
+	};
 </script>
