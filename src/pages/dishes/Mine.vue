@@ -36,8 +36,9 @@
 
 <script setup lang="ts">
 	import DishCard from '@/components/cards/DishCard.vue';
-	import { onMounted, ref } from 'vue';
+	import { onMounted, ref, watch } from 'vue';
 	import { storeToRefs } from 'pinia';
+	import { debounce } from '@/utils';
 	import { useI18n } from 'vue-i18n';
 	import DishService from '@/services/dish';
 	import useStore from '@/store/auth';
@@ -52,13 +53,17 @@
 	const { t } = useI18n();
 
 	const load = async () => {
-		dishes.value = await service.read({ author: user.value?.id });
-	}
+		dishes.value = await service.read({ author: user.value?.id, search: search.value });
+	};
 
 	const onDelete = async (id: number) => {
 		await service.delete(id);
 		load();
-	}
+	};
+
+	const loadDebounced = debounce(load, 250);
+
+	watch(search, loadDebounced);
 
 	onMounted(() => {
 		if(user.value == null)
