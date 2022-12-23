@@ -4,12 +4,14 @@ import User from '@/models/user';
 
 type AuthState = StateTree & {
 	user: User | null;
+	userLoadingPromise: Promise<User> | null;
 }
 
 export default defineStore('auth', {
 	state(): AuthState {
 		return {
-			user: null
+			user: null,
+			userLoadingPromise: null
 		};
 	},
 	actions: {
@@ -23,7 +25,15 @@ export default defineStore('auth', {
 		},
 
 		async me(): Promise<void> {
-			this.user = await new AuthService().me();
+			this.userLoadingPromise = new AuthService().me();
+
+			try {
+				this.user = await this.userLoadingPromise;
+			} catch(e) {
+				this.user = null;
+			}
+
+			this.userLoadingPromise = null;
 		}
 	}
 });

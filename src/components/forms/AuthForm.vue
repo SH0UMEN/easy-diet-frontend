@@ -30,7 +30,7 @@
 	import { useI18n } from 'vue-i18n';
 
 	interface IProperties {
-		repeatPassword: boolean;
+		repeatPassword?: boolean;
 		errors: Array<string>;
 		submitText: string;
 		loading: boolean;

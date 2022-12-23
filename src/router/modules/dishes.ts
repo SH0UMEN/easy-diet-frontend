@@ -1,3 +1,5 @@
+import { toLoginIfNotAuthenticated } from '@/router/middleware';
+
 export default {
 	name: 'dishes',
 	path: '/dishes',
@@ -25,6 +27,7 @@ export default {
 			meta: {
 				title: 'titles.dishes.mine'
 			},
+			beforeEnter: toLoginIfNotAuthenticated,
 			component: () => import('@/pages/dishes/Mine.vue')
 		}
 	]

@@ -36,14 +36,14 @@
 
 <script setup lang="ts">
 	import DishCard from '@/components/cards/DishCard.vue';
-	import { onMounted, ref, watch } from 'vue';
+	import { onBeforeMount, ref, watch } from 'vue';
 	import { storeToRefs } from 'pinia';
 	import { debounce } from '@/utils';
 	import { useI18n } from 'vue-i18n';
 	import DishService from '@/services/dish';
 	import useStore from '@/store/auth';
 	import Dish from '@/models/dish';
-	import router from '@/router';
+	import CRUDGetParameters from '@/types/CRUDGetParameters';
 
 	const dishes = ref<Array<Dish>>([]);
 	const search = ref('');
@@ -53,7 +53,11 @@
 	const { t } = useI18n();
 
 	const load = async () => {
-		dishes.value = await service.read({ author: user.value?.id, search: search.value });
+		const parameters: CRUDGetParameters = { author: user.value?.id };
+		if(search.value != '')
+			parameters.search = search.value;
+
+		dishes.value = await service.read(parameters);
 	};
 
 	const onDelete = async (id: number) => {
@@ -65,10 +69,5 @@
 
 	watch(search, loadDebounced);
 
-	onMounted(() => {
-		if(user.value == null)
-			return router.push({ name: 'login' });
-
-		load();
-	});
+	onBeforeMount(load);
 </script>

@@ -1,11 +1,16 @@
 <template>
 	<v-app>
-		<app-bar v-if="$vuetify.display.mobile" @navToggled="onNavToggled"></app-bar>
-		<navigation v-model="showNavigation"></navigation>
+		<div v-if="loading" class="d-flex align-center justify-center fill-height">
+			<v-progress-circular size="60" :width="6" color="yellow-accent-2" indeterminate></v-progress-circular>
+		</div>
+		<template v-else>
+			<app-bar v-if="$vuetify.display.mobile" @navToggled="onNavToggled"></app-bar>
+			<navigation v-model="showNavigation"></navigation>
 
-		<v-main>
-			<router-view class="py-6 py-sm-12"/>
-		</v-main>
+			<v-main>
+				<router-view class="py-6 py-sm-12"/>
+			</v-main>
+		</template>
 	</v-app>
 </template>
 
@@ -19,6 +24,7 @@
 	import router from '@/router';
 
 	const showNavigation = ref(false);
+	const loading = ref(true);
 
 	const { t } = useI18n();
 
@@ -34,10 +40,11 @@
 		document.title = title;
 	};
 
+	router.beforeEach(updateTitle);
+
 	onBeforeMount(async () => {
-		try {
-			await useStore().me();
-		} catch(e) {}
+		await useStore().me();
+		loading.value = false;
 	});
 
 	onMounted(() => {
@@ -51,8 +58,6 @@
 			updateTitle(router.currentRoute.value);
 		});
 	});
-
-	router.beforeEach(updateTitle);
 </script>
 
 <style lang="sass">

@@ -14,11 +14,11 @@
 
 <script setup lang="ts">
 	import AuthForm from '@/components/forms/AuthForm.vue';
+	import { reactive, ref } from 'vue';
 	import { useI18n } from 'vue-i18n';
+	import AuthService from '@/services/auth';
 	import useStore from '@/store/auth';
 	import router from '@/router';
-	import AuthService from '@/services/auth';
-	import { reactive, ref } from 'vue';
 
 	const { t } = useI18n();
 	const service = new AuthService();
@@ -37,13 +37,14 @@
 		service.registration({ username: username.value, password: password.value }).then(async () => {
 			store.login(username.value, password.value).then(() => {
 				router.push({ name: 'dishes-mine' });
+				loading.value = false;
 			}).catch(() => {
 				router.push({ name: 'login' });
+				loading.value = false;
 			});
 		}).catch((e) => {
 			errors.push(t(service.handleErrors(e)));
+			loading.value = false;
 		});
-
-		loading.value = false;
 	};
 </script>
