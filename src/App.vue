@@ -1,8 +1,7 @@
 <template>
 	<v-app>
-		<div v-if="loading" class="d-flex align-center justify-center fill-height">
-			<v-progress-circular size="60" :width="6" color="yellow-accent-2" indeterminate></v-progress-circular>
-		</div>
+		<progress-circular v-if="loading"></progress-circular>
+
 		<template v-else>
 			<app-bar v-if="$vuetify.display.mobile" @navToggled="onNavToggled"></app-bar>
 			<navigation v-model="showNavigation"></navigation>
@@ -15,6 +14,7 @@
 </template>
 
 <script lang="ts" setup>
+	import ProgressCircular from '@/components/indicators/ProgressCircular.vue';
 	import Navigation from '@/components/app/Navigation.vue';
 	import AppBar from '@/components/app/AppBar.vue';
 	import { onBeforeMount, onMounted, ref, getCurrentInstance, watch } from 'vue';

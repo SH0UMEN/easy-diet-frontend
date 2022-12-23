@@ -64,7 +64,8 @@
 
 		"mine": {
 			"title": "My dishes",
-			"delete": "Delete"
+			"delete": "Delete",
+			"noData": "You have not created any dish"
 		},
 
 		"create": {
