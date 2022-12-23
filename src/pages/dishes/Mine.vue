@@ -3,7 +3,7 @@
 		<progress-circular v-if="initialLoading"></progress-circular>
 
 		<template v-else>
-			<div v-if="dishes.length == 0" class="d-flex justify-center align-center fill-height flex-column">
+			<div v-if="dishes.length == 0 && search == '' && !searching" class="d-flex justify-center align-center fill-height flex-column">
 				<span class="text-h6 mb-4">{{ t('dishes.mine.noData') }}</span>
 				<v-btn :to="{ name: 'dishes-create' }" color="yellow-accent-3">{{ t('dishes.create.floating') }}</v-btn>
 			</div>
@@ -17,7 +17,7 @@
 
 				<v-row>
 					<v-col>
-						<v-text-field v-model="search" :label="t('dishes.list.search')" variant="solo" hide-details class="mb-1"></v-text-field>
+						<v-text-field v-model="search" :label="t('dishes.list.search')" :loading="searching" variant="solo" hide-details class="mb-1"></v-text-field>
 					</v-col>
 				</v-row>
 
@@ -59,6 +59,7 @@
 
 	const dishes = ref<Array<Dish>>([]);
 	const initialLoading = ref(true);
+	const searching = ref(false);
 	const search = ref('');
 
 	const service = new DishService();
@@ -72,6 +73,7 @@
 
 		dishes.value = await service.read(parameters);
 		initialLoading.value = false;
+		searching.value = false;
 	};
 
 	const onDelete = async (id: number) => {
@@ -81,7 +83,10 @@
 
 	const loadDebounced = debounce(load, 250);
 
-	watch(search, loadDebounced);
+	watch(search, () => {
+		searching.value = true;
+		loadDebounced();
+	});
 
 	onBeforeMount(load);
 </script>
