@@ -10,7 +10,7 @@
 					variant="solo"
 					return-object
 					no-filter>
-		<template v-slot:item="{ props, item }">
+		<template #item="{ props, item }">
 			<v-list-item v-bind="props">
 				<v-list-item-subtitle>
 					<span class="mr-5">{{ t('products.kcal') }}: {{ item.raw.kcal }}</span>
@@ -21,7 +21,7 @@
 			</v-list-item>
 		</template>
 
-		<template v-slot:append-item>
+		<template #append-item>
 			<v-pagination :length="pageCount"
 						  :total-visible="$vuetify.display.mobile ? 1 : 7"
 						  v-if="pageCount > 1"

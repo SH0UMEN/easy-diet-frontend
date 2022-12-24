@@ -3,8 +3,9 @@ import CRUDPaginationResponse from '@/types/CRUDPaginationResponse';
 import CRUDGetParameters from '@/types/CRUDGetParameters';
 import Serializer from '@/serializers/serializer';
 import axios, { AxiosResponse } from 'axios';
+import IModel from '@/models/model';
 
-class CRUD<T> {
+class CRUD<T extends IModel = IModel> {
 	protected root: string = '';
 	protected serializer = new Serializer();
 

@@ -68,6 +68,11 @@
 			"noData": "You have not created any dish"
 		},
 
+		"all": {
+			"title": "All dishes",
+			"noData": "Nobody has created any dish on the platform"
+		},
+
 		"create": {
 			"floating": "Create new dish",
 			"title": "Create your new dish",

@@ -1,21 +1,17 @@
 <template>
-	<v-card class="mx-auto" max-width="400">
-		<v-img class="align-end text-white" height="200" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg" cover>
-			<v-card-title>Top 10 Australian beaches</v-card-title>
-		</v-img>
+	<dish-finder>
+		<template #title>{{ t('dishes.all.title') }}</template>
 
-		<v-card-subtitle class="pt-4">
-			Number 10
-		</v-card-subtitle>
-
-		<v-card-text>
-			<div>Whitehaven Beach</div>
-			<div>Whitsunday Island, Whitsunday Islands</div>
-		</v-card-text>
-
-		<v-card-actions>
-			<v-btn color="orange">Share</v-btn>
-			<v-btn color="orange">Explore</v-btn>
-		</v-card-actions>
-	</v-card>
+		<template #no-data>
+			<span class="text-h6 mb-4">{{ t('dishes.all.noData') }}</span>
+			<v-btn :to="{ name: 'dishes-create' }" color="yellow-accent-3">{{ t('dishes.create.floating') }}</v-btn>
+		</template>
+	</dish-finder>
 </template>
+
+<script setup lang="ts">
+	import DishFinder from '@/components/finders/DishFinder.vue';
+	import { useI18n } from 'vue-i18n';
+
+	const { t } = useI18n();
+</script>

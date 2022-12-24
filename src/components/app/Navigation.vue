@@ -11,7 +11,7 @@
 
 		<language-selector class="mx-4 mt-4"></language-selector>
 
-		<template v-slot:append>
+		<template #append>
 			<div v-if="user != null" class="pa-2 mb-3 d-flex align-center justify-center">
 				<v-avatar color="yellow-accent-3" size="28" class="mx-2" ></v-avatar>
 				<span class="text-body-1">{{ user.username }}</span>
