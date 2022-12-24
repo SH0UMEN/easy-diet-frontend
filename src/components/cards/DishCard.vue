@@ -5,9 +5,9 @@
 		<v-card-item>
 			<v-card-title>{{ dish.title }}</v-card-title>
 
-			<v-card-subtitle>
-				<span class="mr-1">{{ dish.author?.username }}</span>
-				<v-icon color="error" icon="mdi-fire-circle" size="small"></v-icon>
+			<v-card-subtitle class="my-2">
+				<div>{{ t('products.protein') }}/{{ t('products.fat') }}/{{ t('products.carbohydrate') }}: {{ protein }}/{{ fat }}/{{ carbohydrate }}</div>
+				<div>{{ t('products.kcal') }}: {{ kcal }}</div>
 			</v-card-subtitle>
 		</v-card-item>
 
@@ -17,8 +17,7 @@
 				<div class="text-grey ms-4">4.5 (413)</div>
 			</v-row>
 
-			<!--						<div class="my-4 text-subtitle-1">$ • Italian, Cafe</div>-->
-			<div>{{ dish.descriptionShort }}</div>
+			<div class="mt-4">{{ dish.descriptionShort }}</div>
 		</v-card-text>
 
 		<slot name="actions"></slot>
@@ -26,12 +25,35 @@
 </template>
 
 <script setup lang="ts">
-	import { defineProps } from 'vue';
+	import { computed, defineProps, toRefs } from 'vue';
+	import { useI18n } from 'vue-i18n';
 	import Dish from '@/models/dish';
 
 	interface Properties {
 		dish: Dish;
 	}
 
-	defineProps<Properties>();
+	const properties = defineProps<Properties>();
+
+	const { dish } = toRefs(properties);
+	const { t } = useI18n();
+
+	const weight = computed(() => {
+		let result = 0;
+		dish.value.dishProductRelations.map((el) => result += el.grams);
+
+		return result;
+	});
+
+	const calculateNutritionValue = (name: 'protein' | 'fat' | 'carbohydrate' | 'kcal') => {
+		let result = 0;
+		dish.value.dishProductRelations.map((el) => result += el.grams/weight.value * el.product[name]);
+
+		return result.toFixed(2);
+	};
+
+	const carbohydrate = computed(() => calculateNutritionValue('carbohydrate'));
+	const protein = computed(() => calculateNutritionValue('protein'));
+	const kcal = computed(() => calculateNutritionValue('kcal'));
+	const fat = computed(() => calculateNutritionValue('fat'));
 </script>
