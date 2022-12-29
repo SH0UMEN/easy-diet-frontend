@@ -1,4 +1,5 @@
 import { toLoginIfNotAuthenticated } from '@/router/middleware';
+import { RouteLocationNormalized } from 'vue-router';
 
 export default {
 	name: 'dishes',
@@ -22,13 +23,30 @@ export default {
 			component: () => import('@/pages/dishes/All.vue')
 		},
 		{
-			name: 'dishes-mine',
 			path: 'mine',
-			meta: {
-				title: 'titles.dishes.mine'
-			},
 			beforeEnter: toLoginIfNotAuthenticated,
-			component: () => import('@/pages/dishes/Mine.vue')
+			children: [
+				{
+					name: 'dishes-mine',
+					path: '',
+					meta: {
+						title: 'titles.dishes.mine'
+					},
+					component: () => import('@/pages/dishes/Mine.vue'),
+				},
+				{
+					name: 'dishes-edit',
+					path: ':id',
+					meta: {
+						title: 'titles.dishes.edit'
+					},
+					component: () => import('@/pages/dishes/Edit.vue'),
+					props: (route: RouteLocationNormalized) => {
+						const id = route.params.id;
+						return { id: id instanceof Array ? id : parseInt(id) };
+					}
+				}
+			]
 		}
 	]
 };

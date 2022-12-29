@@ -29,7 +29,7 @@
 	import { useI18n } from 'vue-i18n';
 	import Dish from '@/models/dish';
 
-	interface Properties {
+	type Properties = {
 		dish: Dish;
 	}
 
@@ -47,13 +47,15 @@
 
 	const calculateNutritionValue = (name: 'protein' | 'fat' | 'carbohydrate' | 'kcal') => {
 		let result = 0;
-		dish.value.dishProductRelations.map((el) => result += el.grams/weight.value * el.product[name]);
 
-		return result.toFixed(2);
+		for(let relation of dish.value.dishProductRelations)
+			result += relation.grams/weight.value * relation.product[name];
+
+		return result;
 	};
 
-	const carbohydrate = computed(() => calculateNutritionValue('carbohydrate'));
-	const protein = computed(() => calculateNutritionValue('protein'));
-	const kcal = computed(() => calculateNutritionValue('kcal'));
-	const fat = computed(() => calculateNutritionValue('fat'));
+	const carbohydrate = computed(() => calculateNutritionValue('carbohydrate').toFixed(2));
+	const protein = computed(() => calculateNutritionValue('protein').toFixed(2));
+	const fat = computed(() => calculateNutritionValue('fat').toFixed(2));
+	const kcal = computed(() => Math.round(calculateNutritionValue('kcal')));
 </script>

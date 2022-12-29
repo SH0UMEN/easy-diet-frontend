@@ -8,13 +8,18 @@ import IModel from '@/models/model';
 class CRUD<T extends IModel = IModel> {
 	protected root: string = '';
 	protected serializer = new Serializer();
+	protected phantomRecord: IModel | T = {};
 
-	protected getListAndCreateUrl(): string {
+	protected getListUrl(): string {
 		return this.root;
 	}
 
-	protected getDetailsAndDeleteUrl(id: (number | string)): string {
+	protected getRecordUrl(id: (number | string)): string {
 		return this.root + id;
+	}
+
+	public getPhantomRecord(): IModel | T {
+		return this.phantomRecord;
 	}
 
 	public async read(id: number): Promise<T>;
@@ -24,19 +29,26 @@ class CRUD<T extends IModel = IModel> {
 		let response: AxiosResponse;
 
 		if(arg != null && typeof arg == 'number')
-			response = await axios.get(this.getDetailsAndDeleteUrl(arg));
+			response = await axios.get(this.getRecordUrl(arg));
 		else
-			response = await axios.get(this.getListAndCreateUrl(), { params: arg });
+			response = await axios.get(this.getListUrl(), { params: arg });
 
 		return response.data;
 	}
 
 	async create(data: T): Promise<T> {
-		return (await axios.post(this.getListAndCreateUrl(), this.serializer.toFormData(data))).data;
+		return (await axios.post(this.getListUrl(), this.serializer.toFormData(data))).data;
+	}
+
+	async update(data: T): Promise<T> {
+		if(data.id == null)
+			throw 'Trying to update a phantom record';
+
+		return (await axios.patch(this.getRecordUrl(data.id), this.serializer.toFormData(data))).data;
 	}
 
 	async delete(id: number) {
-		await axios.delete(this.getDetailsAndDeleteUrl(id));
+		await axios.delete(this.getRecordUrl(id));
 	}
 }
 

@@ -25,7 +25,7 @@
 	import { defineProps, reactive, ref } from 'vue';
 	import { useI18n } from 'vue-i18n';
 
-	interface Properties {
+	type Properties = {
 		modelValue?: string;
 		repeat: boolean;
 	}

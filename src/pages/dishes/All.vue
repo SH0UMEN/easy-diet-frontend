@@ -1,12 +1,5 @@
 <template>
-	<dish-finder>
-		<template #title>{{ t('dishes.all.title') }}</template>
-
-		<template #no-data>
-			<span class="text-h6 mb-4">{{ t('dishes.all.noData') }}</span>
-			<v-btn :to="{ name: 'dishes-create' }" color="yellow-accent-3">{{ t('dishes.create.floating') }}</v-btn>
-		</template>
-	</dish-finder>
+	<dish-finder :title="t('dishes.all.title')" :no-data="t('dishes.all.noData')"></dish-finder>
 </template>
 
 <script setup lang="ts">

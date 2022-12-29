@@ -8,9 +8,10 @@
 		"registration": "Registration",
 
 		"dishes": {
-			"all": "All dishes",
+			"create": "Create dish",
 			"mine": "My dishes",
-			"create": "Create dish"
+			"all": "All dishes",
+			"edit": "Edit dish"
 		},
 
 		"menus": {
@@ -91,6 +92,10 @@
 				},
 				"submit": "Create"
 			}
+		},
+
+		"edit": {
+			"title": "Edit your dish"
 		}
 	},
 

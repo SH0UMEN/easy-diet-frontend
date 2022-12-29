@@ -29,7 +29,7 @@
 	import { wrapModel } from '@/utils';
 	import { useI18n } from 'vue-i18n';
 
-	interface IProperties {
+	type Properties = {
 		repeatPassword?: boolean;
 		errors: Array<string>;
 		submitText: string;
@@ -40,14 +40,14 @@
 
 	const emit = defineEmits(['update:username', 'update:password']);
 	const properties = withDefaults(
-		defineProps<IProperties>(),
+		defineProps<Properties>(),
 		{ errors: () => [], submitText: '', loading: false, username: '', password: '', repeatPassword: false }
 	);
 
 	const { t } = useI18n();
 
-	const username = wrapModel<string, IProperties>(properties, emit, 'username');
-	const password = wrapModel<string, IProperties>(properties, emit, 'password');
+	const username = wrapModel<string, Properties>(properties, emit, 'username');
+	const password = wrapModel<string, Properties>(properties, emit, 'password');
 
 	const loading = computed(() => properties.loading);
 

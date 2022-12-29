@@ -54,7 +54,7 @@ class Serializer<T extends IModel = IModel> {
 			let key = entries[i][0];
 			let value = entries[i][1];
 
-			if(value == null)
+			if(value == undefined)
 				continue;
 			if(key in this.serializers)
 				result[key] = this.serializers[key].serialize(value);

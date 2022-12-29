@@ -1,7 +1,7 @@
 <template>
 	<v-autocomplete v-model:search="search"
 					v-model="product"
-					:no-data-text="t('dishes.create.form.product.noData')"
+					:no-data-text="t('dishes.form.product.noData')"
 					:item-title="'i18n.' + $i18n.locale + '.title'"
 					:items="products"
 					:loading="loading"

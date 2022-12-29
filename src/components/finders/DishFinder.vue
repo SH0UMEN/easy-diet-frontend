@@ -1,16 +1,8 @@
 <template>
-	<finder :service="service" :parameters="parameters">
-		<template #title>
-			<slot name="title"></slot>
-		</template>
-
-		<template #no-data>
-			<slot name="no-data"></slot>
-		</template>
-
-		<template #list="props">
-			<v-col v-for="dish in props.records" cols="12" sm="6" md="4" xl="3">
-				<dish-card :to="{ name: '' }" :dish="dish" class="fill-height">
+	<finder :service="service" :parameters="parameters" :no-data="noData" :title="title" :create-text="t('dishes.floating')" create-url="dishes-create">
+		<template #list="{ records }">
+			<v-col v-for="dish in records" cols="12" sm="6" md="4" xl="3">
+				<dish-card :to="{ name: route, params: { id: dish.id } }" :dish="dish" class="fill-height">
 					<template #actions>
 						<slot name="actions"></slot>
 					</template>
@@ -28,11 +20,14 @@
 	import { defineProps } from 'vue';
 	import { useI18n } from 'vue-i18n';
 
-	interface Properties {
+	type Properties = {
 		parameters?: CRUDGetParameters;
+		noData: string;
+		route?: string;
+		title: string;
 	}
 
-	withDefaults(defineProps<Properties>(), { parameters: () => new Object() });
+	withDefaults(defineProps<Properties>(), { parameters: () => ({}) });
 
 	const service = new DishService();
 

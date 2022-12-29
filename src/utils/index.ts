@@ -1,4 +1,5 @@
 import { computed } from 'vue';
+import IModel from '@/models/model';
 
 export const getCookie = (name: string): string => {
 	const cookie = document.cookie;

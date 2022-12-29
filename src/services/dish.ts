@@ -6,6 +6,7 @@ import URL from '@/magic/url';
 class DishService extends CRUD<Dish> {
 	protected root = URL.Dishes;
 	protected serializer = new DishSerializer();
+	protected phantomRecord = { title: '', descriptionShort: '', descriptionFull: '', dishProductRelations: [] };
 }
 
 export default DishService;
