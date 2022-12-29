@@ -46,6 +46,9 @@
 	});
 
 	const calculateNutritionValue = (name: 'protein' | 'fat' | 'carbohydrate' | 'kcal') => {
+		if(weight.value == 0)
+			return 0;
+
 		let result = 0;
 
 		for(let relation of dish.value.dishProductRelations)

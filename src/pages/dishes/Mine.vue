@@ -1,8 +1,8 @@
 <template>
 	<dish-finder :title="t('dishes.mine.title')" :no-data="t('dishes.mine.noData')" route="dishes-edit" :parameters="parameters">
-		<template #actions>
+		<template #actions="{ id, deleteById }">
 			<v-card-actions class="justify-end">
-				<v-btn color="red-accent-2" variant="text">{{ t('dishes.mine.delete') }}</v-btn>
+				<v-btn @click.stop.prevent="deleteById(id)" color="red-accent-2" variant="text">{{ t('dishes.mine.delete') }}</v-btn>
 			</v-card-actions>
 		</template>
 	</dish-finder>

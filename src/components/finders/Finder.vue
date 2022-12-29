@@ -17,7 +17,7 @@
 
 				<v-row>
 					<v-col>
-						<v-text-field v-model="search" :label="t('dishes.list.search')" :loading="searching" variant="solo" hide-details class="mb-1"></v-text-field>
+						<v-text-field v-model="search" :label="t('finder.search')" :loading="searching" variant="solo" hide-details class="mb-1"></v-text-field>
 					</v-col>
 				</v-row>
 
@@ -28,7 +28,7 @@
 				</v-row>
 
 				<v-row>
-					<slot name="list" :records="records"></slot>
+					<slot name="list" :records="records" :delete-by-id="deleteById"></slot>
 				</v-row>
 			</template>
 		</template>
@@ -61,7 +61,7 @@
 	const searching = ref(false);
 	const search = ref('');
 
-	const { parameters, createUrl } = toRefs(properties);
+	const { parameters } = toRefs(properties);
 
 	const service = properties.service;
 	const { t } = useI18n();
@@ -76,7 +76,7 @@
 		searching.value = false;
 	};
 
-	const onDelete = async (id: number) => {
+	const deleteById = async (id: number) => {
 		await service.delete(id);
 		load();
 	};

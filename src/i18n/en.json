@@ -58,11 +58,11 @@
 		"carbohydrate": "c"
 	},
 
-	"dishes": {
-		"list": {
-			"search": "Enter search text"
-		},
+	"finder": {
+		"search": "Enter search text"
+	},
 
+	"dishes": {
 		"mine": {
 			"title": "My dishes",
 			"delete": "Delete",

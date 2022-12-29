@@ -11,6 +11,7 @@
 	import ProgressCircular from '@/components/indicators/ProgressCircular.vue';
 	import { nextTick, onBeforeMount, reactive, ref } from 'vue';
 	import CRUD from '@/services/crud';
+	import router from '@/router';
 
 	type Properties = {
 		service: CRUD;
@@ -32,13 +33,17 @@
 		if(properties.id == null)
 			return loading.value = false;
 
-		const data = await service.read(properties.id);
+		try {
+			const data = await service.read(properties.id);
 
-		loading.value = false;
-
-		nextTick(() => {
-			record.value = data;
-		});
+			nextTick(() => {
+				record.value = data;
+			});
+		} catch {
+			await router.push({ name: 'index' });
+		} finally {
+			loading.value = false;
+		}
 	});
 
 	const submit = async () => {

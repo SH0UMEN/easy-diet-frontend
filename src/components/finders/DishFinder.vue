@@ -1,10 +1,10 @@
 <template>
 	<finder :service="service" :parameters="parameters" :no-data="noData" :title="title" :create-text="t('dishes.floating')" create-url="dishes-create">
-		<template #list="{ records }">
+		<template #list="{ records, deleteById }">
 			<v-col v-for="dish in records" cols="12" sm="6" md="4" xl="3">
 				<dish-card :to="{ name: route, params: { id: dish.id } }" :dish="dish" class="fill-height">
 					<template #actions>
-						<slot name="actions"></slot>
+						<slot name="actions" :id="dish.id" :delete-by-id="deleteById"></slot>
 					</template>
 				</dish-card>
 			</v-col>
