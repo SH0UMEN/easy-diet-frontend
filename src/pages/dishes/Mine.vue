@@ -3,7 +3,7 @@
 		<template #actions="{ id, deleteById }">
 			<v-card-actions class="justify-end">
 				<action-button :button-properties="{ color: 'red-accent-2', variant: 'text' }"
-							   :action="deleteById.bind(null, id)">
+							   :action="async () => await deleteById(id)">
 					{{ t('dishes.mine.delete') }}
 				</action-button>
 			</v-card-actions>
