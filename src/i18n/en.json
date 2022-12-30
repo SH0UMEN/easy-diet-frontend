@@ -63,6 +63,8 @@
 	},
 
 	"dishes": {
+		"floating": "Create new dish",
+
 		"mine": {
 			"title": "My dishes",
 			"delete": "Delete",
@@ -74,28 +76,28 @@
 			"noData": "Nobody has created any dish on the platform"
 		},
 
-		"create": {
-			"floating": "Create new dish",
-			"title": "Create your new dish",
-
-			"form": {
-				"title": "Dish title",
-				"description": {
-					"short": "Short description",
-					"full": "Full description"
-				},
-				"image": "Dish thumbnail",
-				"product": {
-					"label": "Add ingredient",
-					"noData": "Enter the text to find some ingredients",
-					"remove": "Remove"
-				},
-				"submit": "Create"
+		"form": {
+			"title": "Dish title",
+			"description": {
+				"short": "Short description",
+				"full": "Full description"
+			},
+			"image": "Dish thumbnail",
+			"product": {
+				"label": "Add ingredient",
+				"noData": "Enter the text to find some ingredients",
+				"remove": "Remove"
 			}
 		},
 
 		"edit": {
-			"title": "Edit your dish"
+			"title": "Edit your dish",
+			"submit": "Save"
+		},
+
+		"create": {
+			"title": "Create your new dish",
+			"submit": "Create"
 		}
 	},
 

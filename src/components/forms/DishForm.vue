@@ -77,7 +77,7 @@
 	const descriptionFull = ref<any>(null);
 	const valid = ref(false);
 
-	const { dish, errors, loading } = toRefs(properties);
+	const { dish, errors, loading, submitText } = toRefs(properties);
 
 	const titleRules = reactive([ValidationService.required(t), ValidationService.lessThanOrEqualTo(t, 30)]);
 	const descriptionShortRules = reactive([ValidationService.lessThanOrEqualTo(t, 300)]);

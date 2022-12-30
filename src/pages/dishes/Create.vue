@@ -1,6 +1,6 @@
 <template>
 	<v-responsive max-width="768" class="mx-auto px-2 pt-4 pt-sm-12">
-		<dish-editor :title="t('dishes.create.title')"></dish-editor>
+		<dish-editor :title="t('dishes.create.title')" :submit-text="t('dishes.create.submit')"></dish-editor>
 	</v-responsive>
 </template>
 
