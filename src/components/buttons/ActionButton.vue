@@ -13,8 +13,8 @@
 	};
 
 	type Properties = {
-		action: Function;
 		buttonProperties?: ButtonProperties;
+		action: Function;
 	}
 
 	const properties = defineProps<Properties>();
