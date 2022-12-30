@@ -78,7 +78,7 @@
 
 	const deleteById = async (id: number) => {
 		await service.delete(id);
-		load();
+		await load();
 	};
 
 	const loadDebounced = debounce(load, 250);
