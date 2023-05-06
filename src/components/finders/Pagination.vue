@@ -34,9 +34,7 @@
 	watch(page, () => {
 		parameters.value.offset = (page.value - 1) * onPage.value;
 		parameters.value.limit = onPage.value;
-	}, { immediate: true });
 
-	watch(parameters, () => {
 		emit('update:modelValue', parameters.value);
-	}, { deep: true });
+	}, { immediate: true });
 </script>

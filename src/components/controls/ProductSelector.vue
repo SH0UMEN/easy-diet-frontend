@@ -50,9 +50,6 @@
 	const parameters = ref<CRUDPaginationParameters>({ lang: locale.value });
 
 	const fetch = async () => {
-		if(parameters.value.search == '')
-			return;
-
 		const response = await service.read(parameters.value);
 
 		total.value = response.count;
@@ -62,20 +59,23 @@
 
 	const fetchDebounced = debounce(fetch, 250);
 
-	watch(() => parameters.value.search, () => {
+	watch(() => parameters.value.search, (value) => {
+		if(value == '')
+			return;
+
 		loading.value = true;
 		page.value = 1;
 
 		fetchDebounced();
 	});
 
-	watch(parameters, () => {
+	watch(page, () => {
 		if(loading.value)
 			return;
 
 		loading.value = true;
 		fetch();
-	}, { deep: true });
+	});
 
 	watch(product, (value: Product | null) => {
 		if(value == null)

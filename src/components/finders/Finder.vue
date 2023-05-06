@@ -44,7 +44,7 @@
 <script setup lang="ts">
 	import ProgressCircular from '@/components/indicators/ProgressCircular.vue';
 	import Pagination from '@/components/finders/Pagination.vue';
-	import { defineProps, watch } from 'vue';
+	import { defineProps, nextTick, watch } from 'vue';
 	import { debounce } from '@/utils';
 	import { useI18n } from 'vue-i18n';
 	import { ref } from 'vue';
@@ -96,11 +96,13 @@
 		fetchDebounced();
 	});
 
-	watch(parameters, () => {
+	watch(page, () => {
 		if(searching.value)
 			return;
 
-		loading.value = true;
-		fetch();
-	}, { deep: true });
+		nextTick(() => {
+			loading.value = true;
+			fetch();
+		});
+	}, { immediate: true });
 </script>
