@@ -1,5 +1,5 @@
 <template>
-	<v-autocomplete v-model:search="search"
+	<v-autocomplete v-model:search="parameters.search"
 					v-model="product"
 					:no-data-text="t('dishes.form.product.noData')"
 					:item-title="'i18n.' + $i18n.locale + '.title'"
@@ -22,78 +22,70 @@
 		</template>
 
 		<template #append-item>
-			<v-pagination :length="pageCount"
-						  :total-visible="$vuetify.display.mobile ? 1 : 7"
-						  v-if="pageCount > 1"
-						  v-model="page"
-						  rounded="circle">
-			</v-pagination>
+			<pagination :total="total" v-model="parameters" v-model:page="page"></pagination>
 		</template>
 	</v-autocomplete>
 </template>
 
 <script setup lang="ts">
-	import { computed, defineEmits, ref, watch } from 'vue';
+	import Pagination from '@/components/finders/Pagination.vue';
+	import { defineEmits, reactive, ref, watch } from 'vue';
 	import { debounce } from '@/utils';
 	import { useI18n } from 'vue-i18n';
 	import ProductService from '@/services/product';
 	import Product from '@/models/product';
+	import CRUDPaginationParameters from '@/types/CRUDPaginationParameters';
 
 	const emit = defineEmits(['selected']);
 
-	const search = ref('');
-	const page = ref(1);
-	const products = ref<Array<Product>>([]);
-	const total = ref(0);
-	const loading = ref(false);
-	const viewOnPage = ref(6);
 	const product = ref<Product | null>(null);
-
-	const pageCount = computed(() => {
-		return Math.ceil(total.value/viewOnPage.value);
-	});
+	const products = ref<Array<Product>>([]);
+	const loading = ref(false);
+	const total = ref(0);
+	const page = ref(1);
 
 	const { t, locale } = useI18n();
 	const service = new ProductService();
 
+	const parameters = ref<CRUDPaginationParameters>({ lang: locale.value });
+
 	const fetch = async () => {
-		if(search.value == '') {
-			products.value = [];
-			total.value = 0;
-
+		if(parameters.value.search == '')
 			return;
-		}
 
-		loading.value = true;
-
-		const response = await service.read({
-			offset: (page.value - 1) * viewOnPage.value,
-			lang: locale.value,
-			limit: viewOnPage.value,
-			search: search.value
-		});
+		const response = await service.read(parameters.value);
 
 		total.value = response.count;
 		products.value = response.results;
-
 		loading.value = false;
 	};
 
 	const fetchDebounced = debounce(fetch, 250);
 
-	watch(search, () => {
+	watch(() => parameters.value.search, () => {
+		loading.value = true;
 		page.value = 1;
+
 		fetchDebounced();
 	});
 
-	watch(page, fetch);
+	watch(parameters, () => {
+		if(loading.value)
+			return;
+
+		loading.value = true;
+		fetch();
+	}, { deep: true });
 
 	watch(product, (value: Product | null) => {
 		if(value == null)
 			return;
 
 		product.value = null;
-		search.value = '';
+		parameters.value.search = '';
+		products.value = [];
+		total.value = 0;
+
 		emit('selected', value);
 	});
 </script>

@@ -10,7 +10,7 @@
 	type ButtonProperties = {
 		variant?: 'underlined' | 'outlined' | 'filled' | 'solo' | 'plain' | 'text';
 		color?: string;
-	};
+	}
 
 	type Properties = {
 		buttonProperties?: ButtonProperties;

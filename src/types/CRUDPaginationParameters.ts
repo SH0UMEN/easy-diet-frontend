@@ -1,6 +1,6 @@
 import CRUDGetParameters from '@/types/CRUDGetParameters';
 
-type CRUDPaginationParameters = CRUDGetParameters | {
+type CRUDPaginationParameters = CRUDGetParameters & {
 	limit?: number,
 	offset?: number
 }

@@ -1,9 +1,9 @@
 <template>
 	<v-container class="fill-height">
-		<progress-circular v-if="initialLoading"></progress-circular>
+		<progress-circular v-if="loading"></progress-circular>
 
-		<template v-else>
-			<div v-if="records.length == 0 && search == '' && !searching" class="d-flex justify-center align-center fill-height flex-column">
+		<div v-show="!loading">
+			<div v-if="records.length === 0 && parameters.search === '' && !searching" class="d-flex justify-center align-center fill-height flex-column">
 				<span class="text-h6 mb-4">{{ noData }}</span>
 				<v-btn :to="{ name: createUrl }" color="yellow-accent-3">{{ createText }}</v-btn>
 			</div>
@@ -17,7 +17,7 @@
 
 				<v-row>
 					<v-col>
-						<v-text-field v-model="search" :label="t('finder.search')" :loading="searching" variant="solo" hide-details class="mb-1"></v-text-field>
+						<v-text-field v-model="parameters.search" :label="t('finder.search')" :loading="searching" variant="solo" hide-details class="mb-1"></v-text-field>
 					</v-col>
 				</v-row>
 
@@ -31,22 +31,29 @@
 					<slot name="list" :records="records" :delete-by-id="deleteById"></slot>
 				</v-row>
 			</template>
-		</template>
+
+			<v-row>
+				<v-col>
+					<pagination :total="total" v-model:page="page" v-model="parameters"></pagination>
+				</v-col>
+			</v-row>
+		</div>
 	</v-container>
 </template>
 
 <script setup lang="ts">
 	import ProgressCircular from '@/components/indicators/ProgressCircular.vue';
-	import { computed, onBeforeMount, ref, toRefs, watch } from 'vue';
+	import Pagination from '@/components/finders/Pagination.vue';
+	import { defineProps, watch } from 'vue';
 	import { debounce } from '@/utils';
 	import { useI18n } from 'vue-i18n';
-	import { defineProps } from 'vue';
-	import CRUDGetParameters from '@/types/CRUDGetParameters';
-	import CRUD from '@/services/crud';
+	import { ref } from 'vue';
+	import CRUDPaginationParameters from '@/types/CRUDPaginationParameters';
 	import IModel from '@/models/model';
+	import CRUD from '@/services/crud';
 
 	type Properties = {
-		parameters?: CRUDGetParameters;
+		parameters?: CRUDPaginationParameters;
 		createText: string;
 		createUrl: string;
 		noData: string;
@@ -56,37 +63,44 @@
 
 	const properties = withDefaults(defineProps<Properties>(), { parameters: () => ({}) });
 
+	const parameters = ref(properties.parameters);
 	const records = ref<Array<IModel>>([]);
-	const initialLoading = ref(true);
+	const loading = ref(true);
 	const searching = ref(false);
-	const search = ref('');
-
-	const { parameters } = toRefs(properties);
+	const total = ref(0);
+	const page = ref(1);
 
 	const service = properties.service;
 	const { t } = useI18n();
 
-	const load = async () => {
-		const query = parameters.value;
-		query.search = search.value == '' ? undefined : search.value;
+	const fetch = async () => {
+		const response = await service.read(parameters.value);
 
-		records.value = await service.read(query);
-
-		initialLoading.value = false;
+		records.value = response.results;
+		total.value = response.count;
+		loading.value = false;
 		searching.value = false;
 	};
 
 	const deleteById = async (id: number) => {
 		await service.delete(id);
-		await load();
+		await fetch();
 	};
 
-	const loadDebounced = debounce(load, 250);
+	const fetchDebounced = debounce(fetch, 250);
 
-	watch(search, () => {
+	watch(() => parameters.value.search, () => {
 		searching.value = true;
-		loadDebounced();
+		page.value = 1;
+
+		fetchDebounced();
 	});
 
-	onBeforeMount(load);
+	watch(parameters, () => {
+		if(searching.value)
+			return;
+
+		loading.value = true;
+		fetch();
+	}, { deep: true });
 </script>

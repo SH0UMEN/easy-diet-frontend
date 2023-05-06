@@ -23,8 +23,8 @@ class CRUD<T extends IModel = IModel> {
 	}
 
 	public async read(id: number): Promise<T>;
-	public async read(parameters?: CRUDGetParameters): Promise<Array<T>>;
 	public async read(parameters?: CRUDPaginationParameters): Promise<CRUDPaginationResponse<T>>;
+	public async read(parameters?: CRUDGetParameters): Promise<Array<T>>;
 	public async read(arg?: number | CRUDGetParameters | CRUDPaginationParameters) {
 		let response: AxiosResponse;
 
