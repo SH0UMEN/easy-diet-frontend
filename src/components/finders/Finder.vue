@@ -43,7 +43,7 @@
 
 <script setup lang="ts">
 	import ProgressCircular from '@/components/indicators/ProgressCircular.vue';
-	import Pagination from '@/components/finders/Pagination.vue';
+	import Pagination from '@/components/app/Pagination.vue';
 	import { defineProps, nextTick, watch } from 'vue';
 	import { debounce } from '@/utils';
 	import { useI18n } from 'vue-i18n';

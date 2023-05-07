@@ -4,7 +4,7 @@
 
 		<v-app-bar-title>
 			<div class="d-flex flex-row pr-5">
-				<logo></logo>
+				<logo :width="40"></logo>
 				<v-spacer></v-spacer>
 				<toolbar></toolbar>
 			</div>

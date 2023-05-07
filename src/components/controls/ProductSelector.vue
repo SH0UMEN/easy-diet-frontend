@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-	import Pagination from '@/components/finders/Pagination.vue';
+	import Pagination from '@/components/app/Pagination.vue';
 	import { defineEmits, reactive, ref, watch } from 'vue';
 	import { debounce } from '@/utils';
 	import { useI18n } from 'vue-i18n';

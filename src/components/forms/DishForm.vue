@@ -25,6 +25,9 @@
 					  outlined
 					  dense>
 		</v-file-input>
+
+		<v-img v-if="imageUrl !== ''" :src="imageUrl" height="400"></v-img>
+
 		<product-selector :label="t('dishes.form.product.label')" @selected="onProductSelected" class="mb-2"></product-selector>
 
 		<v-row>
@@ -76,6 +79,7 @@
 	const descriptionShort = ref<any>(null);
 	const descriptionFull = ref<any>(null);
 	const valid = ref(false);
+	const imageUrl = ref('');
 
 	const { dish, errors, loading, submitText } = toRefs(properties);
 
@@ -90,6 +94,13 @@
 
 	const onImageSelected = (value: Array<File>) => {
 		dish.value.image = value[0];
+
+		const reader = new FileReader();
+
+		reader.readAsDataURL(value[0]);
+		reader.onload = () => {
+			imageUrl.value = reader.result as string;
+		};
 	};
 
 	const remove = (index: number) => {
