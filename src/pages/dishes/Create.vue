@@ -1,7 +1,5 @@
 <template>
-	<v-responsive max-width="768" class="mx-auto px-2 pt-4 pt-sm-12">
-		<dish-editor :title="t('dishes.create.title')" :submit-text="t('dishes.create.submit')"></dish-editor>
-	</v-responsive>
+	<dish-editor :title="t('dishes.create.title')" :submit-text="t('dishes.create.submit')"></dish-editor>
 </template>
 
 <script setup lang="ts">

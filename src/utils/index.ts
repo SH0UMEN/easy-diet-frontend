@@ -1,5 +1,4 @@
 import { computed } from 'vue';
-import IModel from '@/models/model';
 
 export const getCookie = (name: string): string => {
 	const cookie = document.cookie;
@@ -29,3 +28,14 @@ export const wrapModel = <T, P>(props: Readonly<any>, emit: Function, name: stri
 		set: (value: T) => emit(`update:${name}`, value)
 	})
 };
+
+export const getImageDataUrl = async (file: File): Promise<string> => {
+	return new Promise<string>((resolve, reject) => {
+		const reader = new FileReader();
+		reader.onload = () => {
+			resolve(reader.result as string);
+		};
+		reader.onerror = reject;
+		reader.readAsDataURL(file);
+	});
+}
