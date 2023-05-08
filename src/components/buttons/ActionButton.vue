@@ -18,7 +18,7 @@
 	}
 
 	const properties = defineProps<Properties>();
-	const { action, buttonProperties } = toRefs(properties);
+	const { action } = toRefs(properties);
 
 	const loading = ref(false);
 

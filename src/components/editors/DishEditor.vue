@@ -26,7 +26,7 @@
 	}
 
 	const properties = defineProps<Properties>();
-	const { submitText, title, id } = toRefs(properties);
+	const { title, id } = toRefs(properties);
 
 	const service = new DishService();
 	const { t } = useI18n();
