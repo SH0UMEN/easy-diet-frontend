@@ -4,6 +4,7 @@ import CRUDGetParameters from '@/types/CRUDGetParameters';
 import Serializer from '@/serializers/serializer';
 import axios, { AxiosResponse } from 'axios';
 import IModel from '@/models/model';
+import { isNumber } from '@/utils';
 
 class CRUD<T extends IModel = IModel> {
 	protected root: string = '';
@@ -28,7 +29,7 @@ class CRUD<T extends IModel = IModel> {
 	public async read(arg?: number | CRUDGetParameters | CRUDPaginationParameters) {
 		let response: AxiosResponse;
 
-		if(arg != null && typeof arg == 'number')
+		if(arg != null && isNumber(arg))
 			response = await axios.get(this.getRecordUrl(arg));
 		else
 			response = await axios.get(this.getListUrl(), { params: arg });

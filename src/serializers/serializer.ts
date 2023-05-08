@@ -1,4 +1,5 @@
 import IModel from '@/models/model';
+import { isObject } from '@/utils';
 
 type SerializerFields = { [field: string]: Serializer };
 
@@ -27,7 +28,7 @@ class Serializer<T extends IModel = IModel> {
 
 			if(isSourceArray)
 				key = '[' + key + ']';
-			if(typeof value != 'object' || value instanceof Blob) {
+			if(!isObject(value) || value instanceof Blob) {
 				result[key] = value;
 				continue;
 			}
@@ -58,7 +59,7 @@ class Serializer<T extends IModel = IModel> {
 				continue;
 			if(key in this.serializers)
 				result[key] = this.serializers[key].serialize(value);
-			else if(typeof value == 'object' && !(value instanceof Blob))
+			else if(isObject(value) && !(value instanceof Blob))
 				result[key] = value.id;
 			else
 				result[key] = value;

@@ -5,6 +5,7 @@
 				<v-text-field v-model="dish.title"
 							  :rules="titleRules"
 							  :label="t('dishes.form.title')"
+							  ref="title"
 							  variant="solo"
 							  class="mb-2">
 				</v-text-field>
@@ -71,6 +72,7 @@
 	import ValidationService from '@/services/validation';
 	import Product from '@/models/product';
 	import Dish from '@/models/dish';
+	import { isString } from '@/utils';
 
 	type Properties = {
 		errors: Array<string>;
@@ -82,6 +84,7 @@
 	const properties = withDefaults(defineProps<Properties>(), { loading: false, submitText: '', errors: () => [] });
 	const { t } = useI18n();
 
+	const title = ref<any>(null);
 	const descriptionShort = ref<any>(null);
 	const descriptionFull = ref<any>(null);
 	const valid = ref(false);
@@ -101,14 +104,8 @@
 		dish.value.dishProductRelations.splice(index, 1);
 	};
 
-	const handleImageUrl = () => {
-		if(typeof dish.value.image == 'string')
-			dish.value.image = undefined;
-	};
-
-	watch(dish, handleImageUrl, { immediate: true, deep: true });
-
 	onMounted(() => {
+		title.value.validate();
 		descriptionShort.value.validate();
 		descriptionFull.value.validate();
 	});
