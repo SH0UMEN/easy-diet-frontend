@@ -1,5 +1,5 @@
 <template>
-	<dish-finder :title="t('dishes.all.title')" :no-data="t('dishes.all.noData')"></dish-finder>
+	<dish-finder :title="t('dishes.all.title')" route="dishes-page" :no-data="t('dishes.all.noData')"></dish-finder>
 </template>
 
 <script setup lang="ts">

@@ -1,4 +1,5 @@
 import { computed } from 'vue';
+import { RouteLocationNormalized } from 'vue-router';
 
 export const getCookie = (name: string): string => {
 	const cookie = document.cookie;
@@ -38,16 +39,21 @@ export const getImageDataUrl = async (file: File): Promise<string> => {
 		reader.onerror = reject;
 		reader.readAsDataURL(file);
 	});
-}
+};
 
 export const isString = (value: any): value is string => {
 	return typeof value == 'string' || value instanceof String;
-}
+};
 
 export const isNumber = (value: any): value is number => {
 	return typeof value == 'number' && !isNaN(value) || value instanceof Number;
-}
+};
 
 export const isObject = (value: any): value is Object => {
 	return typeof value == 'object';
+};
+
+export const passQueryData = (route: RouteLocationNormalized) => {
+	const id = route.params.id;
+	return { id: id instanceof Array ? id : parseInt(id) };
 }

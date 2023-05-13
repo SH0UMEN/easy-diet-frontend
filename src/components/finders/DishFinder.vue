@@ -1,6 +1,6 @@
 <template>
 	<finder :service="service" :parameters="parameters" :no-data="noData" :title="title" :create-text="t('dishes.floating')" create-url="dishes-create">
-		<template #list="{ records, deleteById }">
+		<template #list="{ records, deleteById }: { records: Array<Dish>, deleteById: Function }">
 			<v-col v-for="dish in records" cols="12" sm="6" md="4" xl="3">
 				<dish-card :to="{ name: route, params: { id: dish.id } }" :dish="dish" class="fill-height">
 					<template #actions>
@@ -19,6 +19,7 @@
 	import CRUDGetParameters from '@/types/CRUDGetParameters';
 	import { defineProps } from 'vue';
 	import { useI18n } from 'vue-i18n';
+	import Dish from '@/models/dish';
 
 	type Properties = {
 		parameters?: CRUDGetParameters;

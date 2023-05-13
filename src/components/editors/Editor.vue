@@ -1,17 +1,18 @@
 <template>
-	<progress-circular v-if="loading"></progress-circular>
-
-	<v-container v-else>
-		<h2 class="text-center mb-6">{{ title }}</h2>
-		<slot name="form" :submit="submit" :loading="formLoading" :errors="errors" :record="record"></slot>
-	</v-container>
+	<loader :id="id" :service="service" @load="onLoad">
+		<template #form="{ record }">
+			<h2 class="text-center mb-6">{{ title }}</h2>
+			<slot name="form" :submit="submit" :loading="formLoading" :errors="errors" :record="record"></slot>
+		</template>
+	</loader>
 </template>
 
 <script setup lang="ts">
-	import ProgressCircular from '@/components/indicators/ProgressCircular.vue';
-	import { nextTick, onBeforeMount, reactive, ref } from 'vue';
+	import Loader from '@/components/loaders/Loader.vue';
+	import { reactive, ref } from 'vue';
+	import { useI18n } from 'vue-i18n';
 	import CRUD from '@/services/crud';
-	import router from '@/router';
+	import IModel from '@/models/model';
 
 	type Properties = {
 		service: CRUD;
@@ -25,26 +26,14 @@
 
 	const record = ref(service.getPhantomRecord());
 	const formLoading = ref(false);
-	const loading = ref(true);
 
 	const errors = reactive<Array<string>>([]);
 
-	onBeforeMount(async () => {
-		if(properties.id == null)
-			return loading.value = false;
+	const { t } = useI18n();
 
-		try {
-			const data = await service.read(properties.id);
-
-			nextTick(() => {
-				record.value = data;
-			});
-		} catch {
-			await router.push({ name: 'index' });
-		} finally {
-			loading.value = false;
-		}
-	});
+	const onLoad = (value: IModel) => {
+		record.value = value;
+	};
 
 	const submit = async () => {
 		errors.splice(0, errors.length);

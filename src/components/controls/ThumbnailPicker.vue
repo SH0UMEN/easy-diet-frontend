@@ -2,7 +2,7 @@
 	<v-file-input :label="label"
 				  @update:modelValue="onImageSelected"
 				  :rules="imageRules"
-				  accept="image/png,image/jpeg,image/bmp"
+				  accept="image/png,image/jpeg,image/bmp,image/webp"
 				  prepend-icon="mdi-camera"
 				  variant="solo"
 				  class="mb-2"

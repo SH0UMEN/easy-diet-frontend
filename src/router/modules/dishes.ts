@@ -1,5 +1,6 @@
 import { toLoginIfNotAuthenticated } from '@/router/middleware';
 import { RouteLocationNormalized } from 'vue-router';
+import { passQueryData } from '@/utils';
 
 export default {
 	name: 'dishes',
@@ -23,6 +24,12 @@ export default {
 			component: () => import('@/pages/dishes/All.vue')
 		},
 		{
+			name: 'dishes-page',
+			path: ':id',
+			component: () => import('@/pages/dishes/Page.vue'),
+			props: passQueryData
+		},
+		{
 			path: 'mine',
 			beforeEnter: toLoginIfNotAuthenticated,
 			children: [
@@ -41,10 +48,7 @@ export default {
 						title: 'titles.dishes.edit'
 					},
 					component: () => import('@/pages/dishes/Edit.vue'),
-					props: (route: RouteLocationNormalized) => {
-						const id = route.params.id;
-						return { id: id instanceof Array ? id : parseInt(id) };
-					}
+					props: passQueryData
 				}
 			]
 		}
