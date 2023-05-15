@@ -2,9 +2,11 @@ import IModel from '@/models/model';
 import { isObject } from '@/utils';
 
 type SerializerFields = { [field: string]: Serializer };
+type Excludes = { [field: string]: Function };
 
 class Serializer<T extends IModel = IModel> {
 	protected serializers: SerializerFields = {};
+	protected excludes: Excludes = {};
 
 	public toFormData(source: T): FormData {
 		const json = this.linearize(this.serialize(source));
@@ -55,7 +57,7 @@ class Serializer<T extends IModel = IModel> {
 			let key = entries[i][0];
 			let value = entries[i][1];
 
-			if(value == undefined)
+			if(value == undefined || key in this.excludes && this.excludes[key](value))
 				continue;
 			if(key in this.serializers)
 				result[key] = this.serializers[key].serialize(value);
