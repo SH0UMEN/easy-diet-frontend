@@ -10,27 +10,33 @@
 							  class="mb-2">
 				</v-text-field>
 				<thumbnail-picker :label="t('dishes.form.image')"
-								  v-model="dish.image"
-								  :image-rules="imageRules">
+								  :ai-available="aiAvailable"
+								  :generator="generateImage"
+								  :image-rules="imageRules"
+								  v-model="dish.image">
 				</thumbnail-picker>
 			</v-col>
 
 			<v-col>
-				<v-textarea v-model="dish.descriptionShort"
-							:rules="descriptionShortRules"
-							ref="descriptionShort"
-							:label="t('dishes.form.description.short')"
-							variant="solo"
-							class="mb-2">
-				</v-textarea>
+				<ai-textarea :rules="descriptionShortRules"
+							 :generator="generateDescriptionShort"
+							 :label="t('dishes.form.description.short')"
+							 v-model="dish.descriptionShort"
+							 :ai-available="aiAvailable"
+							 ref="descriptionShort"
+							 variant="solo"
+							 class="mb-2">
+				</ai-textarea>
 
-				<v-textarea v-model="dish.descriptionFull"
-							:rules="descriptionFullRules"
-							ref="descriptionFull"
-							:label="t('dishes.form.description.full')"
-							variant="solo"
-							class="mb-2">
-				</v-textarea>
+				<ai-textarea :rules="descriptionFullRules"
+							 :generator="generateDescriptionFull"
+							 :label="t('dishes.form.description.full')"
+							 v-model="dish.descriptionFull"
+							 :ai-available="aiAvailable"
+							 ref="descriptionFull"
+							 variant="solo"
+							 class="mb-2">
+				</ai-textarea>
 
 				<product-selector :label="t('dishes.form.product.label')" @selected="onProductSelected" class="mb-2"></product-selector>
 
@@ -67,12 +73,20 @@
 	import ProductSelector from '@/components/controls/ProductSelector.vue';
 	import ThumbnailPicker from '@/components/controls/ThumbnailPicker.vue';
 	import ProductCard from '@/components/cards/ProductCard.vue';
-	import { computed, defineProps, onMounted, reactive, ref, toRefs, watch } from 'vue';
+	import AiTextarea from '@/components/controls/AiTextarea.vue';
+	import {
+		computed,
+		defineProps,
+		onMounted,
+		reactive,
+		ref,
+		toRefs,
+	} from 'vue';
 	import { useI18n } from 'vue-i18n';
 	import ValidationService from '@/services/validation';
+	import DishService from '@/services/dish';
 	import Product from '@/models/product';
 	import Dish from '@/models/dish';
-	import { isString } from '@/utils';
 
 	type Properties = {
 		errors: Array<string>;
@@ -95,6 +109,24 @@
 	const descriptionShortRules = reactive([ValidationService.lessThanOrEqualTo(t, 300)]);
 	const descriptionFullRules = reactive([ValidationService.lessThanOrEqualTo(t, 2000)]);
 	const imageRules = computed(() => dish.value.id == null ? [ValidationService.requiredFile(t)] : []);
+	const aiAvailable = computed(() => dish.value.title != '' && dish.value.dishProductRelations.length > 0);
+	const productIds = computed(() => {
+		const ids = [];
+
+		for(let relation of dish.value.dishProductRelations)
+			if(relation.product.id != null)
+				ids.push(relation.product.id);
+
+		return ids;
+	});
+
+	const generateDescriptionShort = (handler: Function) => {
+		DishService.generateDescriptionShort(dish.value.title, productIds.value, handler);
+	};
+
+	const generateDescriptionFull = (handler: Function) => {
+		DishService.generateDescriptionFull(dish.value.title, productIds.value, handler);
+	};
 
 	const onProductSelected = (value: Product) => {
 		dish.value.dishProductRelations.push({ product: value, grams: 0 });

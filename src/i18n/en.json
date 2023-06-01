@@ -51,6 +51,11 @@
 		"moreThanOrEqualTo": "Minimum {min} characters"
 	},
 
+	"ai": {
+		"generate": "Generate with AI",
+		"disabled": "Set dish title and ingredients to use AI generation"
+	},
+
 	"products": {
 		"kcal": "kcal",
 		"protein": "p",

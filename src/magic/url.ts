@@ -1,4 +1,5 @@
 const URL = {
+	GPT: '/api/ai/text',
 	Products: '/api/products/',
 	Dishes: '/api/dishes/',
 	Auth: '/api/auth/'
