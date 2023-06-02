@@ -7,10 +7,7 @@ export function toIndexIfAuthenticated(to: RouteLocationNormalized, from: RouteL
 		next(store.user != null ? { name: 'dishes-mine' } : null);
 	};
 
-	if(store.userLoadingPromise == null)
-		return check();
-	else
-		store.userLoadingPromise.then(check);
+	store.userLoadingPromise == null ? check() : store.userLoadingPromise.finally(check);
 }
 
 export function toLoginIfNotAuthenticated(to: RouteLocationNormalized, from: RouteLocationNormalized, next: Function): void {
@@ -19,8 +16,5 @@ export function toLoginIfNotAuthenticated(to: RouteLocationNormalized, from: Rou
 		next(store.user == null ? { name: 'login' } : null);
 	};
 
-	if(store.userLoadingPromise == null)
-		check();
-	else
-		store.userLoadingPromise.then(check);
+	store.userLoadingPromise == null ? check() : store.userLoadingPromise.finally(check);
 }

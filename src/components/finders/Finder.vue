@@ -1,6 +1,10 @@
 <template>
 	<v-container class="fill-height">
-		<progress-circular v-if="loading"></progress-circular>
+		<v-row v-if="loading">
+			<v-col>
+				<progress-circular></progress-circular>
+			</v-col>
+		</v-row>
 
 		<div v-show="!loading">
 			<div v-if="records.length === 0 && parameters.search === '' && !searching" class="d-flex justify-center align-center fill-height flex-column">

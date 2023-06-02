@@ -3,8 +3,10 @@
 		<progress-circular v-if="loading"></progress-circular>
 
 		<template v-else>
-			<app-bar v-if="$vuetify.display.mobile" @navToggled="onNavToggled"></app-bar>
-			<navigation v-model="showNavigation"></navigation>
+			<template v-if="user">
+				<app-bar v-if="$vuetify.display.mobile" @navToggled="onNavToggled"></app-bar>
+				<navigation v-model="showNavigation"></navigation>
+			</template>
 
 			<v-main>
 				<router-view class="py-6 py-sm-12"/>
@@ -17,14 +19,17 @@
 	import ProgressCircular from '@/components/indicators/ProgressCircular.vue';
 	import Navigation from '@/components/app/Navigation.vue';
 	import AppBar from '@/components/app/AppBar.vue';
-	import { onBeforeMount, onMounted, ref, getCurrentInstance, watch } from 'vue';
+	import { onBeforeMount, onMounted, ref, getCurrentInstance, watch, toRefs } from 'vue';
 	import { RouteLocationNormalized } from 'vue-router';
 	import { useI18n } from 'vue-i18n';
 	import useStore from '@/store/auth';
 	import router from '@/router';
 
+	const store = useStore();
+
 	const showNavigation = ref(false);
 	const loading = ref(true);
+	const { user } = toRefs(store);
 
 	const { t } = useI18n();
 
@@ -43,7 +48,7 @@
 	router.beforeEach(updateTitle);
 
 	onBeforeMount(async () => {
-		await useStore().me();
+		await store.me();
 		loading.value = false;
 	});
 
