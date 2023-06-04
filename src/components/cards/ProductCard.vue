@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-	import DishProductRelation from '@/models/dish-product-relation';
+	import DishProductRelation from '@/models/dishProductRelation';
 	import { defineProps } from 'vue';
 	import { useI18n } from 'vue-i18n';
 

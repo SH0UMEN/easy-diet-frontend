@@ -6,7 +6,9 @@
 					  class="mb-2"
 					  variant="solo">
 		</v-text-field>
+
 		<password v-model="password" :repeat="repeatPassword" class="mb-2"></password>
+
 		<v-btn :disabled="!valid || loading"
 			   :loading="loading"
 			   type="submit"
@@ -14,6 +16,7 @@
 			   block>
 			{{ submitText }}
 		</v-btn>
+
 		<slot></slot>
 
 		<div v-if="errors.length > 0">
@@ -52,8 +55,8 @@
 	const loading = computed(() => properties.loading);
 
 	const valid = ref(false);
+	const repeatPassword = ref(properties.repeatPassword);
 
 	const errors = reactive<Array<string>>(properties.errors);
 	const usernameRules = reactive(ValidationService.username(t));
-	const passwordRules = reactive(ValidationService.password(t));
 </script>

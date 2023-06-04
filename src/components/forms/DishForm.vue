@@ -42,7 +42,7 @@
 
 				<v-row>
 					<v-col v-for="(product, i) in dish.dishProductRelations" cols="12" sm="6" class="grow mb-2">
-						<product-card :product="product">
+						<product-card :product="product" editable>
 							<template #actions>
 								<v-card-actions class="justify-end">
 									<v-btn @click="remove(i)" color="red-accent-2" variant="text">{{ t('dishes.form.product.remove') }}</v-btn>

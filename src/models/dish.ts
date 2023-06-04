@@ -1,4 +1,4 @@
-import DishProductRelation from '@/models/dish-product-relation';
+import DishProductRelation from '@/models/dishProductRelation';
 import IModel from '@/models/model';
 import User from '@/models/user';
 

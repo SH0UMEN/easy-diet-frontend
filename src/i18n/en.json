@@ -57,6 +57,7 @@
 	},
 
 	"products": {
+		"grams": "g.",
 		"kcal": "kcal",
 		"protein": "p",
 		"fat": "f",
@@ -93,6 +94,18 @@
 				"noData": "Enter the text to find some ingredients",
 				"remove": "Remove"
 			}
+		},
+
+		"view": {
+			"nutritionValue": "Nutrition value (100 g.)",
+			"ingredients": "Ingredients",
+			"title": "Title",
+			"weight": "Weight",
+			"value": "Value",
+			"kcal": "Calories",
+			"protein": "Proteins",
+			"fat": "Fats",
+			"carbohydrate": "Carbohydrates"
 		},
 
 		"edit": {

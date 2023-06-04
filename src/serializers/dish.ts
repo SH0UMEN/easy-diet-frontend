@@ -1,4 +1,4 @@
-import DishProductRelation from '@/models/dish-product-relation';
+import DishProductRelation from '@/models/dishProductRelation';
 import Serializer from '@/serializers/serializer';
 import Dish from '@/models/dish';
 import { isString } from '@/utils';
