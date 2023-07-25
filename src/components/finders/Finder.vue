@@ -52,7 +52,7 @@
 	import { debounce } from '@/utils';
 	import { useI18n } from 'vue-i18n';
 	import { ref } from 'vue';
-	import CRUDPaginationParameters from '@/types/CRUDPaginationParameters';
+	import CRUDPaginationParameters from '@/types/requests/CRUDPaginationParameters';
 	import IModel from '@/models/model';
 	import CRUD from '@/services/crud';
 

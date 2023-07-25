@@ -10,8 +10,6 @@
 							  class="mb-2">
 				</v-text-field>
 				<thumbnail-picker :label="t('dishes.form.image')"
-								  :ai-available="aiAvailable"
-								  :generator="generateImage"
 								  :image-rules="imageRules"
 								  v-model="dish.image">
 				</thumbnail-picker>
@@ -38,14 +36,30 @@
 							 class="mb-2">
 				</ai-textarea>
 
-				<product-selector :label="t('dishes.form.product.label')" @selected="onProductSelected" class="mb-2"></product-selector>
+				<ingredient-selector :title-property="'i18n.' + $i18n.locale + '.title'"
+									 :label="t('dishes.form.product.label')"
+									 @selected="onProductSelected"
+									 :excluded="productIds"
+									 :service="service"
+									 class="mb-2">
+					<template #default="{ record, props }: { record: Product }">
+						<v-list-item v-bind="props">
+							<v-list-item-subtitle>
+								<span class="mr-5">{{ t('products.kcal') }}: {{ record.kcal }}</span>
+								<span class="mr-5">{{ t('products.protein') }}: {{ record.protein }}</span>
+								<span class="mr-5">{{ t('products.fat') }}: {{ record.fat }}</span>
+								<span>{{ t('products.carbohydrate') }}: {{ record.carbohydrate }}</span>
+							</v-list-item-subtitle>
+						</v-list-item>
+					</template>
+				</ingredient-selector>
 
 				<v-row>
 					<v-col v-for="(product, i) in dish.dishProductRelations" cols="12" sm="6" class="grow mb-2">
 						<product-card :product="product" editable>
 							<template #actions>
 								<v-card-actions class="justify-end">
-									<v-btn @click="remove(i)" color="red-accent-2" variant="text">{{ t('dishes.form.product.remove') }}</v-btn>
+									<v-btn @click="remove(i as number)" color="red-accent-2" variant="text">{{ t('dishes.form.product.remove') }}</v-btn>
 								</v-card-actions>
 							</template>
 						</product-card>
@@ -70,20 +84,20 @@
 </template>
 
 <script setup lang="ts">
-	import ProductSelector from '@/components/controls/ProductSelector.vue';
+	import IngredientSelector from '@/components/controls/IngredientSelector.vue';
 	import ThumbnailPicker from '@/components/controls/ThumbnailPicker.vue';
 	import ProductCard from '@/components/cards/ProductCard.vue';
 	import AiTextarea from '@/components/controls/AiTextarea.vue';
 	import {
 		computed,
 		defineProps,
-		onMounted,
 		reactive,
 		ref,
 		toRefs,
 	} from 'vue';
 	import { useI18n } from 'vue-i18n';
 	import ValidationService from '@/services/validation';
+	import ProductService from '@/services/product';
 	import DishService from '@/services/dish';
 	import Product from '@/models/product';
 	import Dish from '@/models/dish';
@@ -94,6 +108,8 @@
 		loading: boolean;
 		dish: Dish;
 	}
+
+	const service = new ProductService();
 
 	const properties = withDefaults(defineProps<Properties>(), { loading: false, submitText: '', errors: () => [] });
 	const { t } = useI18n();
@@ -135,10 +151,4 @@
 	const remove = (index: number) => {
 		dish.value.dishProductRelations.splice(index, 1);
 	};
-
-	onMounted(() => {
-		title.value.validate();
-		descriptionShort.value.validate();
-		descriptionFull.value.validate();
-	});
 </script>

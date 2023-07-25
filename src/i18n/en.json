@@ -15,9 +15,10 @@
 		},
 
 		"menus": {
-			"all": "All menu",
-			"mine": "My menu",
-			"create": "Create menu"
+			"create": "Create menu",
+			"edit": "Edit menu",
+			"all": "All menus",
+			"mine": "My menus"
 		}
 	},
 
@@ -47,8 +48,16 @@
 
 	"form": {
 		"required": "Fill the field",
-		"lessThanOrEqualTo": "Maximum {max} characters",
-		"moreThanOrEqualTo": "Minimum {min} characters"
+
+		"number": {
+			"lessThanOrEqualTo": "Maximum {max} characters",
+			"moreThanOrEqualTo": "Minimum {min} characters"
+		},
+
+		"string": {
+			"lessThanOrEqualTo": "Maximum is {max}",
+			"moreThanOrEqualTo": "Minimum is {min}"
+		}
 	},
 
 	"ai": {
@@ -84,11 +93,14 @@
 
 		"form": {
 			"title": "Dish title",
+
 			"description": {
 				"short": "Short description",
 				"full": "Full description"
 			},
+
 			"image": "Dish thumbnail",
+
 			"product": {
 				"label": "Add ingredient",
 				"noData": "Enter the text to find some ingredients",
@@ -97,15 +109,10 @@
 		},
 
 		"view": {
-			"nutritionValue": "Nutrition value (100 g.)",
 			"ingredients": "Ingredients",
 			"title": "Title",
 			"weight": "Weight",
-			"value": "Value",
-			"kcal": "Calories",
-			"protein": "Proteins",
-			"fat": "Fats",
-			"carbohydrate": "Carbohydrates"
+			"value": "Value"
 		},
 
 		"edit": {
@@ -120,8 +127,48 @@
 	},
 
 	"menus": {
+		"floating": "Create new menu",
+
+		"mine": {
+			"title": "My menus",
+			"delete": "Delete",
+			"noData": "You have not created any menu"
+		},
+
+		"all": {
+			"title": "All menus",
+			"noData": "Nobody has created any menu on the platform"
+		},
+
+		"form": {
+			"title": "Menu title",
+
+			"description": {
+				"short": "Short description",
+				"full": "Full description"
+			},
+
+			"image": "Menu thumbnail",
+
+			"product": {
+				"label": "Add dish",
+				"noData": "Enter the text to find some dishes",
+				"remove": "Remove"
+			}
+		},
+
 		"create": {
-			"floating": "Create new menu"
+			"title": "Create your new menu",
+			"submit": "Create"
+		},
+
+		"view": {
+			"ingredients": "Composition"
+		},
+
+		"edit": {
+			"title": "Edit menu",
+			"submit": "Save"
 		}
 	},
 
@@ -145,5 +192,20 @@
 			"title": "Registration",
 			"submit": "Register"
 		}
+	},
+
+	"nutritionValue": {
+		"value": "Nutrition value",
+		"full": "Total",
+		"relative": "on 100 g.",
+		"kcal": "Calories",
+		"protein": "Proteins",
+		"fat": "Fats",
+		"carbohydrate": "Carbohydrates"
+	},
+
+	"scores": {
+		"your": "Your score",
+		"overall": "Rating"
 	}
 }

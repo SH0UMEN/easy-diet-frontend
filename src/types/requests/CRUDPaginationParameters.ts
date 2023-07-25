@@ -1,4 +1,4 @@
-import CRUDGetParameters from '@/types/CRUDGetParameters';
+import CRUDGetParameters from '@/types/requests/CRUDGetParameters';
 
 type CRUDPaginationParameters = CRUDGetParameters & {
 	limit?: number;

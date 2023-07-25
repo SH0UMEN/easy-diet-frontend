@@ -10,20 +10,23 @@
 					{{ t('products.protein') }}/{{ t('products.fat') }}/{{ t('products.carbohydrate') }}:
 					{{ nutritionValue.protein.toFixed(2) }}/{{ nutritionValue.fat.toFixed(2) }}/{{ nutritionValue.carbohydrate.toFixed(2) }}
 				</div>
+
 				<div>{{ t('products.kcal') }}: {{ Math.round(nutritionValue.kcal) }}</div>
 			</v-card-subtitle>
 		</v-card-item>
 
-		<v-card-text>
-			<v-row align="center" class="mx-0 mb-4">
-				<v-rating :model-value="4.5" color="amber" density="compact" half-increments readonly size="small"></v-rating>
-				<div class="text-grey ms-4">4.5 (413)</div>
+		<v-card-text v-if="!editable">
+			<v-row v-if="dish.overallScore > 0" align="center" class="mx-0 mb-4">
+				<v-rating :model-value="dish.overallScore" color="amber" density="compact" half-increments readonly size="small"></v-rating>
+				<div class="text-grey ms-4">{{ dish.overallScore }} ({{ dish.scoresCount }})</div>
 			</v-row>
 
 			<div class="mt-4">{{ dish.descriptionShort }}</div>
 		</v-card-text>
 
-		<slot name="actions"></slot>
+		<div class="d-flex align-center justify-end">
+			<slot name="actions"></slot>
+		</div>
 	</v-card>
 </template>
 
@@ -35,10 +38,11 @@
 	import { isString } from '@/utils';
 
 	type Properties = {
+		editable?: boolean;
 		dish: Dish;
 	}
 
-	const properties = defineProps<Properties>();
+	const properties = withDefaults(defineProps<Properties>(), { editable: false });
 
 	const { dish } = toRefs(properties);
 	const { t } = useI18n();

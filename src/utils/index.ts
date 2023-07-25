@@ -56,4 +56,8 @@ export const isObject = (value: any): value is Object => {
 export const passQueryData = (route: RouteLocationNormalized) => {
 	const id = route.params.id;
 	return { id: id instanceof Array ? id : parseInt(id) };
-}
+};
+
+export const toSnakeCase = (value: string): string => {
+	return value.replace(/[A-Z]/g, (letter) => '_' + letter.toLowerCase());
+};

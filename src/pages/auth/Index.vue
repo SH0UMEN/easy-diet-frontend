@@ -1,6 +1,8 @@
 <template>
-	<v-responsive max-width="512" class="mx-auto pa-6 fill-height d-flex align-center">
-		<router-view></router-view>
+	<v-responsive max-width="512" class="mx-auto pa-6 fill-height">
+		<div class="d-flex flex-1-0 fill-height justify-center flex-column">
+			<router-view></router-view>
+		</div>
 	</v-responsive>
 </template>
 

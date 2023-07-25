@@ -16,7 +16,7 @@
 	import ActionButton from '@/components/buttons/ActionButton.vue';
 	import { useI18n } from 'vue-i18n';
 	import { toRefs } from 'vue';
-	import CRUDGetParameters from '@/types/CRUDGetParameters';
+	import CRUDGetParameters from '@/types/requests/CRUDGetParameters';
 	import useStore from '@/store/auth';
 
 	const { user } = toRefs(useStore());

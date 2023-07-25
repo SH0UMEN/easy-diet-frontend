@@ -2,7 +2,7 @@
 	<v-autocomplete v-model:search="parameters.search"
 					v-model="product"
 					:no-data-text="t('dishes.form.product.noData')"
-					:item-title="'i18n.' + $i18n.locale + '.title'"
+					:item-title="titleProperty"
 					:items="products"
 					:loading="loading"
 					:menu-props="{ maxWidth: 0 }"
@@ -11,14 +11,7 @@
 					return-object
 					no-filter>
 		<template #item="{ props, item }">
-			<v-list-item v-bind="props">
-				<v-list-item-subtitle>
-					<span class="mr-5">{{ t('products.kcal') }}: {{ item.raw.kcal }}</span>
-					<span class="mr-5">{{ t('products.protein') }}: {{ item.raw.protein }}</span>
-					<span class="mr-5">{{ t('products.fat') }}: {{ item.raw.fat }}</span>
-					<span>{{ t('products.carbohydrate') }}: {{ item.raw.carbohydrate }}</span>
-				</v-list-item-subtitle>
-			</v-list-item>
+			<slot :props="props" :record="item.raw"></slot>
 		</template>
 
 		<template #append-item>
@@ -29,28 +22,35 @@
 
 <script setup lang="ts">
 	import Pagination from '@/components/app/Pagination.vue';
-	import { defineEmits, reactive, ref, watch } from 'vue';
+	import { defineEmits, ref, watch, nextTick } from 'vue';
 	import { debounce } from '@/utils';
 	import { useI18n } from 'vue-i18n';
-	import ProductService from '@/services/product';
-	import Product from '@/models/product';
-	import CRUDPaginationParameters from '@/types/CRUDPaginationParameters';
+	import CRUDPaginationParameters from '@/types/requests/CRUDPaginationParameters';
+	import CRUD from '@/services/crud';
+	import IModel from '@/models/model';
+	import FilterParameters from '@/types/requests/FilterParameters';
 
+	type Properties = {
+		service: CRUD;
+		titleProperty: string;
+		excluded: Array<number>;
+	}
+
+	const properties = defineProps<Properties>();
 	const emit = defineEmits(['selected']);
 
-	const product = ref<Product | null>(null);
-	const products = ref<Array<Product>>([]);
+	const product = ref<IModel | null>(null);
+	const products = ref<Array<IModel>>([]);
 	const loading = ref(false);
 	const total = ref(0);
 	const page = ref(1);
 
 	const { t, locale } = useI18n();
-	const service = new ProductService();
 
-	const parameters = ref<CRUDPaginationParameters>({ lang: locale.value });
+	const parameters = ref<CRUDPaginationParameters>({ lang: locale.value, search: '' });
 
 	const fetch = async () => {
-		const response = await service.read(parameters.value);
+		const response = await properties.service.read(parameters.value);
 
 		total.value = response.count;
 		products.value = response.results;
@@ -59,9 +59,9 @@
 
 	const fetchDebounced = debounce(fetch, 250);
 
-	watch(() => parameters.value.search, (value) => {
-		if(value == '')
-			return;
+	watch(() => parameters.value.search, () => {
+		if(parameters.value.search == '')
+			return clear();
 
 		loading.value = true;
 		page.value = 1;
@@ -73,19 +73,28 @@
 		if(loading.value)
 			return;
 
-		loading.value = true;
-		fetch();
+		nextTick(() => {
+			loading.value = true;
+			fetch();
+		});
 	});
 
-	watch(product, (value: Product | null) => {
+	watch(product, (value: IModel | null) => {
 		if(value == null)
 			return;
 
+		clear();
+		emit('selected', value);
+	});
+
+	watch(() => properties.excluded, (value: Array<number>) => {
+		parameters.value.idNot = value;
+	});
+
+	const clear = () => {
 		product.value = null;
 		parameters.value.search = '';
 		products.value = [];
 		total.value = 0;
-
-		emit('selected', value);
-	});
+	}
 </script>

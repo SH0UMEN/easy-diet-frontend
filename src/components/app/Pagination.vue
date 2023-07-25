@@ -8,8 +8,8 @@
 </template>
 
 <script setup lang="ts">
-	import { computed, defineEmits, defineProps, ref, toRefs, watch, watchEffect } from 'vue';
-	import CRUDPaginationParameters from '@/types/CRUDPaginationParameters';
+	import { computed, defineEmits, defineProps, ref, toRefs, watch } from 'vue';
+	import CRUDPaginationParameters from '@/types/requests/CRUDPaginationParameters';
 	import { wrapModel } from '@/utils';
 
 	type Properties = {

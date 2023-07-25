@@ -17,46 +17,54 @@
 				<v-table v-if="nutritionValue != null" density="compact" class="mt-6">
 					<thead>
 						<tr>
-							<th colspan="2">{{ t('nutritionValue.value') + ' (' + t('nutritionValue.relative') + ')' }}</th>
+							<th>{{ t('nutritionValue.value') }}</th>
+							<th class="text-right">{{ t('nutritionValue.full') }}</th>
+							<th class="text-right">{{ t('nutritionValue.relative') }}</th>
 						</tr>
 					</thead>
 
 					<tbody>
 						<tr>
 							<td>{{ t('nutritionValue.kcal') }}</td>
+							<td class="text-right">{{ Math.round(nutritionValue.kcalFull) }}&nbsp{{ t('products.kcal') }}</td>
 							<td class="text-right">{{ Math.round(nutritionValue.kcal) }}&nbsp{{ t('products.kcal') }}</td>
 						</tr>
 
 						<tr>
 							<td>{{ t('nutritionValue.protein') }}</td>
+							<td class="text-right">{{ nutritionValue.proteinFull.toFixed(2) }}&nbsp{{ t('products.grams') }}</td>
 							<td class="text-right">{{ nutritionValue.protein.toFixed(2) }}&nbsp{{ t('products.grams') }}</td>
 						</tr>
 
 						<tr>
 							<td>{{ t('nutritionValue.fat') }}</td>
+							<td class="text-right">{{ nutritionValue.fatFull.toFixed(2) }}&nbsp{{ t('products.grams') }}</td>
 							<td class="text-right">{{ nutritionValue.fat.toFixed(2) }}&nbsp{{ t('products.grams') }}</td>
 						</tr>
 
 						<tr>
 							<td>{{ t('nutritionValue.carbohydrate') }}</td>
+							<td class="text-right">{{ nutritionValue.carbohydrateFull.toFixed(2) }}&nbsp{{ t('products.grams') }}</td>
 							<td class="text-right">{{ nutritionValue.carbohydrate.toFixed(2) }}&nbsp{{ t('products.grams') }}</td>
 						</tr>
 					</tbody>
 				</v-table>
 
-				<v-table density="compact" class="mt-6">
-					<template #top>
-						<div class="px-4 pt-2 mb-2 text-subtitle-1 text-grey-lighten-1">{{ t('dishes.view.ingredients') }}</div>
-						<v-divider></v-divider>
-					</template>
+				<v-list class="mt-6">
+					<v-list-subheader>{{ t('menus.view.ingredients') }}</v-list-subheader>
 
-					<tbody>
-						<tr v-for="relation in record.dishProductRelations" :key="relation.product.id">
-							<td>{{ relation.product.i18n[$i18n.locale].title }}</td>
-							<td class="text-right">{{ relation.grams }}&nbsp{{ t('products.grams') }}</td>
-						</tr>
-					</tbody>
-				</v-table>
+					<v-list-item :to="{ name: 'dishes-page', params: { id: relation.dish.id } }"
+								 v-for="relation in record.menuDishRelations"
+								 :key="relation.dish.id">
+						<template #prepend>
+							<span>{{ relation.quantity }}</span>
+							<span class="mx-3">&#10005;</span>
+							<v-avatar v-if="isString(relation.dish.image)" :image="relation.dish.image"></v-avatar>
+						</template>
+
+						<v-list-item-title v-text="relation.dish.title"></v-list-item-title>
+					</v-list-item>
+				</v-list>
 
 				<div class="break-spaces mt-6">{{ record.descriptionFull }}</div>
 			</v-responsive>
@@ -66,27 +74,32 @@
 
 <script setup lang="ts">
 	import Loader from '@/components/loaders/Loader.vue';
-	import DishService from '@/services/dish';
+	import { useI18n } from 'vue-i18n';
+	import { computed, Ref, ref } from 'vue';
+	import MenuService from '@/services/menu';
+	import Menu from '@/models/menu';
+	import DishCard from '@/components/cards/DishCard.vue';
+	import { isString } from '@/utils';
+	import Rating from '@/components/controls/Rating.vue';
+	import { storeToRefs } from 'pinia';
 	import useStore from '@/store/auth';
 	import Dish from '@/models/dish';
-	import { computed, Ref, ref } from 'vue';
-	import { storeToRefs } from 'pinia';
-	import { useI18n } from 'vue-i18n';
-	import Rating from '@/components/controls/Rating.vue';
+	import DishService from '@/services/dish';
 
 	type Properties = {
 		id: number;
 	}
 
-	const service = new DishService();
+	const service = new MenuService();
 	const properties = defineProps<Properties>();
 	const { t } = useI18n();
 
 	const { user } = storeToRefs(useStore());
-	const record: Ref<Dish | null> = ref(null);
-	const nutritionValue = computed(() => record.value == null ? null : DishService.getNutritionValue(record.value));
 
-	const onLoad = (value: Dish) => {
+	const record: Ref<Menu | null> = ref(null);
+	const nutritionValue = computed(() => record.value == null ? null : MenuService.getNutritionValue(record.value));
+
+	const onLoad = (value: Menu) => {
 		record.value = value;
 	}
 

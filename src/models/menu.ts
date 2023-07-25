@@ -1,9 +1,9 @@
-import DishProductRelation from '@/models/dishProductRelation';
+import MenuDishRelation from '@/models/menuDishRelation';
 import Scorable from '@/models/scorable';
 import User from '@/models/user';
 
-interface Dish extends Scorable {
-	dishProductRelations: Array<DishProductRelation>;
+interface Menu extends Scorable {
+	menuDishRelations: Array<MenuDishRelation>;
 	image?: File | string;
 	descriptionShort?: string;
 	descriptionFull?: string;
@@ -11,4 +11,4 @@ interface Dish extends Scorable {
 	title: string;
 }
 
-export default Dish;
+export default Menu;

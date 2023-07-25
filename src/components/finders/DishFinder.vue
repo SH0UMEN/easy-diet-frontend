@@ -16,7 +16,7 @@
 	import Finder from '@/components/finders/Finder.vue';
 	import DishCard from '@/components/cards/DishCard.vue';
 	import DishService from '@/services/dish';
-	import CRUDGetParameters from '@/types/CRUDGetParameters';
+	import CRUDGetParameters from '@/types/requests/CRUDGetParameters';
 	import { defineProps } from 'vue';
 	import { useI18n } from 'vue-i18n';
 	import Dish from '@/models/dish';

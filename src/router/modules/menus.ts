@@ -1,3 +1,6 @@
+import { toLoginIfNotAuthenticated } from '@/router/middleware';
+import { passQueryData } from '@/utils';
+
 export default {
 	name: 'menus',
 	path: '/menus',
@@ -20,12 +23,33 @@ export default {
 			component: () => import('@/pages/menus/All.vue')
 		},
 		{
-			name: 'menus-mine',
+			name: 'menus-page',
+			path: ':id',
+			component: () => import('@/pages/menus/Page.vue'),
+			props: passQueryData
+		},
+		{
 			path: 'mine',
-			meta: {
-				title: 'titles.menus.mine'
-			},
-			component: () => import('@/pages/menus/Mine.vue')
+			beforeEnter: toLoginIfNotAuthenticated,
+			children: [
+				{
+					name: 'menus-mine',
+					path: '',
+					meta: {
+						title: 'titles.menus.mine'
+					},
+					component: () => import('@/pages/menus/Mine.vue'),
+				},
+				{
+					name: 'menus-edit',
+					path: ':id',
+					meta: {
+						title: 'titles.menus.edit'
+					},
+					component: () => import('@/pages/menus/Edit.vue'),
+					props: passQueryData
+				}
+			]
 		}
 	]
 };

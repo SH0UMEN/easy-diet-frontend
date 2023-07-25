@@ -4,16 +4,14 @@ import dishes from './modules/dishes';
 import menus from './modules/menus';
 
 const routes: Array<RouteRecordRaw> = [
-	auth,
-	dishes,
-	menus,
 	{
 		name: 'index',
 		path: '/',
 		meta: {
 			title: 'titles.index'
 		},
-		component: () => import('@/pages/auth/Index.vue')
+		redirect: { name: 'menus-all' },
+		children: [ auth, dishes, menus ]
 	}
 ];
 

@@ -1,10 +1,11 @@
-import CRUDPaginationParameters from '@/types/CRUDPaginationParameters';
-import CRUDPaginationResponse from '@/types/CRUDPaginationResponse';
-import CRUDGetParameters from '@/types/CRUDGetParameters';
+import CRUDPaginationParameters from '@/types/requests/CRUDPaginationParameters';
+import CRUDPaginationResponse from '@/types/requests/CRUDPaginationResponse';
+import CRUDGetParameters from '@/types/requests/CRUDGetParameters';
 import Serializer from '@/serializers/serializer';
 import axios, { AxiosResponse } from 'axios';
 import IModel from '@/models/model';
-import { isNumber } from '@/utils';
+import { isNumber, toSnakeCase } from '@/utils';
+import Exceptions from '@/magic/exceptions';
 
 class CRUD<T extends IModel = IModel> {
 	protected root: string = '';
@@ -23,6 +24,16 @@ class CRUD<T extends IModel = IModel> {
 		return this.phantomRecord;
 	}
 
+	private buildRequestParameters(parameters?: CRUDGetParameters): object {
+		const snakeCased: { [key: string]: string | number } = {};
+
+		Object.entries(parameters as object).forEach(([key, value]) => {
+			snakeCased[toSnakeCase(key)] = Array.isArray(value) ? value.join(',') : value;
+		});
+
+		return snakeCased;
+	}
+
 	public async read(id: number): Promise<T>;
 	public async read(parameters?: CRUDPaginationParameters): Promise<CRUDPaginationResponse<T>>;
 	public async read(parameters?: CRUDGetParameters): Promise<Array<T>>;
@@ -32,23 +43,23 @@ class CRUD<T extends IModel = IModel> {
 		if(arg != null && isNumber(arg))
 			response = await axios.get(this.getRecordUrl(arg));
 		else
-			response = await axios.get(this.getListUrl(), { params: arg });
+			response = await axios.get(this.getListUrl(), { params: this.buildRequestParameters(arg) });
 
 		return response.data;
 	}
 
-	async create(data: T): Promise<T> {
+	public async create(data: T): Promise<T> {
 		return (await axios.post(this.getListUrl(), this.serializer.toFormData(data))).data;
 	}
 
-	async update(data: T): Promise<T> {
+	public async update(data: T): Promise<T> {
 		if(data.id == null)
-			throw 'Trying to update a phantom record';
+			throw Exceptions.PhantomRecordUpdating;
 
 		return (await axios.patch(this.getRecordUrl(data.id), this.serializer.toFormData(data))).data;
 	}
 
-	async delete(id: number) {
+	public async delete(id: number) {
 		await axios.delete(this.getRecordUrl(id));
 	}
 }

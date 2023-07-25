@@ -1,4 +1,5 @@
 import { ComposerTranslation } from 'vue-i18n';
+import { isString } from '@/utils';
 
 class ValidationService {
 	public static username(t: ComposerTranslation): Array<Function> {
@@ -18,7 +19,7 @@ class ValidationService {
 	}
 
 	public static required(t: ComposerTranslation): Function {
-		return (v: string) => v != '' || t('form.required');
+		return (v: string | number) => v !== '' || t('form.required');
 	}
 
 	public static requiredFile(t: ComposerTranslation): Function {
@@ -26,11 +27,17 @@ class ValidationService {
 	}
 
 	public static lessThanOrEqualTo(t: ComposerTranslation, max: number): Function {
-		return (v: string) => v.length <= max || t('form.lessThanOrEqualTo', { max: max });
+		return (v: string | number) => {
+			const value = isString(v) ? v.length : v;
+			return value <= max || t('form.' + (typeof v) + '.lessThanOrEqualTo', { max: max });
+		};
 	}
 
 	public static moreThanOrEqualTo(t: ComposerTranslation, min: number): Function {
-		return (v: string) => v.length >= min ||  t('form.moreThanOrEqualTo', { min: min });
+		return (v: string | number) => {
+			const value = isString(v) ? v.length : v;
+			return value >= min || t('form.' + (typeof v) + '.moreThanOrEqualTo', { min: min });
+		};
 	}
 }
 

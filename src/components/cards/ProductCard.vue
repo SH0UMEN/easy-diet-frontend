@@ -11,6 +11,7 @@
 			</v-card-subtitle>
 
 			<v-spacer></v-spacer>
+
 			<v-text-field :hide-details="true"
 						  v-model.number="product.grams"
 						  type="number"
