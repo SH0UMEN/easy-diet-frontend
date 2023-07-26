@@ -7,7 +7,15 @@
 					  variant="solo">
 		</v-text-field>
 
-		<password v-model="password" :repeat="repeatPassword" class="mb-2"></password>
+		<v-text-field v-if="registration"
+					  :label="t('auth.email')"
+					  :rules="emailRules"
+					  v-model="email"
+					  class="mb-2"
+					  variant="solo">
+		</v-text-field>
+
+		<password v-model="password" :repeat="registration" class="mb-2"></password>
 
 		<v-btn :disabled="!valid || loading"
 			   :loading="loading"
@@ -33,30 +41,33 @@
 	import { useI18n } from 'vue-i18n';
 
 	type Properties = {
-		repeatPassword?: boolean;
+		registration?: boolean;
 		errors: Array<string>;
 		submitText: string;
 		loading: boolean;
 		username: string;
 		password: string;
+		email?: string;
 	}
 
 	const emit = defineEmits(['update:username', 'update:password']);
 	const properties = withDefaults(
 		defineProps<Properties>(),
-		{ errors: () => [], submitText: '', loading: false, username: '', password: '', repeatPassword: false }
+		{ errors: () => [], submitText: '', loading: false, username: '', password: '', registration: false }
 	);
 
 	const { t } = useI18n();
 
 	const username = wrapModel<string, Properties>(properties, emit, 'username');
 	const password = wrapModel<string, Properties>(properties, emit, 'password');
+	const email = wrapModel<string, Properties>(properties, emit, 'email');
 
 	const loading = computed(() => properties.loading);
 
 	const valid = ref(false);
-	const repeatPassword = ref(properties.repeatPassword);
+	const registration = ref(properties.registration);
 
 	const errors = reactive<Array<string>>(properties.errors);
 	const usernameRules = reactive(ValidationService.username(t));
+	const emailRules = reactive(ValidationService.email(t));
 </script>

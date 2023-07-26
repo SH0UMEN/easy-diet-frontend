@@ -6,6 +6,7 @@
 		"index": "Main",
 		"login": "Login",
 		"registration": "Registration",
+		"verify": "Verification",
 
 		"dishes": {
 			"create": "Create dish",
@@ -25,6 +26,7 @@
 	"errors": {
 		"unknown": "Unknown error. Try later",
 		"userIsAuthenticated": "User is already authenticated",
+		"userIsNotActive": "User has not verified email",
 		"usernameIsBusy": "User with the same name already exists",
 		"userNotFound": "User with this data is not found",
 		"dataNotValid": "Data is not valid"
@@ -48,6 +50,8 @@
 
 	"form": {
 		"required": "Fill the field",
+
+		"email": "Enter valid email",
 
 		"number": {
 			"lessThanOrEqualTo": "Maximum {max} characters",
@@ -191,6 +195,11 @@
 		"registration": {
 			"title": "Registration",
 			"submit": "Register"
+		},
+
+		"verify": {
+			"help": "A link to verify your account has been sent to your email. Follow it to use the Easy Diet service",
+			"error": "Verification code is invalid"
 		}
 	},
 

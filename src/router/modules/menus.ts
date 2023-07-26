@@ -26,7 +26,7 @@ export default {
 			name: 'menus-page',
 			path: ':id',
 			component: () => import('@/pages/menus/Page.vue'),
-			props: passQueryData
+			props: passQueryData('id', true)
 		},
 		{
 			path: 'mine',
@@ -47,7 +47,7 @@ export default {
 						title: 'titles.menus.edit'
 					},
 					component: () => import('@/pages/menus/Edit.vue'),
-					props: passQueryData
+					props: passQueryData('id', true)
 				}
 			]
 		}

@@ -18,6 +18,13 @@ class ValidationService {
 		];
 	}
 
+	public static email(t: ComposerTranslation): Array<Function> {
+		return [(v: string) => {
+			const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			return pattern.test(v) || t('form.email');
+		}];
+	}
+
 	public static required(t: ComposerTranslation): Function {
 		return (v: string | number) => v !== '' || t('form.required');
 	}

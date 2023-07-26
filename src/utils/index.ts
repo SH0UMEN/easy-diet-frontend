@@ -53,9 +53,18 @@ export const isObject = (value: any): value is Object => {
 	return typeof value == 'object';
 };
 
-export const passQueryData = (route: RouteLocationNormalized) => {
-	const id = route.params.id;
-	return { id: id instanceof Array ? id : parseInt(id) };
+export const passQueryData = (name: string, toInt: boolean) => {
+	return (route: RouteLocationNormalized) => {
+		const param = route.params[name];
+		const result: { [field: string]: number | string | string[] } = {};
+
+		if(toInt)
+			result[name] = param instanceof Array ? param : parseInt(param);
+		else
+			result[name] = param;
+
+		return result;
+	}
 };
 
 export const toSnakeCase = (value: string): string => {

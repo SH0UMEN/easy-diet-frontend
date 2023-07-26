@@ -16,6 +16,10 @@ class AuthService {
 		return URL.Auth + 'logout';
 	}
 
+	protected getVerifyUrl(): string {
+		return URL.Auth + 'verify';
+	}
+
 	protected getMeUrl(): string {
 		return URL.Auth + 'me';
 	}
@@ -28,6 +32,8 @@ class AuthService {
 		switch(parseInt(exception.request.response)) {
 			case Error.UserIsAuthenticated:
 				return 'errors.userIsAuthenticated';
+			case Error.UserIsNotActive:
+				return 'errors.userIsNotActive';
 			case Error.UsernameIsBusy:
 				return 'errors.usernameIsBusy';
 			case Error.UserNotFound:
@@ -47,12 +53,19 @@ class AuthService {
 		return await this.post(this.getLoginUrl(), user);
 	}
 
-	public async registration(user: User): Promise<User> {
-		return await this.post(this.getRegistrationUrl(), user);
+	public async registration(user: User): Promise<boolean> {
+		return (await axios.post(this.getRegistrationUrl(), this.serializer.toFormData(user))).status == Status.OK;
 	}
 
 	public async logout(): Promise<boolean> {
 		return (await axios.post(this.getLogoutUrl())).status == Status.OK;
+	}
+
+	public async verify(code: string): Promise<boolean> {
+		const data = new FormData();
+		data.set('code', code);
+
+		return (await axios.post(this.getVerifyUrl(), data)).status == Status.OK;
 	}
 
 	public async me(): Promise<User> {

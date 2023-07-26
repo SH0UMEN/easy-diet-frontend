@@ -1,8 +1,9 @@
 const Error = {
 	UserIsAuthenticated: 1,
-	UsernameIsBusy: 2,
-	UserNotFound: 3,
-	DataNotValid: 4
+	UserIsNotActive: 2,
+	UsernameIsBusy: 3,
+	UserNotFound: 4,
+	DataNotValid: 5
 } as const;
 
 type Error = typeof Error[keyof typeof Error];

@@ -1,4 +1,5 @@
 import { toIndexIfAuthenticated } from '@/router/middleware';
+import { passQueryData } from '@/utils';
 
 export default {
 	name: 'auth',
@@ -21,6 +22,15 @@ export default {
 				title: 'titles.registration'
 			},
 			component: () => import('@/pages/auth/Registration.vue')
+		},
+		{
+			name: 'verify',
+			path: 'verify/:code?',
+			meta: {
+				title: 'titles.verify'
+			},
+			component: () => import('@/pages/auth/Verify.vue'),
+			props: passQueryData('code', false)
 		}
 	]
 };

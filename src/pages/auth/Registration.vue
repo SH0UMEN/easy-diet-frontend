@@ -5,7 +5,8 @@
 			   :submitText="t('auth.registration.submit')"
 			   v-model:username="username"
 			   v-model:password="password"
-			   :repeat-password="true"
+			   v-model:email="email"
+			   :registration="true"
 			   :loading="loading"
 			   :errors="errors">
 		<v-btn class="mt-2" :to="{ name: 'login' }" variant="plain" block>{{ t('auth.login.title') }}</v-btn>
@@ -26,25 +27,22 @@
 
 	const username = ref('');
 	const password = ref('');
+	const email = ref('');
 	const loading = ref(false);
 
 	const errors = reactive<Array<string>>([]);
 
-	const onSubmit = () => {
+	const onSubmit = async () => {
 		errors.splice(0, errors.length);
 		loading.value = true;
 
-		service.registration({ username: username.value, password: password.value }).then(async () => {
-			store.login(username.value, password.value).then(() => {
-				router.push({ name: 'dishes-mine' });
-				loading.value = false;
-			}).catch(() => {
-				router.push({ name: 'login' });
-				loading.value = false;
-			});
-		}).catch((e) => {
+		try {
+			await service.registration({ username: username.value, password: password.value, email: email.value });
+			router.push({ name: 'verify' });
+		} catch(e) {
 			errors.push(t(service.handleErrors(e)));
-			loading.value = false;
-		});
+		}
+
+		loading.value = false;
 	};
 </script>

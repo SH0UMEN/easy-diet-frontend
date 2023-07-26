@@ -1,5 +1,4 @@
 import { toLoginIfNotAuthenticated } from '@/router/middleware';
-import { RouteLocationNormalized } from 'vue-router';
 import { passQueryData } from '@/utils';
 
 export default {
@@ -27,7 +26,7 @@ export default {
 			name: 'dishes-page',
 			path: ':id',
 			component: () => import('@/pages/dishes/Page.vue'),
-			props: passQueryData
+			props: passQueryData('id', true)
 		},
 		{
 			path: 'mine',
@@ -48,7 +47,7 @@ export default {
 						title: 'titles.dishes.edit'
 					},
 					component: () => import('@/pages/dishes/Edit.vue'),
-					props: passQueryData
+					props: passQueryData('id', true)
 				}
 			]
 		}
