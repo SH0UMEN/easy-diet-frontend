@@ -1,7 +1,7 @@
 <template>
 	<v-form v-model="valid">
 		<v-row>
-			<v-col>
+			<v-col cols="12" sm="6" class="mb-n6 mb-sm-0">
 				<v-text-field v-model="dish.title"
 							  :rules="titleRules"
 							  :label="t('dishes.form.title')"
@@ -15,7 +15,7 @@
 				</thumbnail-picker>
 			</v-col>
 
-			<v-col>
+			<v-col cols="12" sm="6">
 				<ai-textarea :rules="descriptionShortRules"
 							 :generator="generateDescriptionShort"
 							 :label="t('dishes.form.description.short')"

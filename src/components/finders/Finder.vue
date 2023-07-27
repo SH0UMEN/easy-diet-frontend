@@ -7,7 +7,7 @@
 		</v-row>
 
 		<div class="flex-1-1 fill-height" v-show="!loading">
-			<div v-if="records.length === 0 && parameters.search === '' && !searching" class="d-flex justify-center align-center fill-height flex-column">
+			<div v-if="records.length === 0 && parameters.search == null && !searching" class="d-flex justify-center align-center fill-height flex-column">
 				<span class="text-h6 mb-4">{{ noData }}</span>
 				<v-btn :to="{ name: createUrl }" color="yellow-accent-3">{{ createText }}</v-btn>
 			</div>

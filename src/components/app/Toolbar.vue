@@ -5,15 +5,22 @@
 </template>
 
 <script setup lang="ts">
-	import { RouteLocationNormalized } from 'vue-router';
-	import { computed, ref } from 'vue';
-	import router from '@/router';
+	import { RouteLocationNormalized, RouteRecordName, useRoute, useRouter } from 'vue-router';
+	import { computed, onMounted, ref } from 'vue';
 
-	const routeName = ref(router.currentRoute.value.matched[0]?.name);
+	const routeName = ref<RouteRecordName | undefined>();
 
 	const isShown = computed(() => routeName.value == 'dishes' || routeName.value == 'menus');
+	const router = useRouter();
+	const route = useRoute();
+
+	onMounted(async () => {
+		await router.isReady();
+
+		routeName.value = route.matched[1]?.name;
+	});
 
 	router.beforeEach((to: RouteLocationNormalized) => {
-		routeName.value = to.matched[0].name;
+		routeName.value = to.matched[1]?.name;
 	});
 </script>
