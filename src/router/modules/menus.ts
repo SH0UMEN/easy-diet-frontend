@@ -9,6 +9,7 @@ export default {
 		{
 			name: 'menus-create',
 			path: 'create',
+			beforeEnter: toLoginIfNotAuthenticated,
 			meta: {
 				title: 'titles.menus.create'
 			},

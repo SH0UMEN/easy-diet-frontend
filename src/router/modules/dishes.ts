@@ -9,6 +9,7 @@ export default {
 		{
 			name: 'dishes-create',
 			path: 'create',
+			beforeEnter: toLoginIfNotAuthenticated,
 			meta: {
 				title: 'titles.dishes.create'
 			},
