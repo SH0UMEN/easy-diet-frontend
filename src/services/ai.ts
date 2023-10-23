@@ -12,7 +12,7 @@ class AI {
 
 	public static generate(title: string, ingredients: Array<number>, model: string, field: string, handler: Function) {
 		if(this.webSocket == null || this.webSocket.readyState == WebSocket.CLOSED) {
-			this.webSocket = new WebSocket((window.location.protocol == 'https' ? 'wss' : 'ws') +'://' + location.host + Url.GPT);
+			this.webSocket = new WebSocket((window.location.protocol.startsWith('https') ? 'wss' : 'ws') +'://' + location.host + Url.GPT);
 
 			this.webSocket.addEventListener('close', this.clear);
 			this.webSocket.addEventListener('error', this.clear);
