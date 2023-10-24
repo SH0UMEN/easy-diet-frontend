@@ -10,7 +10,7 @@ const routes: Array<RouteRecordRaw> = [
 		meta: {
 			title: 'titles.index'
 		},
-		redirect: { name: 'menus-all' },
+		redirect: { name: 'dishes-all' },
 		children: [ auth, dishes, menus ]
 	}
 ];
