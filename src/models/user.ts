@@ -4,6 +4,7 @@ interface User extends IModel {
 	id?: number;
 	username: string;
 	password?: string;
+	isSuperuser?: boolean;
 	email?: string;
 }
 

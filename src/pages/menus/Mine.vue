@@ -13,8 +13,8 @@
 
 <script setup lang="ts">
 	import MenuFinder from '@/components/finders/MenuFinder.vue';
-	import { useI18n } from 'vue-i18n';
 	import ActionButton from '@/components/buttons/ActionButton.vue';
+  import { useI18n } from 'vue-i18n';
 
 	const { t } = useI18n();
 </script>
